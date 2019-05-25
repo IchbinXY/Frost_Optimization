@@ -5,7 +5,6 @@ addpath(genpath(cur));
 addpath('../../');
 frost_addpath;
 export_path = 'gen/opt';
-disp('change');
 %% load robot model
 % class MINITAUR
 minitaur = MINITAUR('urdf/minitaur.urdf');
