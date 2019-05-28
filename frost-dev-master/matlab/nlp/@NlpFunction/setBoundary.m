@@ -26,6 +26,7 @@ function obj = setBoundary(obj, lowerbound, upperbound)
         if isscalar(lowerbound)
             lowerbound = lowerbound*ones(obj.Dimension,1);
         end
+        
         validateattributes(lowerbound,{'double'},...
             {'vector','numel',obj.Dimension,'real'},...
             'NlpFunction.SetBoundary','lowerbound');

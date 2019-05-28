@@ -21,13 +21,12 @@ function obj = addNodeConstraint(obj, func, deps, nodes, lb, ub, type, auxdata)
     % type: the type of the constraints (''Linear'' or ''Nonlinear'') @type char
     % auxdata: auxilary constant data to be feed in the function 
     % @type double
-    
-    obj
+
     % basic information of NLP decision variables
     nNode  = obj.NumNode;
     vars   = obj.OptVarTable;
     if ~iscell(deps), deps = {deps}; end
-    func
+    
     validateattributes(func, {'SymFunction'},{'vector'},...
         'TrajectoryOptimization.addNodeConstraint','func');
     

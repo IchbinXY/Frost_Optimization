@@ -96,6 +96,8 @@ function obj = addJumpConstraint(obj, edge, src, tar, bounds, varargin)
     event_list = fieldnames(src.Plant.EventFuncs);  % all events
     if ~isempty(event_list)
         % find the index of the event associated with the edge
+        edge.Plant.EventName
+        event_list
         event_idx = str_index(edge.Plant.EventName,event_list);
         % extract the event function object using the index
         event_obj = src.Plant.EventFuncs.(event_list{event_idx});
