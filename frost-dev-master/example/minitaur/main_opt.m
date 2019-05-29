@@ -60,7 +60,28 @@ options = {...
     'DistributeParameters',false};
 nlp = HybridTrajectoryOptimization('Minitaur_1step',minitaur_1step,num_grid,[],options{:});
 nlp.configure(bounds);
-% opt.cost.Power(nlp,minitaur_1step);
-% nlp.update;
+opt.cost.Power(nlp,minitaur_1step);
+nlp.update;
+%% Compile
+% compileConstraint(nlp,[],[],export_path,{'dynamics_equation'});
+% compileObjective(nlp,[],[],export_path);
+% compileConstraint(nlp,[],[],export_path);
+% Save expression
+load_path   = 'gen/sym';
+%% solve 
+solver = IpoptApplication(nlp);
+tic
+[sol, info] = optimize(solver);
+toc
+[tspan, states, inputs, params] = exportSolution(nlp, sol);
+gait = struct(...
+    'tspan',tspan,...
+    'states',states,...
+    'inputs',inputs,...
+    'params',params);
+%% save
+save('local/good_gait.mat','gait','sol','info','bounds');
+%% animation
+anim = plot.LoadAnimator(robot, gait,'SkipExporting',false);
 
 

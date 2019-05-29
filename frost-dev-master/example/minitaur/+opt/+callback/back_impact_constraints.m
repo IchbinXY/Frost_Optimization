@@ -10,7 +10,7 @@ function back_impact_constraints(nlp, src, tar, bounds, varargin)
     
     % the relabeling/periodicity of joint coordiante is no longer valid
     % (this only affects position peridicity, velocity still applies)
-    removeConstraint(nlp,'xDiscreteMapRightImpact');
+    removeConstraint(nlp,'xDiscreteMapBackImpact');
     
     % Readding Periodicity (ignoring first 6 coordinates)
     R = plant.R;
