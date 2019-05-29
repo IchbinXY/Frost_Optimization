@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 23:04:05 GMT-04:00
+ * Wed 29 May 2019 15:18:04 GMT-04:00
  */
 
 #ifndef XMINUSCONT_FRONTIMPACT_HH

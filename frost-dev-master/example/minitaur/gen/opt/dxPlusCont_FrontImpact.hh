@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 23:04:44 GMT-04:00
+ * Wed 29 May 2019 15:18:25 GMT-04:00
  */
 
 #ifndef DXPLUSCONT_FRONTIMPACT_HH

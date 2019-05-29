@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 23:04:27 GMT-04:00
+ * Wed 29 May 2019 15:18:16 GMT-04:00
  */
 
 #ifndef JS_XPLUSCONT_FRONTIMPACT_HH

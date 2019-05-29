@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 22:33:23 GMT-04:00
+ * Wed 29 May 2019 15:07:10 GMT-04:00
  */
 
 #ifndef J_YAW_FRONTSTANCE_HH

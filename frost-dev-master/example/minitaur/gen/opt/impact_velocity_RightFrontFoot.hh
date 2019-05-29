@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 22:49:36 GMT-04:00
+ * Wed 29 May 2019 15:17:06 GMT-04:00
  */
 
 #ifndef IMPACT_VELOCITY_RIGHTFRONTFOOT_HH

@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 22:43:12 GMT-04:00
+ * Wed 29 May 2019 15:13:21 GMT-04:00
  */
 
 #ifndef JS_U_FRICTION_CONE_RIGHTBACKFOOT_HH

@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 22:31:26 GMT-04:00
+ * Wed 29 May 2019 15:06:04 GMT-04:00
  */
 
 #ifndef J_U_FRICTION_CONE_LEFTFRONTFOOT_HH
