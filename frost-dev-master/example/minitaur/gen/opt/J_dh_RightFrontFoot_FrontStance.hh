@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 22:30:14 GMT-04:00
+ * Wed 29 May 2019 23:45:04 GMT-04:00
  */
 
 #ifndef J_DH_RIGHTFRONTFOOT_FRONTSTANCE_HH

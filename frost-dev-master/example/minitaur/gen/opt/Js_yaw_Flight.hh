@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 23:03:11 GMT-04:00
+ * Thu 30 May 2019 00:03:28 GMT-04:00
  */
 
 #ifndef JS_YAW_FLIGHT_HH

@@ -5,83 +5,76 @@ addpath(genpath(cur));
 addpath('../../');
 frost_addpath;
 export_path = 'gen/opt';
+load_path   = 'gen/sym';
+%% Some settings for the following script
+LOAD    = false;
+COMPILE = true;
+SAVE    = false;
+RUN_OPTIMIZATION   = false;
+
+DELAY_CORIOLIS = false;
+OMIT_CORIOLIS  = true;
 %% load robot model
 % class MINITAUR
 minitaur = MINITAUR('urdf/minitaur.urdf');
-minitaur.configureDynamics('DelayCoriolisSet',false);
 %% load hybrid system
-% domain, class MINITAUR
-front_stance = sys.domains.Stance(minitaur,'Front','FrontLift');
-front_stance.UserNlpConstraint = @opt.callback.front_stance_constraints;
-back_stance = sys.domains.Stance(minitaur,'Back','BackLift');
-back_stance.UserNlpConstraint = @opt.callback.back_stance_constraints;
-
-flight1 = sys.domains.Flight(minitaur,'BackImpact');
-flight1.UserNlpConstraint = @opt.callback.flight_constraints;
-flight2 = sys.domains.Flight(minitaur,'FrontImpact');
-flight2.UserNlpConstraint = @opt.callback.flight_constraints;
-
-% guard, class RigitImpact
-front_lift = sys.domains.Lift(flight1,'Front');
-front_lift.UserNlpConstraint = @opt.callback.front_lift_constraints;
-back_lift = sys.domains.Lift(flight2,'Back');
-back_lift.UserNlpConstraint = @opt.callback.back_lift_constraints;
-
-front_impact = sys.domains.Impact(front_stance,'Front');
-front_impact.UserNlpConstraint = @opt.callback.front_impact_constraints;
-back_impact = sys.domains.Impact(back_stance,'Back');
-back_impact.UserNlpConstraint = @opt.callback.back_impact_constraints;
-
-% system, class HybridSystem
-io_control = IOFeedback('IO');
-minitaur_1step = HybridSystem('Minitaur_1step');
-minitaur_1step = addVertex(minitaur_1step, 'FrontStance', 'Domain', front_stance,'Control',io_control);
-minitaur_1step = addVertex(minitaur_1step, 'Flight1', 'Domain', flight1,'Control',io_control);
-minitaur_1step = addVertex(minitaur_1step, 'BackStance', 'Domain', back_stance,'Control',io_control);
-minitaur_1step = addVertex(minitaur_1step, 'Flight2', 'Domain', flight2,'Control',io_control);
-srcs = {'FrontStance'
-    'Flight1'
-    'BackStance'
-    'Flight2'};
-tars = {'Flight1'
-    'BackStance'
-    'Flight2'
-    'FrontStance'};
-minitaur_1step = addEdge(minitaur_1step, srcs, tars);
-minitaur_1step = setEdgeProperties(minitaur_1step, srcs, tars, 'Guard', {front_lift,back_impact,back_lift,front_impact});
-%% load problem
-bounds = opt.GetBounds(minitaur);
+if LOAD
+    minitaur.loadDynamics(load_path, true, {}, 'OmitCoriolisSet', OMIT_CORIOLIS);
+    [minitaur_hs, domains, guards] = opt.load_behavior(minitaur, load_path);
+else
+    minitaur.configureDynamics('DelayCoriolisSet', DELAY_CORIOLIS, 'OmitCoriolisSet', OMIT_CORIOLIS);
+    [minitaur_hs, domains, guards] = opt.load_behavior(minitaur, '');
+end
+%% create optimization problem
 num_grid.FrontStance = 10;
-num_grid.BackStance = 10;
+num_grid.Flight1     = 10;
+num_grid.BackStance  = 10;
+num_grid.Flight2     = 10;
 % classs HybridTrajectoryOptimization
 options = {...
     'EqualityConstraintBoundary',1e-4...
     'DistributeTimeVariable',false...
     'DistributeParameters',false};
-nlp = HybridTrajectoryOptimization('Minitaur_1step',minitaur_1step,num_grid,[],options{:});
-nlp.configure(bounds);
-opt.cost.Power(nlp,minitaur_1step);
+nlp = HybridTrajectoryOptimization('Minitaur_Periodic',minitaur_hs,num_grid,[],options{:});
 nlp.update;
-%% Compile
-% compileConstraint(nlp,[],[],export_path,{'dynamics_equation'});
-% compileObjective(nlp,[],[],export_path);
-% compileConstraint(nlp,[],[],export_path);
-% Save expression
-load_path   = 'gen/sym';
-%% solve 
-solver = IpoptApplication(nlp);
-tic
-[sol, info] = optimize(solver);
-toc
-[tspan, states, inputs, params] = exportSolution(nlp, sol);
-gait = struct(...
-    'tspan',tspan,...
-    'states',states,...
-    'inputs',inputs,...
-    'params',params);
-%% save
-save('local/good_gait.mat','gait','sol','info','bounds');
+% update bound values
+bounds = opt.GetBounds(minitaur);
+nlp.configure(bounds);
+% update cost functions
+opt.cost.Power(nlp,minitaur_hs);
+nlp.update;
+%% compile functions
+if COMPILE
+    compileObjective(nlp, [], [], export_path);
+    compileConstraint(nlp, [], [], export_path, 'dynamics_equation');
+end
+%% save expression
+if SAVE
+    minitaur_hs.saveExpression(load_path);
+end
+%% Run Optimization
+if RUN_OPTIMIZATION
+    ipopt_options.max_iter              = 1000;
+    ipopt_options.tol                   = 1e-1;
+    ipopt_options.compl_inf_tol         = 1e0;
+    ipopt_options.dual_inf_tol          = 1e0;
+    ipopt_options.constr_viol_tol       = 1e-3;
+    solver = IpoptApplication(nlp, ipopt_options);
+    if  exist('solution')
+        %x0 = solution.x ;
+        [sol, info] = optimize(solver);
+    else
+        [sol, info] = optimize(solver);
+    end
+    [tspan, states, inputs, params] = exportSolution(nlp, sol);  
+    solution.x = sol;
+    solution.tspan = tspan;
+    solution.states = states;
+    solution.inputs = inputs;
+    solution.params = params;
+    new_name = fullfile(cur, 'local', 'output_X4.mat');
+    save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
+end
 %% animation
-anim = plot.LoadAnimator(robot, gait,'SkipExporting',false);
-
-
+% anim = plot.LoadAnimator(robot, gait,'SkipExporting',false);
+RUN_OPTIMIZATION   = true;

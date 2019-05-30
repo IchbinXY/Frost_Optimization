@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 22:32:41 GMT-04:00
+ * Wed 29 May 2019 23:47:18 GMT-04:00
  */
 
 #ifndef FOOT_CLEARANCE_FRONTSTANCE_HH

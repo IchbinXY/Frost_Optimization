@@ -1,6 +1,6 @@
 /*
  * Automatically Generated from Mathematica.
- * Tue 28 May 2019 22:32:32 GMT-04:00
+ * Wed 29 May 2019 23:47:11 GMT-04:00
  */
 
 #ifndef J_TAU_F_POUTPUT_FRONTSTANCE_HH
