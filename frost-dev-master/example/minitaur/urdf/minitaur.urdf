@@ -47,7 +47,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_leftL_link"/>
     <origin rpy="0 0 3.14159" xyz="0.2 0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_front_leftL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -82,7 +82,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_leftR_link"/>
     <origin rpy="0 0 0" xyz="0.2 0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 <transmission name="motor_front_leftR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -118,7 +118,7 @@
     <parent link="upper_leg_front_leftL_link"/>
     <child link="lower_leg_front_leftL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
@@ -149,7 +149,7 @@
     <parent link="upper_leg_front_leftR_link"/>
     <child link="lower_leg_front_leftR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   
@@ -179,7 +179,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_leftL_link"/>
     <origin rpy="0 0 3.14159" xyz="-0.2 0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_leftL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -214,7 +214,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_leftR_link"/>
     <origin rpy="0 0 0" xyz="-0.2 0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_leftR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -250,7 +250,7 @@
     <parent link="upper_leg_back_leftL_link"/>
     <child link="lower_leg_back_leftL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   
@@ -281,7 +281,7 @@
     <parent link="upper_leg_back_leftR_link"/>
     <child link="lower_leg_back_leftR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
@@ -311,7 +311,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_rightL_link"/>
     <origin rpy="0 0 0" xyz="0.2 -0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_front_rightL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -346,7 +346,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_rightR_link"/>
     <origin rpy="0 0 3.14159" xyz="0.2 -0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_front_rightR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -382,7 +382,7 @@
     <parent link="upper_leg_front_rightL_link"/>
     <child link="lower_leg_front_rightL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>  
 
@@ -413,7 +413,7 @@
     <parent link="upper_leg_front_rightR_link"/>
     <child link="lower_leg_front_rightR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   
@@ -443,7 +443,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_rightL_link"/>
     <origin rpy="0 0 0" xyz="-0.2 -0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_rightL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -478,7 +478,7 @@
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_rightR_link"/>
     <origin rpy="0 0 3.14159" xyz="-0.2 -0.1 0"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_rightR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -514,7 +514,7 @@
     <parent link="upper_leg_back_rightL_link"/>
     <child link="lower_leg_back_rightL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 

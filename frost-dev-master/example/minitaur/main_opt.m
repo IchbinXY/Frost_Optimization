@@ -5,7 +5,7 @@ addpath(genpath(cur));
 addpath('../../');
 frost_addpath;
 export_path = 'gen/opt';
-load_path   = 'example/minitaur/gen/sym';
+load_path   = 'gen/sym';
 %% Some settings for the following script
 
 LOAD    = true;
