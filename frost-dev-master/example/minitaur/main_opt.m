@@ -8,15 +8,15 @@ export_path = 'gen/opt';
 load_path   = 'gen/sym';
 %% Some settings for the following script
 LOAD    = false;
-COMPILE = true;
+COMPILE = false;
 SAVE    = false;
-RUN_OPTIMIZATION   = false;
+OPT     = false;
 
 DELAY_CORIOLIS = false;
 OMIT_CORIOLIS  = true;
 %% load robot model
 % class MINITAUR
-minitaur = MINITAUR('urdf/minitaur.urdf');
+minitaur = MINITAUR('urdf/minitaur2.urdf');
 %% load hybrid system
 if LOAD
     minitaur.loadDynamics(load_path, true, {}, 'OmitCoriolisSet', OMIT_CORIOLIS);
@@ -52,8 +52,8 @@ end
 if SAVE
     minitaur_hs.saveExpression(load_path);
 end
-%% Run Optimization
-if RUN_OPTIMIZATION
+%% run optimization
+if OPT
     ipopt_options.max_iter              = 1000;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e0;
@@ -76,5 +76,4 @@ if RUN_OPTIMIZATION
     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
 end
 %% animation
-% anim = plot.LoadAnimator(robot, gait,'SkipExporting',false);
-RUN_OPTIMIZATION   = true;
+anim = plot.LoadAnimator_YL(minitaur,'SkipExporting',true);

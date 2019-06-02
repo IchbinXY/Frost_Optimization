@@ -69,19 +69,20 @@ opt.updateInitCondition(nlp,param.gait);
 %% solve
 [gait, sol, info] = opt.solve(nlp);
 
-solver = IpoptApplication(nlp);
-tic
-[sol, info] = optimize(solver);
-toc
-[tspan, states, inputs, params] = exportSolution(nlp, sol);
-gait = struct(...
-    'tspan',tspan,...
-    'states',states,...
-    'inputs',inputs,...
-    'params',params);
+% solver = IpoptApplication(nlp);
+% tic
+% [sol, info] = optimize(solver);
+% toc
+% [tspan, states, inputs, params] = exportSolution(nlp, sol);
+% gait = struct(...
+%     'tspan',tspan,...
+%     'states',states,...
+%     'inputs',inputs,...
+%     'params',params);
 
 %% save
 save('local/good_gait.mat','gait','sol','info','bounds');
 
 %% animation
-anim = plot.LoadAnimator(robot, gait,'SkipExporting',false);
+% anim = plot.LoadAnimator_YL(robot, gait,'SkipExporting',true);
+anim = plot.LoadAnimator_YL(robot,'SkipExporting',true);

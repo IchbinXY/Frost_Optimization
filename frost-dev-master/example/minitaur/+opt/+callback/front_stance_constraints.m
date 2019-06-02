@@ -18,7 +18,6 @@ opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
 opt.constraint.impact_velocity(nlp, bounds, left_foot_frame);
 opt.constraint.impact_velocity(nlp, bounds, right_foot_frame);
 
-%     opt.constraint.feet_distance(nlp, bounds);
 opt.constraint.yaw_start(nlp, bounds);
 opt.constraint.knee_angle(nlp, bounds);
 opt.constraint.average_velocity(nlp, bounds);

@@ -22,7 +22,7 @@ classdef MARLO_YL < RobotLinks
                -q('qARight') + q('qBRight') + q('fourBarBRight');
                 q('qALeft') - q('qBLeft') + q('fourBarALeft');
                -q('qALeft') + q('qBLeft') + q('fourBarBLeft');
-                ]
+                ];
             four_bar_constr = HolonomicConstraint(obj, h, 'fourBar',...
                 'ConstrLabel',{{'fourBarARight','fourBarBRight','fourBarALeft','fourBarBLeft'}},...
                 'DerivativeOrder',2, 'LoadPath', []);

@@ -8,25 +8,17 @@ function bounds = GetBounds(model, vel, T)
     %% first get the model specific boundary values
     model_bounds = model.getLimits(); % x, dx, ddx, Control
     model_bounds.options.enforceVirtualConstraints = true;
-    
     % fixed joint constraint wrench
     model_bounds.inputs.ConstraintWrench.ffourBar.lb = -1000;
     model_bounds.inputs.ConstraintWrench.ffourBar.ub = 1000;
-    
     % fixed joint constraints
     model_bounds.params.pfourBar.lb = zeros(8,1);
     model_bounds.params.pfourBar.ub = zeros(8,1);
-
-
-    model_bounds.constrBounds.yaw_initial.lb = 0;
-    model_bounds.constrBounds.yaw_initial.ub = 0;
-    
-    
-    
+    model_bounds.constrBounds.yaw_initial.lb = 0;   % node 1
+    model_bounds.constrBounds.yaw_initial.ub = 0;   % node 1
     % feedback control gain for virtual constraints
     model_bounds.gains.kp = 100;
     model_bounds.gains.kd = 20;
-    
     
     %%% Constraint bounds
     %     vel = [0.0, -0.8].';
@@ -44,25 +36,19 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.time.tf.ub = T;
     model_bounds.time.tf.x0 = T;
     
-    model_bounds.constrBounds.foot_clearance_1.lb = 0.03;
-    model_bounds.constrBounds.foot_clearance_1.ub = 0.3;
-    model_bounds.constrBounds.foot_clearance_2.lb = 0.15;
-    model_bounds.constrBounds.foot_clearance_2.ub = 0.3;
-    model_bounds.constrBounds.foot_clearance_3.lb = 0.05;
-    model_bounds.constrBounds.foot_clearance_3.ub = 0.3;
-    model_bounds.constrBounds.averageVelocity.lb = vel;
-    model_bounds.constrBounds.averageVelocity.ub = vel;
+    model_bounds.constrBounds.foot_clearance_1.lb = 0.03;   % node 5
+    model_bounds.constrBounds.foot_clearance_1.ub = 0.3;    % node 5 
+    model_bounds.constrBounds.foot_clearance_2.lb = 0.15;   % node 11
+    model_bounds.constrBounds.foot_clearance_2.ub = 0.3;    % node 11
+    model_bounds.constrBounds.foot_clearance_3.lb = 0.05;   % node 15
+    model_bounds.constrBounds.foot_clearance_3.ub = 0.3;    % node 15
+    model_bounds.constrBounds.averageVelocity.lb = vel;     % node 1
+    model_bounds.constrBounds.averageVelocity.ub = vel;     % node 1
     
-    %     model_bounds.constrBounds.stepLength.lb = vel(1)*T;
-    %     model_bounds.constrBounds.stepLength.ub = vel(1)*T;
-    %
-    %     model_bounds.constrBounds.stepWidth.lb = vel(1)*T;
-    %     model_bounds.constrBounds.stepWidth.ub = vel(1)*T;
-    
-    model_bounds.constrBounds.footVelocityBeginning.lb = [-0.15, -0.15, 0]';
-    model_bounds.constrBounds.footVelocityBeginning.ub = [0.15, 0.15, 0.3]';
-    model_bounds.constrBounds.footVelocityEnd.lb = [-0.15,-0.15,-0.25]';
-    model_bounds.constrBounds.footVelocityEnd.ub = [0.15,0.15,-0.05]';
+    model_bounds.constrBounds.footVelocityBeginning.lb = [-0.15, -0.15, 0]';    % node 1
+    model_bounds.constrBounds.footVelocityBeginning.ub = [0.15, 0.15, 0.3]';    % node 1
+    model_bounds.constrBounds.footVelocityEnd.lb = [-0.15,-0.15,-0.25]';        % node 21
+    model_bounds.constrBounds.footVelocityEnd.ub = [0.15,0.15,-0.05]';          % node 21
     
     
     
@@ -94,14 +80,10 @@ function bounds = GetBounds(model, vel, T)
     
 %     bounds.FrontStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50)];
 %     bounds.FrontStance.constrBounds.knee.ub = [deg2rad(55),deg2rad(150)];
-    bounds.FrontStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
-    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(150),deg2rad(150),deg2rad(150),deg2rad(150)];
+    bounds.FrontStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];    % all node 
+    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(150),deg2rad(150),deg2rad(150),deg2rad(150)];% all node 
 
-    bounds.FrontStance.constrBounds.stepWidth.lb = -wt - vx*T;
-    bounds.FrontStance.constrBounds.stepWidth.ub = -wt - vx*T;
     
-    bounds.FrontStance.constrBounds.stepLength.lb = -vy*T;
-    bounds.FrontStance.constrBounds.stepLength.ub = -vy*T;
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
@@ -126,11 +108,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
     bounds.BackStance.constrBounds.knee.ub = [deg2rad(150),deg2rad(150),deg2rad(150),deg2rad(150)];
     
-    bounds.BackStance.constrBounds.stepWidth.lb = -wt + vx*T;
-    bounds.BackStance.constrBounds.stepWidth.ub = -wt + vx*T;
     
-    bounds.BackStance.constrBounds.stepLength.lb = vy*T;
-    bounds.BackStance.constrBounds.stepLength.ub = vy*T;
     
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;
@@ -154,11 +132,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight1.constrBounds.knee.lb = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
     bounds.Flight1.constrBounds.knee.ub = [deg2rad(150),deg2rad(150),deg2rad(150),deg2rad(150)];
 
-    bounds.Flight1.constrBounds.stepWidth.lb = -wt - vx*T;
-    bounds.Flight1.constrBounds.stepWidth.ub = -wt - vx*T;
     
-    bounds.Flight1.constrBounds.stepLength.lb = -vy*T;
-    bounds.Flight1.constrBounds.stepLength.ub = -vy*T;
     
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
@@ -181,12 +155,6 @@ function bounds = GetBounds(model, vel, T)
 %     bounds.FrontStance.constrBounds.knee.ub = [deg2rad(55),deg2rad(150)];
     bounds.Flight2.constrBounds.knee.lb = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
     bounds.Flight2.constrBounds.knee.ub = [deg2rad(150),deg2rad(150),deg2rad(150),deg2rad(150)];
-
-    bounds.Flight2.constrBounds.stepWidth.lb = -wt - vx*T;
-    bounds.Flight2.constrBounds.stepWidth.ub = -wt - vx*T;
-    
-    bounds.Flight2.constrBounds.stepLength.lb = -vy*T;
-    bounds.Flight2.constrBounds.stepLength.ub = -vy*T;
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;
