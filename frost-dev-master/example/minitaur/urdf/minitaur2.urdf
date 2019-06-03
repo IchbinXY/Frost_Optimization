@@ -42,12 +42,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_front_leftL_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_leftL_link"/>
     <origin rpy="0 0 3.14159" xyz="0.2 0.1 0"/>
-    <limit effort="100" lower="-0.7854" upper="+0.7854" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_front_leftL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -77,12 +78,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_front_leftR_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_leftR_link"/>
     <origin rpy="0 0 0" xyz="0.2 0.1 0"/>
-    <limit effort="100" lower="+0.7854" upper="+2.3562" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 <transmission name="motor_front_leftR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -113,12 +115,13 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_front_leftL_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_front_leftL_link"/>
     <child link="lower_leg_front_leftL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="+1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
@@ -144,12 +147,13 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_front_leftR_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_front_leftR_link"/>
     <child link="lower_leg_front_leftR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="+1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   
@@ -174,12 +178,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_back_leftL_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_leftL_link"/>
     <origin rpy="0 0 3.14159" xyz="-0.2 0.1 0"/>
-    <limit effort="100" lower="-0.7854" upper="+0.7854" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_leftL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -188,7 +193,7 @@
     <mechanicalReduction>1</mechanicalReduction>
   </transmission>
 
-	<link name="upper_leg_back_leftR_link">
+  <link name="upper_leg_back_leftR_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
       <geometry>
@@ -209,12 +214,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_back_leftR_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_leftR_link"/>
     <origin rpy="0 0 0" xyz="-0.2 0.1 0"/>
-    <limit effort="100" lower="0.7854" upper="+2.3562" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_leftR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -245,12 +251,13 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_back_leftL_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_back_leftL_link"/>
     <child link="lower_leg_back_leftL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="+1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   
@@ -276,12 +283,13 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_back_leftR_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_back_leftR_link"/>
     <child link="lower_leg_back_leftR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="+1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
@@ -306,12 +314,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_front_rightL_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_rightL_link"/>
     <origin rpy="0 0 0" xyz="0.2 -0.1 0"/>
-    <limit effort="100" lower="0.7854" upper="+2.3562" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_front_rightL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -341,12 +350,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_front_rightR_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_front_rightR_link"/>
     <origin rpy="0 0 3.14159" xyz="0.2 -0.1 0"/>
-    <limit effort="100" lower="-0.7854" upper="+0.7854" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_front_rightR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -377,12 +387,13 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_front_rightL_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_front_rightL_link"/>
     <child link="lower_leg_front_rightL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="+1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>  
 
@@ -408,12 +419,13 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_front_rightR_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_front_rightR_link"/>
     <child link="lower_leg_front_rightR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   
@@ -438,12 +450,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_back_rightL_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_rightL_link"/>
     <origin rpy="0 0 0" xyz="-0.2 -0.1 0"/>
-    <limit effort="100" lower="0.7854" upper="+2.3562" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_rightL_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -452,7 +465,7 @@
     <mechanicalReduction>1</mechanicalReduction>
   </transmission>
 
-	<link name="upper_leg_back_rightR_link">
+  <link name="upper_leg_back_rightR_link">
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
       <geometry>
@@ -473,12 +486,13 @@
       <origin rpy="0 0 0" xyz="0 0 0.05"/>
     </inertial>
   </link>
+
   <joint name="motor_back_rightR_joint" type="continuous">
     <axis xyz="0 1 0"/>
     <parent link="base_chassis_link"/>
     <child link="upper_leg_back_rightR_link"/>
     <origin rpy="0 0 3.14159" xyz="-0.2 -0.1 0"/>
-    <limit effort="100" lower="-0.7854" upper="+0.7854" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+4.7124" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   <transmission name="motor_back_rightR_trans" type="pr2_mechanism_model/SimpleTransmission">
@@ -509,12 +523,13 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_back_rightL_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_back_rightL_link"/>
     <child link="lower_leg_back_rightL_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="+1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
 
@@ -540,16 +555,16 @@
       <origin rpy="0.0 0 0" xyz="0 0 .1"/>
     </inertial>
   </link>
+
   <joint name="knee_back_rightR_link" type="revolute">
     <axis xyz="0 1 0"/>
     <parent link="upper_leg_back_rightR_link"/>
     <child link="lower_leg_back_rightR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" lower="0" upper="+1.57" velocity="1000"/>
+    <limit effort="100" lower="0" upper="+3.1416" velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   
-  
- 
+
 </robot>
 

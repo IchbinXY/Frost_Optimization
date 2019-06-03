@@ -1,4 +1,4 @@
-function [conGUI] = LoadAnimator_YL(robot, varargin)
+function LoadAnimator_YL(robot, varargin)
 
 %     cont_domain_idx = find(arrayfun(@(x)~isempty(x.tspan),gait));
 
@@ -27,6 +27,6 @@ function [conGUI] = LoadAnimator_YL(robot, varargin)
     anim.speed = 1;
     anim.pov = frost.Animator.AnimatorPointOfView.Free;
     anim.Animate(true);
-    conGUI = frost.Animator.AnimatorControls();
-    conGUI.anim = anim;
+%     conGUI = frost.Animator.AnimatorControls();
+%     conGUI.anim = anim;
 end

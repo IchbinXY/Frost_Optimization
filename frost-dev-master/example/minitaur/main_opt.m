@@ -6,7 +6,7 @@ addpath('../../');
 frost_addpath;
 export_path = 'gen/opt';
 load_path   = 'gen/sym';
-%% Some settings for the following script
+%% Settings
 LOAD    = false;
 COMPILE = false;
 SAVE    = false;
@@ -56,8 +56,8 @@ end
 if OPT
     ipopt_options.max_iter              = 1000;
     ipopt_options.tol                   = 1e-1;
-    ipopt_options.compl_inf_tol         = 1e0;
-    ipopt_options.dual_inf_tol          = 1e0;
+    ipopt_options.compl_inf_tol         = 1e1;
+    ipopt_options.dual_inf_tol          = 1e1;
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp, ipopt_options);
     if  exist('solution')
@@ -66,7 +66,12 @@ if OPT
     else
         [sol, info] = optimize(solver);
     end
-    [tspan, states, inputs, params] = exportSolution(nlp, sol);  
+    [tspan, states, inputs, params] = exportSolution(nlp, sol); 
+    gait = struct(...
+        'tspan',tspan,...
+        'states',states,...
+        'inputs',inputs,...
+        'params',params);
     solution.x = sol;
     solution.tspan = tspan;
     solution.states = states;
@@ -76,4 +81,5 @@ if OPT
     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
 end
 %% animation
-anim = plot.LoadAnimator_YL(minitaur,'SkipExporting',true);
+% plot.LoadAnimator_test(minitaur,'SkipExporting',true);
+anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',false);
