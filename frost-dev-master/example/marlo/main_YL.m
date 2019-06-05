@@ -5,7 +5,7 @@ addpath('../../');
 frost_addpath;
 % load robot model
 export_path = 'gen/opt';
-load_path = [];%'gen/sym';
+load_path   = 'gen/sym';
 cur = utils.get_root_path();
 urdf = fullfile(cur,'urdf','atrias.urdf');
 robot = MARLO_YL(urdf);
@@ -35,7 +35,7 @@ system = addEdge(system, srcs, tars);
 system = setEdgeProperties(system, srcs, tars, 'Guard', {leftImpact, rightImpact});
 % get bounds
 bounds = opt.GetBounds(robot);                                              disp('set bounds');
-% load problem
+%% load problem
 num_grid.RightStance = 10;
 num_grid.LeftStance = 10;
 options = {'EqualityConstraintBoundary', 1e-4,...
@@ -67,22 +67,26 @@ param = load('local/good_gait.mat');
 
 opt.updateInitCondition(nlp,param.gait);
 %% solve
-[gait, sol, info] = opt.solve(nlp);
-
-% solver = IpoptApplication(nlp);
-% tic
-% [sol, info] = optimize(solver);
-% toc
-% [tspan, states, inputs, params] = exportSolution(nlp, sol);
-% gait = struct(...
-%     'tspan',tspan,...
-%     'states',states,...
-%     'inputs',inputs,...
-%     'params',params);
+% [gait, sol, info] = opt.solve(nlp);
+ipopt_options.max_iter              = 500;
+ipopt_options.tol                   = 1e-1;
+ipopt_options.compl_inf_tol         = 1e-1;
+ipopt_options.dual_inf_tol          = 1e-1;
+ipopt_options.constr_viol_tol       = 1e-3;
+solver = IpoptApplication(nlp);
+tic
+[sol, info] = optimize(solver);
+toc
+[tspan, states, inputs, params] = exportSolution(nlp, sol);
+gait = struct(...
+    'tspan',tspan,...
+    'states',states,...
+    'inputs',inputs,...
+    'params',params);
 
 %% save
 save('local/good_gait.mat','gait','sol','info','bounds');
 
 %% animation
-% anim = plot.LoadAnimator_YL(robot, gait,'SkipExporting',true);
-anim = plot.LoadAnimator_YL(robot,'SkipExporting',true);
+anim = plot.LoadAnimator(robot, gait,'SkipExporting',true);
+% anim = plot.LoadAnimator_YL(robot,gait,'SkipExporting',true);

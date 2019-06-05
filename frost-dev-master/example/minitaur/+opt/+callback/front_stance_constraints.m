@@ -13,7 +13,6 @@ opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
 % foot clearance
 opt.constraint.foot_clearance(nlp, bounds, left_foot_frame);
 opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
-
 % swing foot velocity
 opt.constraint.impact_velocity(nlp, bounds, left_foot_frame);
 opt.constraint.impact_velocity(nlp, bounds, right_foot_frame);

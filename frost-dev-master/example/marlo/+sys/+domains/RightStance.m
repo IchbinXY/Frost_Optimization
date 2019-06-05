@@ -78,8 +78,8 @@ function domain = RightStance(model, load_path)
     %% Add event
     % height of non-stance foot (left toe)
     % [left_foot_frame] = sys.frames.LeftFoot(model);
-    left_foot_frame = ToContactFrame(domain.ContactPoints.LeftFoot,'PointContactWithFriction');
-    p_swingFoot = getCartesianPosition(domain, left_foot_frame);
+    left_foot = ToContactFrame(domain.ContactPoints.LeftFoot,'PointContactWithFriction');
+    p_swingFoot = getCartesianPosition(domain, left_foot);
     h_nsf = UnilateralConstraint(domain,p_swingFoot(3),'leftFootHeight','x');
     domain = addEvent(domain, h_nsf);
    

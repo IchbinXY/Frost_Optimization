@@ -4,14 +4,14 @@ cur = pwd;
 addpath(genpath(cur));
 addpath('../../');
 frost_addpath;
-export_path = 'gen/opt';
-load_path   = 'gen/sym';
+export_path = 'generation2/optimization2';
+load_path   = 'generation2/simulation2';
 %% settings
 LOAD    = false;
 COMPILE = true;
 SAVE    = false;
-OPT     = false;
-ANIMATE = false;
+OPT     = true;
+ANIMATE = true;
 
 DELAY_CORIOLIS = false;
 OMIT_CORIOLIS  = true;
@@ -21,17 +21,14 @@ minitaur = MINITAUR('urdf/minitaur2.urdf');
 %% load hybrid system
 if LOAD
     minitaur.loadDynamics(load_path, true, {}, 'OmitCoriolisSet', OMIT_CORIOLIS);
-    [minitaur_hs, domains, guards] = opt.load_behavior(minitaur, load_path);
+    [minitaur_hs, domains, guards] = opt.LoadBehavior(minitaur, load_path);
 else
     minitaur.configureDynamics('DelayCoriolisSet', DELAY_CORIOLIS, 'OmitCoriolisSet', OMIT_CORIOLIS);
-    [minitaur_hs, domains, guards] = opt.load_behavior(minitaur);
+    minitaur_hs = opt.LoadBehavior2(minitaur);
 end
 %% create optimization problem
-num_grid.FrontStance = 10;
-num_grid.Flight1     = 10;
-num_grid.BackStance  = 10;
-num_grid.Flight2     = 10;
-% classs HybridTrajectoryOptimization
+num_grid.RightStance = 10;
+num_grid.LeftStance = 10;
 options = {...
     'EqualityConstraintBoundary',1e-4...
     'DistributeTimeVariable',false...
@@ -39,7 +36,7 @@ options = {...
 nlp = HybridTrajectoryOptimization('Minitaur_Periodic',minitaur_hs,num_grid,[],options{:});
 nlp.update;
 % update bound values
-bounds = opt.GetBounds(minitaur);
+bounds = opt.GetBounds2(minitaur);
 nlp.configure(bounds);
 % update cost functions
 opt.cost.Power(nlp,minitaur_hs);
@@ -48,7 +45,7 @@ nlp.update;
 if COMPILE
     compileConstraint(nlp, [], [], export_path, 'dynamics_equation');
     compileObjective(nlp, [], [], export_path);
-    compileConstraint(nlp,[],[], export_path);
+    % compileConstraint(nlp,[],[], export_path);
 end
 %% save expression
 if SAVE
@@ -56,7 +53,7 @@ if SAVE
 end
 %% optimization
 if OPT
-    ipopt_options.max_iter              = 1000;
+    ipopt_options.max_iter              = 300;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e1;
     ipopt_options.dual_inf_tol          = 1e1;
@@ -84,6 +81,18 @@ if OPT
 end
 %% animation
 if ANIMATE
-%     plot.LoadAnimator_test(minitaur,'SkipExporting',true);
-    anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',false);
+  plot.LoadAnimator_test(minitaur,'SkipExporting',true);
+%     anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',true);
+end
+%% Check
+if 1
+    checkConstraints(nlp, solution.x, 1e-3, fullfile(cur, 'local', 'checkConstraints.txt'));
+    checkVariables(nlp, solution.x, 1e-3, fullfile(cur, 'local', 'checkVariables.txt'));
+    checkConstraints(nlp, solution.x, 1e-3, fullfile(cur, 'local', 'checkConstraints.txt'));
+    checkCosts(nlp, solution.x, fullfile(cur, 'local', 'checkCosts.txt'));
+    
+    open local/checkConstraints.txt
+    open local/checkVariables.txt
+    open local/checkCosts.txt
+    open cassie_opt
 end
