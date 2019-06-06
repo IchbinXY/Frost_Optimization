@@ -1,18 +1,18 @@
 function [conGUI] = LoadAnimator(robot, gait, varargin)
     
     
-    cont_domain_idx = find(arrayfun(@(x)~isempty(x.tspan),gait));
-    
-    
-    t = [];
-    q = []; 
-    
-    for j = cont_domain_idx.'
-        t = [t,gait(j).tspan];        %#ok<*AGROW>
-        q = [q,gait(j).states.x];       
-    end
-%     t = [gait(1).tspan,gait(3).tspan+0.4];
-%     q = [gait(1).states.x,gait(3).states.x]; 
+%     cont_domain_idx = find(arrayfun(@(x)~isempty(x.tspan),gait));
+%     
+%     
+%     t = [];
+%     q = []; 
+%     
+%     for j = cont_domain_idx.'
+%         t = [t,gait(j).tspan];        %#ok<*AGROW>
+%         q = [q,gait(j).states.x];       
+%     end
+    t = [gait(1).tspan,gait(3).tspan+0.4];
+    q = [gait(1).states.x,gait(3).states.x]; 
     
     exo_disp = plot.LoadRobotDisplay(robot, varargin{:});
     
