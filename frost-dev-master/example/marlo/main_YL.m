@@ -25,8 +25,8 @@ rightImpact.UserNlpConstraint = @opt.callback.RightImpactConstraints;
 
 io_control  = IOFeedback('IO');
 system = HybridSystem('atrias');                                            disp('initialize hybrid system');
-system = addVertex(system, 'RightStance', 'Domain', rightStance, 'Control', io_control);
-system = addVertex(system, 'LeftStance', 'Domain', leftStance, 'Control', io_control);
+system = addVertex(system, 'RightStance', 'Domain', rightStance);
+system = addVertex(system, 'LeftStance', 'Domain', leftStance);
 srcs = {'RightStance'
     'LeftStance'};
 tars = {'LeftStance'
@@ -73,7 +73,7 @@ ipopt_options.tol                   = 1e-1;
 ipopt_options.compl_inf_tol         = 1e-1;
 ipopt_options.dual_inf_tol          = 1e-1;
 ipopt_options.constr_viol_tol       = 1e-3;
-solver = IpoptApplication(nlp);
+solver = IpoptApplication(nlp,ipopt_options);
 tic
 [sol, info] = optimize(solver);
 toc

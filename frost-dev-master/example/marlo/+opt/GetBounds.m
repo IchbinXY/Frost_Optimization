@@ -77,8 +77,8 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.params.pRightFoot.lb = [0, 0, 0, 0];
     model_bounds.params.pRightFoot.ub = [0, 0, 0, 0];
     
-    model_bounds.params.pLeftFoot.lb = [0, 0, 0, 0];
-    model_bounds.params.pLeftFoot.ub = [0, 0, 0, 0];
+    model_bounds.params.pLeftFoot.lb = [-10, -10, 0, 0];
+    model_bounds.params.pLeftFoot.ub = [10, 10, 0, 0];
     
     wt = 0.3662;
     vx = vel(1);
