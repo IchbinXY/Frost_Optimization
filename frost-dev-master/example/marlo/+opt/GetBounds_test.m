@@ -19,6 +19,8 @@ model_bounds.params.poutput.ub = [0, T];
 model_bounds.params.poutput.x0 = [0, T];
 model_bounds.params.pRight.lb = [0, 0, 0, 0];
 model_bounds.params.pRight.ub = [0, 0, 0, 0];
+model_bounds.params.pLeft.lb = [-10, -10, 0, 0];
+model_bounds.params.pLeft.ub = [10, 10, 0, 0];
 
 
 model_bounds.constrBounds.yaw_initial.lb = 0;
@@ -46,6 +48,10 @@ model_bounds.time.tf.lb = T;
 model_bounds.time.tf.ub = T;
 model_bounds.time.tf.x0 = T;
 
+wt = 0.3662;
+vx = vel(1);
+vy = vel(2);
+
 %% RightStance
 bounds.RightStance = model_bounds;
 bounds.RightStance.inputs.ConstraintWrench.ffourBar.lb = -1000;
@@ -56,15 +62,25 @@ bounds.RightStance.inputs.ConstraintWrench.fRight.ub = [1000,1000,1000,1000]';
 bounds.RightStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50)];
 bounds.RightStance.constrBounds.knee.ub = [deg2rad(55),deg2rad(150)];
 
+bounds.RightStance.constrBounds.stepWidth.lb = -wt - vx*T;
+bounds.RightStance.constrBounds.stepWidth.ub = -wt - vx*T;
+bounds.RightStance.constrBounds.stepLength.lb = -vy*T;
+bounds.RightStance.constrBounds.stepLength.ub = -vy*T;
+
 %% Left Stance
 bounds.LeftStance = model_bounds;
 bounds.LeftStance.inputs.ConstraintWrench.ffourBar.lb = -1000;
 bounds.LeftStance.inputs.ConstraintWrench.ffourBar.ub = 1000;
-bounds.LeftStance.inputs.ConstraintWrench.fLeftFoot.lb = [-1000,-1000,300,-1000]';
-bounds.LeftStance.inputs.ConstraintWrench.fLeftFoot.ub = [1000,1000,1000,1000]';
+bounds.LeftStance.inputs.ConstraintWrench.fLeft.lb = [-1000,-1000,300,-1000]';
+bounds.LeftStance.inputs.ConstraintWrench.fLeft.ub = [1000,1000,1000,1000]';
 
 bounds.LeftStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50)];
 bounds.LeftStance.constrBounds.knee.ub = [deg2rad(150),deg2rad(55)];
+
+bounds.LeftStance.constrBounds.stepWidth.lb = -wt + vx*T;
+bounds.LeftStance.constrBounds.stepWidth.ub = -wt + vx*T;
+bounds.LeftStance.constrBounds.stepLength.lb = vy*T;
+bounds.LeftStance.constrBounds.stepLength.ub = vy*T;
 
 %% Left Impact
 bounds.LeftImpact.states.x = model_bounds.states.x;
@@ -89,8 +105,8 @@ bounds.RightImpact.states.dxn = model_bounds.states.dx;
 bounds.RightImpact.inputs = struct();
 bounds.RightImpact.inputs.ConstraintWrench.ffourBar.lb = -20;
 bounds.RightImpact.inputs.ConstraintWrench.ffourBar.ub = 20;
-bounds.RightImpact.inputs.ConstraintWrench.fRightFoot.lb = [-20,-20,0,-10]'';
-bounds.RightImpact.inputs.ConstraintWrench.fRightFoot.ub = [20,20,150,10]';
+bounds.RightImpact.inputs.ConstraintWrench.fRight.lb = [-20,-20,0,-10]'';
+bounds.RightImpact.inputs.ConstraintWrench.fRight.ub = [20,20,150,10]';
 
 bounds.RightImpact.params = struct();
 end

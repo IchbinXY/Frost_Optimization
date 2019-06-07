@@ -5,7 +5,7 @@ addpath('../../');
 frost_addpath;
 export_path = 'gen_test/opt_test';
 %% Setting
-COMPILE = true;
+COMPILE = false;
 SAVE    = false;
 OPT     = true;
 ANIMATE = true;
@@ -189,6 +189,9 @@ disp('foot clearance');
 %% swing foot velocity
 opt.constraint.impact_velocity(nlp, bounds, left_foot_frame);
 disp('swing foot velocity')
+%% swing toe position
+opt.constraint.step_distance(nlp, bounds);
+disp('swing toe position');
 %% the rest
 opt.constraint.yaw_start(nlp, bounds);
 opt.constraint.knee_angle(nlp, bounds);
@@ -216,6 +219,9 @@ disp('foot clearance');
 %% swing foot velocity
 opt.constraint.impact_velocity(nlp, bounds, right_foot_frame);
 disp('swing foot velocity')
+%% swing toe position
+opt.constraint.step_distance(nlp, bounds);
+disp('swing toe position');
 %% the rest
 opt.constraint.yaw_start(nlp, bounds);
 opt.constraint.knee_angle(nlp, bounds);
