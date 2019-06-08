@@ -5,7 +5,7 @@ addpath('../../');
 frost_addpath;
 export_path = 'gen_test/opt_test';
 %% Setting
-COMPILE = true;
+COMPILE = false;
 SAVE    = false;
 OPT     = true;
 ANIMATE = true;

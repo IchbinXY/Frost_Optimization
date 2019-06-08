@@ -9,7 +9,7 @@ function minitaur_disp = LoadRobotDisplay(robot, varargin)
     opts = ip.Results;
     if isempty(opts.ExportPath)
         root_path = utils.get_root_path();
-        export_path = fullfile(root_path,'gen','animator');
+        export_path = fullfile(root_path,'gen_test','animator');
         opts.ExportPath = export_path;
     else
         export_path = opts.ExportPath;
