@@ -106,6 +106,10 @@ function bounds = GetBounds_test(model, vel, T)
     bounds.LeftImpact.inputs.ConstraintWrench.ffourBar.ub = 20;
     bounds.LeftImpact.inputs.ConstraintWrench.fLeft.lb = [-20,-20,0,-10]';
     bounds.LeftImpact.inputs.ConstraintWrench.fLeft.ub = [20,20,150,10]';
+    bounds.LeftImpact.inputs.ConstraintWrench.fRightBack.lb = [-20,-20,0,-10]';
+    bounds.LeftImpact.inputs.ConstraintWrench.fRightBack.ub = [20,20,150,10]';
+    bounds.LeftImpact.inputs.ConstraintWrench.fLeftBack.lb = [-20,-20,0,-10]';
+    bounds.LeftImpact.inputs.ConstraintWrench.fLeftBack.ub = [20,20,150,10]';
 
     bounds.LeftImpact.params = struct();
 
@@ -138,7 +142,11 @@ function bounds = GetBounds_test(model, vel, T)
     bounds.RightImpact.inputs.ConstraintWrench.ffourBar.ub = 20;
     bounds.RightImpact.inputs.ConstraintWrench.fRight.lb = [-20,-20,0,10]'';
     bounds.RightImpact.inputs.ConstraintWrench.fRight.ub = [20,20,150,10]';
-    
+    bounds.RightImpact.inputs.ConstraintWrench.fRightBack.lb = [-20,-20,0,10]'';
+    bounds.RightImpact.inputs.ConstraintWrench.fRightBack.ub = [20,20,150,10]';
+    bounds.RightImpact.inputs.ConstraintWrench.fLeftBack.lb = [-20,-20,0,10]'';
+    bounds.RightImpact.inputs.ConstraintWrench.fLeftBack.ub = [20,20,150,10]';
+   
     
     bounds.RightImpact.params = struct();
 
