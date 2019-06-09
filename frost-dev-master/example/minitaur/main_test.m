@@ -260,14 +260,14 @@ nlp = HybridTrajectoryOptimization('Marlo_opt',System,num_grid,[],options{:});
 nlp.configure(bounds);
 opt.cost.Power(nlp,System);
 nlp.update;
-removeConstraint(nlp.Phase(1),'dynamics_equation');
-removeConstraint(nlp.Phase(3),'dynamics_equation');
 
 %% Compile stuff if needed
 if COMPILE
     compileObjective(nlp,[],[],export_path);
     compileConstraint(nlp,[],[],export_path);
 end
+bounds = opt.GetBounds_test(minitaur);
+opt.updateVariableBounds(nlp, bounds);
 %% solve
 if OPT
     ipopt_options.max_iter              = 500;

@@ -6,9 +6,7 @@ frost_addpath;
 % load robot model
 export_path = 'gen/opt';
 load_path   = 'gen/sym';
-cur = utils.get_root_path();
-urdf = fullfile(cur,'urdf','atrias.urdf');
-robot = MARLO_YL(urdf);
+robot = MARLO_YL('urdf/atrias.urdf');
 configureDynamics(robot, 'DelayCoriolisSet', false);                        disp('load robot model');
 % load hybrid system
 rightStance = sys.domains.RightStance(robot, []);                           disp('right stance');

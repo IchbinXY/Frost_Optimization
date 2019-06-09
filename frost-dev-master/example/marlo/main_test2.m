@@ -19,6 +19,7 @@ RightStance.setName('RightStance');
 right_frame = sys.frames.RightFoot(marlo);
 p_right = getCartesianPosition(RightStance,right_frame);
 r_right = getRelativeEulerAngles(RightStance,right_frame);
+
 constr_right = [p_right(1);p_right(2);p_right(3);r_right(3)];
 hol_right = HolonomicConstraint(RightStance,constr_right,'Right',...
     'ConstrLabel',{{'RightX','RightY','RightZ','RightYaw'}},'DerivativeOrder',2);
@@ -153,6 +154,13 @@ if COMPILE
     compileObjective(nlp,[],[],export_path);
     compileConstraint(nlp,[],[],export_path);
 end
+%% update bounds
+% bounds = opt.GetBounds_test(marlo);
+% opt.updateVariableBounds(nlp, bounds);
+% update initial condition
+% param = load('local/good_gait_test.mat');
+% 
+% opt.updateInitCondition(nlp,param.gait);
 %% solve
 if OPT
     ipopt_options.max_iter              = 500;
@@ -170,6 +178,10 @@ if OPT
         'states',states,...
         'inputs',inputs,...
         'params',params);
+end
+%% save
+if SAVE
+    save('local/good_gait_test.mat','gait','sol','info','bounds');
 end
 %% animation
 if ANIMATE

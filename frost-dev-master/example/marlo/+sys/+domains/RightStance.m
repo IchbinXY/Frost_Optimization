@@ -18,8 +18,7 @@ function domain = RightStance(model, load_path)
     end   
     %% Add contact
     % right foot point contact
-    % [right_foot, fric_coef] = sys.frames.RightFoot(model)
-    right_foot = ToContactFrame(domain.ContactPoints.RightFoot,'PointContactWithFriction');
+    right_foot = sys.frames.RightFoot(model);
     fric_coef.mu = 0.6;
     fric_coef.gamma = 100;
     %     geom = [];
@@ -77,8 +76,7 @@ function domain = RightStance(model, load_path)
     
     %% Add event
     % height of non-stance foot (left toe)
-    % [left_foot_frame] = sys.frames.LeftFoot(model);
-    left_foot = ToContactFrame(domain.ContactPoints.LeftFoot,'PointContactWithFriction');
+    left_foot = sys.frames.LeftFoot(model);
     p_swingFoot = getCartesianPosition(domain, left_foot);
     h_nsf = UnilateralConstraint(domain,p_swingFoot(3),'leftFootHeight','x');
     domain = addEvent(domain, h_nsf);
@@ -105,6 +103,6 @@ function domain = RightStance(model, load_path)
     domain = addVirtualConstraint(domain,y2);
     
     
-    domain.PreProcess = @sim.RightStancePreProcess;
+%     domain.PreProcess = @sim.RightStancePreProcess;
 end
     

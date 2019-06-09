@@ -103,6 +103,6 @@ function domain = LeftStance(model, load_path)
     
     
     
-    domain.PreProcess = @sim.LeftStancePreProcess;
+%     domain.PreProcess = @sim.LeftStancePreProcess;
 end
     
