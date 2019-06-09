@@ -6,7 +6,7 @@ frost_addpath;
 export_path = 'gen_test/opt_test';
 %% Setting
 COMPILE = false;
-SAVE    = false;
+SAVE    = true;
 OPT     = true;
 ANIMATE = true;
 %% Load robot model
@@ -155,12 +155,11 @@ if COMPILE
     compileConstraint(nlp,[],[],export_path);
 end
 %% update bounds
-% bounds = opt.GetBounds_test(marlo);
-% opt.updateVariableBounds(nlp, bounds);
+opt.updateVariableBounds(nlp, bounds);
 % update initial condition
-% param = load('local/good_gait_test.mat');
-% 
-% opt.updateInitCondition(nlp,param.gait);
+param = load('local/good_gait_test.mat');
+
+opt.updateInitCondition(nlp,param.gait);
 %% solve
 if OPT
     ipopt_options.max_iter              = 500;
