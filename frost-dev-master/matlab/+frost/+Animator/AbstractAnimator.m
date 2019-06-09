@@ -165,7 +165,7 @@ classdef AbstractAnimator < handle
     methods
         function HandleAxis(obj, t, x)
             [center, radius, yaw] = GetCenter(obj, t, x);
-            radius = 2;
+            radius = 1;
             if length(radius) == 1
                 axis(obj.axs, [center(1)-radius, center(1)+radius, center(2)-radius, center(2)+radius,center(3)-radius/3, center(3)+radius]);
             else

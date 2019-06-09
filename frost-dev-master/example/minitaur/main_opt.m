@@ -84,6 +84,6 @@ if OPT
 end
 %% animation
 if ANIMATE
-%     plot.LoadAnimator_test(minitaur,'SkipExporting',true);
-    anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',false);
+    plot.LoadAnimator_test(minitaur,'SkipExporting',true);
+%     anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',false);
 end

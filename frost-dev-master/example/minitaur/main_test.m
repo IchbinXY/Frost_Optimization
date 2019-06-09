@@ -100,23 +100,23 @@ p_left = getCartesianPosition(RightStance,left_frame);
 h_left = UnilateralConstraint(RightStance,p_left(3),'LeftHeight','x');
 RightStance = addEvent(RightStance,h_left);
 
-% t = SymVariable('t');
-% p = SymVariable('p',[2,1]);
-% tau = (t-p(1))/(p(2)-p(1));
-% q = RightStance.States.x;
-% ya_2 = [...
-%     (q('motor_front_leftL_joint') - q('motor_front_leftR_joint'))./2+pi;
-%      q('motor_front_leftL_joint') + q('motor_front_leftR_joint');
-%     (q('motor_back_leftL_joint')  - q('motor_back_leftR_joint'))./2+pi;
-%      q('motor_back_leftL_joint')  + q('motor_back_leftR_joint');
-%    (-q('motor_front_rightL_joint')+ q('motor_front_rightR_joint'))./2+pi;
-%      q('motor_front_rightL_joint')+ q('motor_front_rightR_joint');
-%    (-q('motor_back_rightL_joint') + q('motor_back_rightR_joint'))./2+pi;
-%      q('motor_back_rightL_joint') + q('motor_back_rightR_joint')];
-% y2 = VirtualConstraint(RightStance,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
-%     'RelativeDegree',2,'PhaseType','TimeBased',...
-%     'PhaseVariable',tau,'PhaseParams',p,'Holonomic',true, 'LoadPath', []);
-% RightStance = addVirtualConstraint(RightStance,y2);
+t = SymVariable('t');
+p = SymVariable('p',[2,1]);
+tau = (t-p(1))/(p(2)-p(1));
+q = RightStance.States.x;
+ya_2 = [...
+    (q('motor_front_leftL_joint') - q('motor_front_leftR_joint'))./2+pi;
+     q('motor_front_leftL_joint') + q('motor_front_leftR_joint');
+    (q('motor_back_leftL_joint')  - q('motor_back_leftR_joint'))./2+pi;
+     q('motor_back_leftL_joint')  + q('motor_back_leftR_joint');
+   (-q('motor_front_rightL_joint')+ q('motor_front_rightR_joint'))./2+pi;
+     q('motor_front_rightL_joint')+ q('motor_front_rightR_joint');
+   (-q('motor_back_rightL_joint') + q('motor_back_rightR_joint'))./2+pi;
+     q('motor_back_rightL_joint') + q('motor_back_rightR_joint')];
+y2 = VirtualConstraint(RightStance,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
+    'RelativeDegree',2,'PhaseType','TimeBased',...
+    'PhaseVariable',tau,'PhaseParams',p,'Holonomic',true, 'LoadPath', []);
+RightStance = addVirtualConstraint(RightStance,y2);
 
 RightStance.UserNlpConstraint = str2func('RightStanceConstr');
 
@@ -207,23 +207,23 @@ p_right = getCartesianPosition(LeftStance,right_frame);
 h_right = UnilateralConstraint(LeftStance,p_right(3),'RightHeight','x');
 LeftStance = addEvent(LeftStance,h_right);
 
-% t = SymVariable('t');
-% p = SymVariable('p',[2,1]);
-% tau = (t-p(1))/(p(2)-p(1));
-% q = LeftStance.States.x;
-% ya_2 = [...
-%     (q('motor_front_leftL_joint') - q('motor_front_leftR_joint'))./2+pi;
-%      q('motor_front_leftL_joint') + q('motor_front_leftR_joint');
-%     (q('motor_back_leftL_joint')  - q('motor_back_leftR_joint'))./2+pi;
-%      q('motor_back_leftL_joint')  + q('motor_back_leftR_joint');
-%    (-q('motor_front_rightL_joint')+ q('motor_front_rightR_joint'))./2+pi;
-%      q('motor_front_rightL_joint')+ q('motor_front_rightR_joint');
-%    (-q('motor_back_rightL_joint') + q('motor_back_rightR_joint'))./2+pi;
-%      q('motor_back_rightL_joint') + q('motor_back_rightR_joint')];
-% y2 = VirtualConstraint(LeftStance,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
-%     'RelativeDegree',2,'PhaseType','TimeBased',...
-%     'PhaseVariable',tau,'PhaseParams',p,'Holonomic',true, 'LoadPath', []);
-% LeftStance = addVirtualConstraint(LeftStance,y2);
+t = SymVariable('t');
+p = SymVariable('p',[2,1]);
+tau = (t-p(1))/(p(2)-p(1));
+q = LeftStance.States.x;
+ya_2 = [...
+    (q('motor_front_leftL_joint') - q('motor_front_leftR_joint'))./2+pi;
+     q('motor_front_leftL_joint') + q('motor_front_leftR_joint');
+    (q('motor_back_leftL_joint')  - q('motor_back_leftR_joint'))./2+pi;
+     q('motor_back_leftL_joint')  + q('motor_back_leftR_joint');
+   (-q('motor_front_rightL_joint')+ q('motor_front_rightR_joint'))./2+pi;
+     q('motor_front_rightL_joint')+ q('motor_front_rightR_joint');
+   (-q('motor_back_rightL_joint') + q('motor_back_rightR_joint'))./2+pi;
+     q('motor_back_rightL_joint') + q('motor_back_rightR_joint')];
+y2 = VirtualConstraint(LeftStance,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
+    'RelativeDegree',2,'PhaseType','TimeBased',...
+    'PhaseVariable',tau,'PhaseParams',p,'Holonomic',true, 'LoadPath', []);
+LeftStance = addVirtualConstraint(LeftStance,y2);
 
 LeftStance.UserNlpConstraint = str2func('LeftStanceConstr');
 
@@ -260,6 +260,9 @@ nlp = HybridTrajectoryOptimization('Marlo_opt',System,num_grid,[],options{:});
 nlp.configure(bounds);
 opt.cost.Power(nlp,System);
 nlp.update;
+removeConstraint(nlp.Phase(1),'dynamics_equation');
+removeConstraint(nlp.Phase(3),'dynamics_equation');
+
 %% Compile stuff if needed
 if COMPILE
     compileObjective(nlp,[],[],export_path);
@@ -282,6 +285,13 @@ if OPT
         'states',states,...
         'inputs',inputs,...
         'params',params);
+    solution.x = sol;
+    solution.tspan = tspan;
+    solution.states = states;
+    solution.inputs = inputs;
+    solution.params = params;
+    new_name = fullfile(cur, 'local', 'output_X4.mat');
+    save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
 end
 %% animation
 if ANIMATE
@@ -294,8 +304,8 @@ ip.addParameter('LoadPath',[],@ischar);
 ip.parse(varargin{:});
 domain = nlp.Plant;
 %% virtual constraints
-% opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
-% disp('virtual constraints');
+opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
+disp('virtual constraints');
 %% foot clearance
 % left_frame = sys.frames.LeftFrontFoot(domain);
 % opt.constraint.foot_clearance(nlp, bounds, left_frame);
@@ -305,8 +315,8 @@ domain = nlp.Plant;
 % disp('swing foot velocity')
 %% the rest
 % opt.constraint.yaw_start(nlp, bounds);
-% opt.constraint.knee_angle(nlp, bounds);
-% opt.constraint.average_velocity(nlp, bounds);
+opt.constraint.knee_angle(nlp, bounds);
+opt.constraint.average_velocity(nlp, bounds);
 end
 
 function LeftImpactConstr(nlp, src, tar, bounds, varargin)
@@ -321,8 +331,8 @@ ip = inputParser;
 ip.addParameter('LoadPath',[],@ischar);
 ip.parse(varargin{:});
 %% virtual constraints
-% opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
-% disp('virtual constraints');
+opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
+disp('virtual constraints');
 %% foot clearance
 % [right_foot_frame] = sys.frames.RightFrontFoot(domain);
 % opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
@@ -335,8 +345,8 @@ ip.parse(varargin{:});
 % disp('swing foot velocity')
 %% the rest
 % opt.constraint.yaw_start(nlp, bounds);
-% opt.constraint.knee_angle(nlp, bounds);
-% opt.constraint.average_velocity(nlp, bounds);
+opt.constraint.knee_angle(nlp, bounds);
+opt.constraint.average_velocity(nlp, bounds);
 end
 
 function RightImpactConstr(nlp, src, tar, bounds, varargin)

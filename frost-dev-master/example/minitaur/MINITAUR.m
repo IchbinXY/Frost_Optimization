@@ -37,7 +37,17 @@ classdef MINITAUR < RobotLinks
             front_rightL_length = sqrt(L1^2+L2^2-2*L1*L2*cos(q(17)));
             front_rightR_length = sqrt(L1^2+L2^2-2*L1*L2*cos(q(18)));
             front_rightL_angle = asin(L2*sin(q(17))/front_rightL_length);
+            front_rightR_angle = asin(L2*sin(q(18))/front_rightR_length);
+            front_rightL_x =-L1*sin(q(15)) - L2*sin(q(17) - q(15));
+            front_rightL_y = L1*cos(q(15)) - L2*cos(q(17) - q(15));
+            front_rightR_x = L1*sin(q(16)) + L2*sin(q(18) - q(16));
+            front_rightR_y = L1*cos(q(16)) - L2*cos(q(18) - q(16)); 
+            
+            back_rightL_length = sqrt(L1^2+L2^2-2*L1*L2*cos(q(21)));
+            back_rightR_length = sqrt(L1^2+L2^2-2*L1*L2*cos(q(22)));
             back_rightL_angle = asin(L2*sin(q(21))/back_rightL_length);
+            back_rightR_angle = asin(L2*sin(q(22))/back_rightR_length);
+            back_rightL_x =-L1*sin(q(19)) - L2*sin(q(21) - q(19));
             back_rightL_y = L1*cos(q(19)) - L2*cos(q(21) - q(19));
             back_rightR_x = L1*sin(q(20)) + L2*sin(q(22) - q(20));
             back_rightR_y = L1*cos(q(20)) - L2*cos(q(22) - q(20));
