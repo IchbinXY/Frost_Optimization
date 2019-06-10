@@ -86,8 +86,8 @@ function bounds = GetBounds_test(model, vel, T)
     bounds.RightStance.inputs.ConstraintWrench.fLeftBack.lb = [-1000,-1000,300,-1000]';
     bounds.RightStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,1000,1000,1000]';
     
-    bounds.RightStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
-    bounds.RightStance.constrBounds.knee.ub = [deg2rad(150),deg2rad(55),deg2rad(55),deg2rad(55)];
+    bounds.RightStance.constrBounds.knee.lb = [deg2rad(170),deg2rad(170),deg2rad(170),deg2rad(170)];
+    bounds.RightStance.constrBounds.knee.ub = [deg2rad(300),deg2rad(190),deg2rad(190),deg2rad(190)];
     
     bounds.RightStance.constrBounds.stepWidth.lb = -wt - vx*T;
     bounds.RightStance.constrBounds.stepWidth.ub = -wt - vx*T;
@@ -124,8 +124,8 @@ function bounds = GetBounds_test(model, vel, T)
     bounds.LeftStance.inputs.ConstraintWrench.fLeftBack.lb = [-1000,-1000,300,-1000]';
     bounds.LeftStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,1000,1000,1000]';
     
-    bounds.LeftStance.constrBounds.knee.lb = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
-    bounds.LeftStance.constrBounds.knee.ub = [deg2rad(55),deg2rad(55),deg2rad(150),deg2rad(55)];
+    bounds.LeftStance.constrBounds.knee.lb = [deg2rad(170),deg2rad(170),deg2rad(170),deg2rad(170)];
+    bounds.LeftStance.constrBounds.knee.ub = [deg2rad(190),deg2rad(190),deg2rad(300),deg2rad(190)];
     
     bounds.LeftStance.constrBounds.stepWidth.lb = -wt + vx*T;
     bounds.LeftStance.constrBounds.stepWidth.ub = -wt + vx*T;

@@ -11,8 +11,8 @@ function [sol, info] = optimize(obj, x0)
     
     % get the initial guess 
     if nargin < 2
-        x0 = getInitialGuess(nlp, obj.Options.initialguess);
-        
+%         x0 = getInitialGuess(nlp, obj.Options.initialguess);
+        x0 = xlsread('IV_minitaur_test','C2:C4309');
          % x0 = rand(size(x0));
     end
     

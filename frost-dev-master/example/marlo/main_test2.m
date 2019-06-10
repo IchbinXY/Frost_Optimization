@@ -6,9 +6,9 @@ frost_addpath;
 export_path = 'gen_test/opt_test';
 %% Setting
 COMPILE = false;
-SAVE    = true;
-OPT     = true;
-ANIMATE = true;
+SAVE    = false;
+OPT     = false;
+ANIMATE = false;
 %% Load robot model
 marlo = MARLO_YL('urdf/atrias.urdf');
 %% Load hybrid system

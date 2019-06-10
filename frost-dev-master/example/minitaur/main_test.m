@@ -239,7 +239,7 @@ RightImpact.addImpactConstraint(struct2array(RightStance.HolonomicConstraints),[
 
 RightImpact.UserNlpConstraint = str2func('RightImpactConstr');
 
-System = HybridSystem('Marlo_test');
+System = HybridSystem('Minitaur_test');
 System = addVertex(System,'RightStance','Domain',RightStance);
 System = addVertex(System,'LeftStance','Domain',LeftStance);
 srcs = {'RightStance'
@@ -256,11 +256,10 @@ num_grid.LeftStance = 10;
 options = {'EqualityConstraintBoundary', 1e-4,...
     'DistributeTimeVariable', false,...
     'DistributeParameters',false};
-nlp = HybridTrajectoryOptimization('Marlo_opt',System,num_grid,[],options{:});
+nlp = HybridTrajectoryOptimization('Minitaur_opt',System,num_grid,[],options{:});
 nlp.configure(bounds);
 opt.cost.Power(nlp,System);
 nlp.update;
-
 %% Compile stuff if needed
 if COMPILE
     compileObjective(nlp,[],[],export_path);
@@ -268,6 +267,8 @@ if COMPILE
 end
 bounds = opt.GetBounds_test(minitaur);
 opt.updateVariableBounds(nlp, bounds);
+removeConstraint(nlp.Phase(1),'dynamics_equation');
+removeConstraint(nlp.Phase(3),'dynamics_equation');
 %% solve
 if OPT
     ipopt_options.max_iter              = 500;
@@ -304,19 +305,18 @@ ip.addParameter('LoadPath',[],@ischar);
 ip.parse(varargin{:});
 domain = nlp.Plant;
 %% virtual constraints
-opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
-disp('virtual constraints');
+% opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
+% disp('virtual constraints');
 %% foot clearance
-% left_frame = sys.frames.LeftFrontFoot(domain);
-% opt.constraint.foot_clearance(nlp, bounds, left_frame);
-% disp('foot clearance');
+left_frame = sys.frames.LeftFrontFoot(domain);
+opt.constraint.foot_clearance(nlp, bounds, left_frame);
 %% swing foot velocity
 % opt.constraint.impact_velocity(nlp, bounds, left_frame);
 % disp('swing foot velocity')
 %% the rest
 % opt.constraint.yaw_start(nlp, bounds);
 opt.constraint.knee_angle(nlp, bounds);
-opt.constraint.average_velocity(nlp, bounds);
+% opt.constraint.average_velocity(nlp, bounds);
 end
 
 function LeftImpactConstr(nlp, src, tar, bounds, varargin)
@@ -331,12 +331,11 @@ ip = inputParser;
 ip.addParameter('LoadPath',[],@ischar);
 ip.parse(varargin{:});
 %% virtual constraints
-opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
-disp('virtual constraints');
+% opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
+% disp('virtual constraints');
 %% foot clearance
-% [right_foot_frame] = sys.frames.RightFrontFoot(domain);
-% opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
-% disp('foot clearance');
+[right_foot_frame] = sys.frames.RightFrontFoot(domain);
+opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
 %% swing toe position
 % opt.constraint.step_distance(nlp,bounds);
 % disp('swing toe position');
@@ -346,7 +345,7 @@ disp('virtual constraints');
 %% the rest
 % opt.constraint.yaw_start(nlp, bounds);
 opt.constraint.knee_angle(nlp, bounds);
-opt.constraint.average_velocity(nlp, bounds);
+% opt.constraint.average_velocity(nlp, bounds);
 end
 
 function RightImpactConstr(nlp, src, tar, bounds, varargin)

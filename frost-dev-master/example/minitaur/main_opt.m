@@ -10,7 +10,7 @@ load_path   = 'gen/sym';
 LOAD    = false;
 COMPILE = true;
 SAVE    = false;
-OPT     = false;
+OPT     = true;
 ANIMATE = false;
 
 DELAY_CORIOLIS = false;
@@ -21,10 +21,10 @@ minitaur = MINITAUR('urdf/minitaur2.urdf');
 %% load hybrid system
 if LOAD
     minitaur.loadDynamics(load_path, true, {}, 'OmitCoriolisSet', OMIT_CORIOLIS);
-    [minitaur_hs, domains, guards] = opt.load_behavior(minitaur, load_path);
+    [minitaur_hs, domains, guards] = opt.LoadBehavior(minitaur, load_path);
 else
     minitaur.configureDynamics('DelayCoriolisSet', DELAY_CORIOLIS, 'OmitCoriolisSet', OMIT_CORIOLIS);
-    [minitaur_hs, domains, guards] = opt.load_behavior(minitaur);
+    [minitaur_hs, domains, guards] = opt.LoadBehavior(minitaur);
 end
 %% create optimization problem
 num_grid.FrontStance = 10;
