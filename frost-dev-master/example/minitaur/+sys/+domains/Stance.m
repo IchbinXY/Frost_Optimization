@@ -13,9 +13,9 @@ switch stance
         right_foot_frame = sys.frames.RightBackFoot(domain);
         left_foot_frame = sys.frames.LeftBackFoot(domain);
 end
-hol_right_foot = sys.domains.genHolonomicConstraint(domain,right_foot_frame,StanceFoot,'Right');
+hol_right_foot = opt.constraint.genHolonomicConstraint(domain,right_foot_frame,StanceFoot,'Right');
 domain = addHolonomicConstraint(domain,hol_right_foot);
-hol_left_foot = sys.domains.genHolonomicConstraint(domain,left_foot_frame,StanceFoot,'Left');
+hol_left_foot = opt.constraint.genHolonomicConstraint(domain,left_foot_frame,StanceFoot,'Left');
 domain = addHolonomicConstraint(domain,hol_left_foot);
 
 switch stance
@@ -26,9 +26,9 @@ switch stance
         force_right = domain.Inputs.ConstraintWrench.fRightBackFoot;
         force_left = domain.Inputs.ConstraintWrench.fLeftBackFoot;
 end
-uni_right_foot = sys.domains.genUnilateralConstraint(domain,force_right,right_foot_frame,StanceFoot,'Right');
+uni_right_foot = opt.constraint.genUnilateralConstraint(domain,force_right,right_foot_frame,StanceFoot,'Right');
 domain = addUnilateralConstraint(domain,uni_right_foot);
-uni_left_foot = sys.domains.genUnilateralConstraint(domain,force_left,left_foot_frame,StanceFoot,'Left');
+uni_left_foot = opt.constraint.genUnilateralConstraint(domain,force_left,left_foot_frame,StanceFoot,'Left');
 domain = addUnilateralConstraint(domain,uni_left_foot);
 
 %% Add event (ground reaction force) for the next guard (lift)
