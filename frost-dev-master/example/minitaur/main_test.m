@@ -7,8 +7,8 @@ export_path = 'gen_test/opt_test';
 %% Setting
 COMPILE = false;
 SAVE    = false;
-OPT     = true;
-ANIMATE = true;
+OPT     = false;
+ANIMATE = false;
 %% Load robot model
 minitaur = MINITAUR('urdf/minitaur2.urdf');
 %% Load hybrid system

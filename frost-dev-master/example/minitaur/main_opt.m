@@ -8,10 +8,10 @@ export_path = 'gen/opt';
 load_path   = 'gen/sym';
 %% settings
 LOAD    = false;
-COMPILE = true;
+COMPILE = false;
 SAVE    = false;
 OPT     = true;
-ANIMATE = false;
+ANIMATE = true;
 
 DELAY_CORIOLIS = false;
 OMIT_CORIOLIS  = true;
@@ -56,7 +56,7 @@ if SAVE
 end
 %% optimization
 if OPT
-    ipopt_options.max_iter              = 1000;
+    ipopt_options.max_iter              = 500;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e1;
     ipopt_options.dual_inf_tol          = 1e1;
@@ -84,6 +84,6 @@ if OPT
 end
 %% animation
 if ANIMATE
-    plot.LoadAnimator_test(minitaur,'SkipExporting',true);
-%     anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',false);
+%     plot.LoadAnimator_test(minitaur,'SkipExporting',true);
+    anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',true);
 end

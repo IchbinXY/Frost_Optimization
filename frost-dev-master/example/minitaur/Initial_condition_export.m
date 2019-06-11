@@ -1,10 +1,10 @@
-IV = vertcat(nlp.VariableArray.InitialValue);
-LB = vertcat(nlp.VariableArray.LowerBound);
-UB = vertcat(nlp.VariableArray.UpperBound);
+% IV = vertcat(nlp.ConstrArray.InitialValue);
+LB = vertcat(nlp.ConstrArray.LowerBound);
+UB = vertcat(nlp.ConstrArray.UpperBound);
 Name = [];
-for i = 1:length(nlp.VariableArray)
-    Name = [Name;repmat(convertCharsToStrings(nlp.VariableArray(i).Name),nlp.VariableArray(i).Dimension,1)];
+for i = 1:length(nlp.ConstrArray)
+    Name = [Name;repmat(convertCharsToStrings(nlp.ConstrArray(i).Name),nlp.ConstrArray(i).Dimension,1)];
 end
 
-T = table(Name,LB,IV,UB,solution.x);
-writetable(T,'IV_minitaur_test.xlsx','Sheet',1)
+T = table(Name,LB,UB);
+writetable(T,'constr_minitaur.xlsx','Sheet',1)
