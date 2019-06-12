@@ -7,7 +7,7 @@ export_path = 'gen2/opt2';
 load_path   = 'gen2/sym2';
 %% Settings
 LOAD    = false;
-COMPILE = true;
+COMPILE = false;
 SAVE    = false;
 OPT     = true;
 ANIMATE = true;
@@ -20,7 +20,7 @@ else
     minitaur.configureDynamics('DelayCoriolisSet',false,'OmitCoriolisSet',true);
     [System,Domains,Guards] = opt.LoadBehavior2(minitaur);
 end
-%% Optimization Problem
+%% Problem
 bounds = opt.GetBounds2(minitaur);
 num_grid.FrontStance = 10;
 num_grid.Fight1      = 10;
@@ -34,11 +34,24 @@ nlp = HybridTrajectoryOptimization('Minitaur_opt',System,num_grid,[],options{:})
 nlp.configure(bounds);
 opt.cost.Power(nlp,System);
 opt.updateVariableBounds(nlp, bounds);
+% opt.multi_domain_constraints(nlp, bounds);
 nlp.update;
+% removeConstraint(nlp.Phase(1),'dynamics_equation');
+removeConstraint(nlp.Phase(1),'u_friction_cone_RightFrontFoot');
+removeConstraint(nlp.Phase(1),'u_friction_cone_LeftFrontFoot');
+% removeConstraint(nlp.Phase(3),'dynamics_equation');
+% removeConstraint(nlp.Phase(5),'dynamics_equation');
+removeConstraint(nlp.Phase(5),'u_friction_cone_RightBackFoot');
+removeConstraint(nlp.Phase(5),'u_friction_cone_LeftBackFoot');
+% removeConstraint(nlp.Phase(7),'dynamics_equation');
 %% Compile
 if COMPILE
     compileObjective(nlp,[],[],export_path);
     compileConstraint(nlp,[],[],export_path);
+end
+%% Save 
+if SAVE
+    System.saveExpression(load_path);
 end
 %% Optimize
 if OPT
@@ -49,7 +62,9 @@ if OPT
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    [sol, info] = optimize(solver);
+    load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
+    x0 = solution.x;
+    [sol, info] = optimize(solver,x0);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
     gait = struct(...
@@ -63,9 +78,11 @@ if OPT
     solution.inputs = inputs;
     solution.params = params;
     new_name = fullfile(cur, 'local', 'output_X4.mat');
+    SolutionX = fullfile(cur, 'local', 'output_solution.mat');
     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
+    save(SolutionX, 'solution');
 end
-%% animation
+%% Animate
 if ANIMATE
     anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',true);
 end

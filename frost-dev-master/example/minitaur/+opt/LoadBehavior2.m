@@ -12,9 +12,11 @@ Domains = [FrontStance,Flight1,BackStance,Flight2];
 FrontImpact = RigidImpact('FrontImpact',FrontStance,'FrontHeight');
 FrontImpact.addImpactConstraint(struct2array(FrontStance.HolonomicConstraints),[]);
 FrontImpact.UserNlpConstraint = @opt.callback.front_impact_constraints;
+
 BackImpact = RigidImpact('BackImpact',BackStance,'BackHeight');
 BackImpact.addImpactConstraint(struct2array(BackStance.HolonomicConstraints),[]);
 BackImpact.UserNlpConstraint = @opt.callback.back_impact_constraints;
+
 FrontLift = RigidImpact('FrontLift',Flight1,'FrontGRF');
 FrontLift.addImpactConstraint(struct2array(Flight1.HolonomicConstraints), []);
 FrontLift.UserNlpConstraint = @opt.callback.front_lift_constraints;
