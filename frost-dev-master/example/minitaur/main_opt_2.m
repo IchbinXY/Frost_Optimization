@@ -54,15 +54,17 @@ if SAVE
 end
 %% Optimize
 if OPT
-    ipopt_options.max_iter              = 400;
+    ipopt_options.max_iter              = 500;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e-1;
     ipopt_options.dual_inf_tol          = 1e-1;
-    ipopt_options.constr_viol_tol       = 1e-3;
+    ipopt_options.constr_viol_tol       = 1e-6;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
     load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
     x0 = solution.x;
+    xo(5) = 0.27;
+    x0(7) = 0.25;
     [sol, info] = optimize(solver,x0);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
@@ -76,12 +78,13 @@ if OPT
     solution.states = states;
     solution.inputs = inputs;
     solution.params = params;
-%     new_name = fullfile(cur, 'local', 'output_X4.mat');
-%     SolutionX = fullfile(cur, 'local', 'output_solution.mat');
-%     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
-%     save(SolutionX, 'solution');
+    new_name = fullfile(cur, 'local', 'output_X4.mat');
+    SolutionX = fullfile(cur, 'local', 'output_solution.mat');
+    save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
+    save(SolutionX, 'solution');
 end
 %% Animate
 if ANIMATE
-    anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',true);
+    plot.LoadAnimator_test(minitaur,'SkipExporting',true);
+    % anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',true);
 end
