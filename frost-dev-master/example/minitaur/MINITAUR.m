@@ -3,8 +3,8 @@ classdef MINITAUR < RobotLinks
         function obj = MINITAUR(urdf)
             base = get_base_dofs('floating');
             limits = [base.Limit];
-            [limits.lower] = deal(-1, -2, 0, -0.01, -0.01, -0.001);
-            [limits.upper] = deal(1, 2, 0.5, 0.01, 0.01, 0.001);
+            [limits.lower] = deal(-1, -2, 0, -0.01, -0.25, -0.001);
+            [limits.upper] = deal(1, 2, 0.5, 0.01, 0.25, 0.001);
             [limits.velocity] = deal(2, 2, 0.5, 0.5, 0.5, 0.1);
             [limits.effort] = deal(0);
             for i = 1:length(base)

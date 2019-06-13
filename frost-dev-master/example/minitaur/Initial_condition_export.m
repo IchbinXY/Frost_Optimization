@@ -6,5 +6,5 @@ for i = 1:length(nlp.VariableArray)
     Name = [Name;repmat(convertCharsToStrings(nlp.VariableArray(i).Name),nlp.VariableArray(i).Dimension,1)];
 end
 
-T = table(Name,LB,UB,solution.x);
-writetable(T,'variable_minitaur.xlsx','Sheet',1)
+T = table(Name,LB,IV,UB,solution.x);
+writetable(T,'variable_minitaur_2.xlsx','Sheet',1)

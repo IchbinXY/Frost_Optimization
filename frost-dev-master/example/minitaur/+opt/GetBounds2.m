@@ -74,6 +74,10 @@ function bounds = GetBounds2(model, vel, T)
     model_bounds.constrBounds.averageVelocity.lb = vel;     % node 1
     model_bounds.constrBounds.averageVelocity.ub = vel;     % node 1
     
+    % bezier symmetry
+    model_bounds.constrBounds.BezierSymmetry.lb = 0;
+    model_bounds.constrBounds.BezierSymmetry.ub = 0;
+    
     %% construct the boundary values for each domain 
     bounds = struct();
     %% Front Stance
@@ -86,10 +90,6 @@ function bounds = GetBounds2(model, vel, T)
     % knee angle
     bounds.FrontStance.constrBounds.knee.lb = [deg2rad(160),deg2rad(160),deg2rad(160),deg2rad(160)];    % all node 
     bounds.FrontStance.constrBounds.knee.ub = [deg2rad(200),deg2rad(200),deg2rad(300),deg2rad(300)];    % all node 
-    
-    % bezier symmetry
-    bounds.FrontStance.constrBounds.BezierSymmetry.lb = 0;
-    bounds.FrontStance.constrBounds.BezierSymmetry.ub = 0;
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;

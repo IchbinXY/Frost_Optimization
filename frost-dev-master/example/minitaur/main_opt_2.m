@@ -63,7 +63,7 @@ if OPT
     tic
     load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
     x0 = solution.x;
-    [sol, info] = optimize(solver);
+    [sol, info] = optimize(solver,x0);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
     gait = struct(...
@@ -76,10 +76,10 @@ if OPT
     solution.states = states;
     solution.inputs = inputs;
     solution.params = params;
-    new_name = fullfile(cur, 'local', 'output_X4.mat');
-    SolutionX = fullfile(cur, 'local', 'output_solution.mat');
-    save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
-    save(SolutionX, 'solution');
+%     new_name = fullfile(cur, 'local', 'output_X4.mat');
+%     SolutionX = fullfile(cur, 'local', 'output_solution.mat');
+%     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
+%     save(SolutionX, 'solution');
 end
 %% Animate
 if ANIMATE
