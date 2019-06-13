@@ -545,7 +545,7 @@
     <parent link="upper_leg_back_rightR_link"/>
     <child link="lower_leg_back_rightR_link"/>
     <origin rpy="3.14159 0 0" xyz="0.0 0.0 .1"/>
-    <limit effort="100" velocity="1000"/>
+    <limit effort="100" lower="-3.14" upper="+3.14"  velocity="1000"/>
     <joint_properties damping="0.0" friction="0.0"/>
   </joint>
   

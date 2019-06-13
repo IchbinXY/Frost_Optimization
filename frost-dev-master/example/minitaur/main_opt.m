@@ -106,8 +106,24 @@ if RUN_OPTIMIZATION
     new_name = fullfile(cur, 'local', 'output_X4.mat');
     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
 end
+
+%%
+if RUN_OPTIMIZATION
+    checkConstraints(nlp, solution.x, 1e-3, fullfile(cur, 'local', 'checkConstraints.txt'));
+    checkVariables(nlp, solution.x, 1e-3, fullfile(cur, 'local', 'checkVariables.txt'));
+    checkConstraints(nlp, solution.x, 1e-3, fullfile(cur, 'local', 'checkConstraints.txt'));
+    checkCosts(nlp, solution.x, fullfile(cur, 'local', 'checkCosts.txt'));
+    
+    open local/checkConstraints.txt
+    open local/checkVariables.txt
+    open local/checkCosts.txt
+    open cassie_opt
+end
+
 %% animation
 % anim = plot.LoadAnimator(robot, gait,'SkipExporting',false);
 
 RUN_OPTIMIZATION   = true;
+
+%%
 

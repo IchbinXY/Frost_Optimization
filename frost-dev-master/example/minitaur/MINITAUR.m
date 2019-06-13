@@ -1,3 +1,4 @@
+
 classdef MINITAUR < RobotLinks
     methods
         function obj = MINITAUR(urdf)
