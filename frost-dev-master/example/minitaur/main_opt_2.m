@@ -34,16 +34,15 @@ nlp = HybridTrajectoryOptimization('Minitaur_opt',System,num_grid,[],options{:})
 nlp.configure(bounds);
 opt.cost.Power(nlp,System);
 opt.updateVariableBounds(nlp, bounds);
-% opt.multi_domain_constraints(nlp, bounds);
 nlp.update;
-% removeConstraint(nlp.Phase(1),'dynamics_equation');
+removeConstraint(nlp.Phase(1),'dynamics_equation');
 removeConstraint(nlp.Phase(1),'u_friction_cone_RightFrontFoot');
 removeConstraint(nlp.Phase(1),'u_friction_cone_LeftFrontFoot');
-% removeConstraint(nlp.Phase(3),'dynamics_equation');
-% removeConstraint(nlp.Phase(5),'dynamics_equation');
+removeConstraint(nlp.Phase(3),'dynamics_equation');
+removeConstraint(nlp.Phase(5),'dynamics_equation');
 removeConstraint(nlp.Phase(5),'u_friction_cone_RightBackFoot');
 removeConstraint(nlp.Phase(5),'u_friction_cone_LeftBackFoot');
-% removeConstraint(nlp.Phase(7),'dynamics_equation');
+removeConstraint(nlp.Phase(7),'dynamics_equation');
 %% Compile
 if COMPILE
     compileObjective(nlp,[],[],export_path);
@@ -55,7 +54,7 @@ if SAVE
 end
 %% Optimize
 if OPT
-    ipopt_options.max_iter              = 500;
+    ipopt_options.max_iter              = 400;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e-1;
     ipopt_options.dual_inf_tol          = 1e-1;
@@ -64,7 +63,7 @@ if OPT
     tic
     load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
     x0 = solution.x;
-    [sol, info] = optimize(solver,x0);
+    [sol, info] = optimize(solver);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
     gait = struct(...

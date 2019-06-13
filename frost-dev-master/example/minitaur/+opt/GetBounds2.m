@@ -1,6 +1,6 @@
 function bounds = GetBounds2(model, vel, T)
     if nargin < 2
-        vel = [0.1,0];
+        vel = [0,0];
     end
     if nargin < 3
         T = 0.4;
@@ -87,6 +87,9 @@ function bounds = GetBounds2(model, vel, T)
     bounds.FrontStance.constrBounds.knee.lb = [deg2rad(160),deg2rad(160),deg2rad(160),deg2rad(160)];    % all node 
     bounds.FrontStance.constrBounds.knee.ub = [deg2rad(200),deg2rad(200),deg2rad(300),deg2rad(300)];    % all node 
     
+    % bezier symmetry
+    bounds.FrontStance.constrBounds.BezierSymmetry.lb = 0;
+    bounds.FrontStance.constrBounds.BezierSymmetry.ub = 0;
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
