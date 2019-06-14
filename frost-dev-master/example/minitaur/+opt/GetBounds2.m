@@ -52,13 +52,33 @@ function bounds = GetBounds2(model, vel, T)
     model_bounds.params.pLeftBack.lb = [-5, -5, 0];
     model_bounds.params.pLeftBack.ub = [5, 5, 0];
     
+    % foot rising
+    model_bounds.constrBounds.foot_rising_begin.lb = 0;
+    model_bounds.constrBounds.foot_rising_begin.ub = 0;
+    model_bounds.constrBounds.foot_rising_1.lb = 0.07;
+    model_bounds.constrBounds.foot_rising_1.ub = 0.35;
+    model_bounds.constrBounds.foot_rising_end.lb = 0.1;
+    model_bounds.constrBounds.foot_rising_end.ub = 0.5;
+    
     % foot clearance
+    model_bounds.constrBounds.foot_clearance_begin.lb = 0.1;    % node 5
+    model_bounds.constrBounds.foot_clearance_begin.ub = 0.5;    % node 5 
     model_bounds.constrBounds.foot_clearance_1.lb = 0.1;   % node 5
-    model_bounds.constrBounds.foot_clearance_1.ub = 0.5;    % node 5 
+    model_bounds.constrBounds.foot_clearance_1.ub = 0.5;   % node 5 
     model_bounds.constrBounds.foot_clearance_2.lb = 0.1;   % node 11
-    model_bounds.constrBounds.foot_clearance_2.ub = 0.5;    % node 11
+    model_bounds.constrBounds.foot_clearance_2.ub = 0.5;   % node 11
     model_bounds.constrBounds.foot_clearance_3.lb = 0.1;   % node 15
-    model_bounds.constrBounds.foot_clearance_3.ub = 0.5;    % node 15
+    model_bounds.constrBounds.foot_clearance_3.ub = 0.5;   % node 15
+    model_bounds.constrBounds.foot_clearance_end.lb = 0.1;      % node 21
+    model_bounds.constrBounds.foot_clearance_end.ub = 0.5;      % node 21
+    
+    % foot falling
+    model_bounds.constrBounds.foot_falling_begin.lb = 0.1;
+    model_bounds.constrBounds.foot_falling_begin.ub = 0.5;
+    model_bounds.constrBounds.foot_falling_1.lb = 0.07;
+    model_bounds.constrBounds.foot_falling_1.ub = 0.35;
+    model_bounds.constrBounds.foot_falling_end.lb = 0;
+    model_bounds.constrBounds.foot_falling_end.ub = 0;
     
     % impact velocity
     model_bounds.constrBounds.footVelocityBeginning.lb  = [-0.15,  -0.15,   0   ]'; % node 1

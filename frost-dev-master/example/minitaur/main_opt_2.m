@@ -35,6 +35,11 @@ nlp.configure(bounds);
 opt.cost.Power(nlp,System);
 opt.updateVariableBounds(nlp, bounds);
 nlp.update;
+%% Compile
+if COMPILE
+    compileObjective(nlp,[],[],export_path);
+    compileConstraint(nlp,[],[],export_path);
+end
 removeConstraint(nlp.Phase(1),'dynamics_equation');
 removeConstraint(nlp.Phase(1),'u_friction_cone_RightFrontFoot');
 removeConstraint(nlp.Phase(1),'u_friction_cone_LeftFrontFoot');
@@ -46,11 +51,6 @@ removeConstraint(nlp.Phase(5),'u_friction_cone_RightBackFoot');
 removeConstraint(nlp.Phase(5),'u_friction_cone_LeftBackFoot');
 
 removeConstraint(nlp.Phase(7),'dynamics_equation');
-%% Compile
-if COMPILE
-    compileObjective(nlp,[],[],export_path);
-    compileConstraint(nlp,[],[],export_path);
-end
 %% Save 
 if SAVE
     System.saveExpression(load_path);

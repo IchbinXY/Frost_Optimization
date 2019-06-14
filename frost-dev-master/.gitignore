@@ -1,2 +1,5 @@
 # Ignore folder named 'gen'
 gen/
+
+# Ignore folder named 'local'
+local/

@@ -3,4 +3,6 @@
 *.cc
 *.hh
 *.mexw64
+
 frost-dev-master/example/minitaur/gen
+frost-dev-master/example/minitaur/local
