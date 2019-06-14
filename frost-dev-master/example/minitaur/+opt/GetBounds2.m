@@ -53,12 +53,12 @@ function bounds = GetBounds2(model, vel, T)
     model_bounds.params.pLeftBack.ub = [5, 5, 0];
     
     % foot clearance
-    model_bounds.constrBounds.foot_clearance_1.lb = 0.03;   % node 5
-    model_bounds.constrBounds.foot_clearance_1.ub = 0.3;    % node 5 
-    model_bounds.constrBounds.foot_clearance_2.lb = 0.15;   % node 11
-    model_bounds.constrBounds.foot_clearance_2.ub = 0.3;    % node 11
-    model_bounds.constrBounds.foot_clearance_3.lb = 0.05;   % node 15
-    model_bounds.constrBounds.foot_clearance_3.ub = 0.3;    % node 15
+    model_bounds.constrBounds.foot_clearance_1.lb = 0.1;   % node 5
+    model_bounds.constrBounds.foot_clearance_1.ub = 0.5;    % node 5 
+    model_bounds.constrBounds.foot_clearance_2.lb = 0.1;   % node 11
+    model_bounds.constrBounds.foot_clearance_2.ub = 0.5;    % node 11
+    model_bounds.constrBounds.foot_clearance_3.lb = 0.1;   % node 15
+    model_bounds.constrBounds.foot_clearance_3.ub = 0.5;    % node 15
     
     % impact velocity
     model_bounds.constrBounds.footVelocityBeginning.lb  = [-0.15,  -0.15,   0   ]'; % node 1
@@ -88,8 +88,8 @@ function bounds = GetBounds2(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
     
     % knee angle
-    bounds.FrontStance.constrBounds.knee.lb = [deg2rad(160),deg2rad(160),deg2rad(160),deg2rad(160)];    % all node 
-    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(200),deg2rad(300),deg2rad(200),deg2rad(300)];    % all node 
+    bounds.FrontStance.constrBounds.knee.lb = [deg2rad(160),deg2rad(60),deg2rad(160),deg2rad(60)];    % all node 
+    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(200),deg2rad(200),deg2rad(200),deg2rad(200)];    % all node 
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
@@ -115,8 +115,8 @@ function bounds = GetBounds2(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
     % knee angle
-    bounds.BackStance.constrBounds.knee.lb = [deg2rad(160),deg2rad(160),deg2rad(160),deg2rad(160)];    % all node 
-    bounds.BackStance.constrBounds.knee.ub = [deg2rad(300),deg2rad(200),deg2rad(300),deg2rad(200)];    % all node
+    bounds.BackStance.constrBounds.knee.lb = [deg2rad(60),deg2rad(160),deg2rad(60),deg2rad(160)];    % all node 
+    bounds.BackStance.constrBounds.knee.ub = [deg2rad(200),deg2rad(200),deg2rad(200),deg2rad(200)];    % all node
     
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;

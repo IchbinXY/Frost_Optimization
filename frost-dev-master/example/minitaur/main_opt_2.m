@@ -38,10 +38,13 @@ nlp.update;
 removeConstraint(nlp.Phase(1),'dynamics_equation');
 removeConstraint(nlp.Phase(1),'u_friction_cone_RightFrontFoot');
 removeConstraint(nlp.Phase(1),'u_friction_cone_LeftFrontFoot');
+
 removeConstraint(nlp.Phase(3),'dynamics_equation');
+
 removeConstraint(nlp.Phase(5),'dynamics_equation');
 removeConstraint(nlp.Phase(5),'u_friction_cone_RightBackFoot');
 removeConstraint(nlp.Phase(5),'u_friction_cone_LeftBackFoot');
+
 removeConstraint(nlp.Phase(7),'dynamics_equation');
 %% Compile
 if COMPILE
@@ -61,11 +64,11 @@ if OPT
     ipopt_options.constr_viol_tol       = 1e-6;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
-    x0 = solution.x;
-    xo(5) = 0.27;
-    x0(7) = 0.25;
-    [sol, info] = optimize(solver,x0);
+%     load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
+%     x0 = solution.x;
+%     xo(5) = 0.27;
+%     x0(7) = 0.25;
+    [sol, info] = optimize(solver);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
     gait = struct(...
@@ -85,6 +88,5 @@ if OPT
 end
 %% Animate
 if ANIMATE
-    plot.LoadAnimator_test(minitaur,'SkipExporting',true);
-    % anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',true);
+    anim = plot.LoadAnimator(minitaur,gait,'SkipExporting',true);
 end

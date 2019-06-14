@@ -1,4 +1,4 @@
-function flight_constraints(nlp, bounds, varargin)
+function flight1_constraints(nlp, bounds, varargin)
 ip = inputParser;
 ip.addParameter('LoadPath',[],@ischar);
 ip.parse(varargin{:});
@@ -14,14 +14,14 @@ left_back_foot_frame = sys.frames.LeftBackFoot(domain);
 opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
 
 % foot clearance
-opt.constraint.foot_clearance(nlp, bounds, left_front_foot_frame);
-opt.constraint.foot_clearance(nlp, bounds, right_front_foot_frame);
-opt.constraint.foot_clearance(nlp, bounds, right_back_foot_frame);
-opt.constraint.foot_clearance(nlp, bounds, left_back_foot_frame);
+opt.constraint.foot_rising(nlp, bounds, left_front_foot_frame);
+opt.constraint.foot_rising(nlp, bounds, right_front_foot_frame);
+opt.constraint.foot_falling(nlp, bounds, right_back_foot_frame);
+opt.constraint.foot_falling(nlp, bounds, left_back_foot_frame);
 
 % swing foot velocity
-opt.constraint.impact_velocity(nlp, bounds, left_front_foot_frame);
-opt.constraint.impact_velocity(nlp, bounds, right_front_foot_frame);
+% opt.constraint.impact_velocity(nlp, bounds, left_front_foot_frame);
+% opt.constraint.impact_velocity(nlp, bounds, right_front_foot_frame);
 opt.constraint.impact_velocity(nlp, bounds, right_back_foot_frame);
 opt.constraint.impact_velocity(nlp, bounds, left_back_foot_frame);
 
