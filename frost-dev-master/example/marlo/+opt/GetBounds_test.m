@@ -1,5 +1,5 @@
 function bounds = GetBounds_test(model)
-vel = [0,0];
+vel = [0,0.5];
 T = 0.4;
 bounds = struct();
 
