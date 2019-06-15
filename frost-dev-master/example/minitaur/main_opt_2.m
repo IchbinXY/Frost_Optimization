@@ -40,17 +40,18 @@ if COMPILE
     compileObjective(nlp,[],[],export_path);
     compileConstraint(nlp,[],[],export_path);
 end
-removeConstraint(nlp.Phase(1),'dynamics_equation');
+% removeConstraint(nlp.Phase(1),'dynamics_equation');
 removeConstraint(nlp.Phase(1),'u_friction_cone_RightFrontFoot');
 removeConstraint(nlp.Phase(1),'u_friction_cone_LeftFrontFoot');
 
 removeConstraint(nlp.Phase(3),'dynamics_equation');
 
-removeConstraint(nlp.Phase(5),'dynamics_equation');
+% removeConstraint(nlp.Phase(5),'dynamics_equation');
 removeConstraint(nlp.Phase(5),'u_friction_cone_RightBackFoot');
 removeConstraint(nlp.Phase(5),'u_friction_cone_LeftBackFoot');
 
 removeConstraint(nlp.Phase(7),'dynamics_equation');
+disp('removed')
 %% Save 
 if SAVE
     System.saveExpression(load_path);
@@ -64,11 +65,9 @@ if OPT
     ipopt_options.constr_viol_tol       = 1e-6;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-%     load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
-%     x0 = solution.x;
-%     xo(5) = 0.27;
-%     x0(7) = 0.25;
-    [sol, info] = optimize(solver);
+    load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
+    x0 = solution.x;
+    [sol, info] = optimize(solver,x0);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
     gait = struct(...

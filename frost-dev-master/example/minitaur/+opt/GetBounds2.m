@@ -1,6 +1,6 @@
 function bounds = GetBounds2(model, vel, T)
     if nargin < 2
-        vel = [0,0];
+        vel = [0.5,0];
     end
     if nargin < 3
         T = 0.4;
@@ -94,10 +94,6 @@ function bounds = GetBounds2(model, vel, T)
     model_bounds.constrBounds.yaw_initial.lb = 0;   % node 1
     model_bounds.constrBounds.yaw_initial.ub = 0;   % node 1
     
-    % average velocity
-    model_bounds.constrBounds.averageVelocity.lb = vel;     % node 1
-    model_bounds.constrBounds.averageVelocity.ub = vel;     % node 1
-    
     % bezier symmetry
     model_bounds.constrBounds.BezierSymmetry.lb = 0;
     model_bounds.constrBounds.BezierSymmetry.ub = 0;
@@ -110,6 +106,10 @@ function bounds = GetBounds2(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fRightFront.ub = [1000,1000,1000]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
+    
+    % average velocity
+    bounds.FrontStance.constrBounds.averageVelocity.lb = -[0.1,0];     % node 1
+    bounds.FrontStance.constrBounds.averageVelocity.ub = [0.1,0];     % node 1
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
@@ -134,6 +134,10 @@ function bounds = GetBounds2(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.lb = [-1000,-1000,0]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
+    % average velocity
+    bounds.BackStance.constrBounds.averageVelocity.lb = -[0.1,0];     % node 1
+    bounds.BackStance.constrBounds.averageVelocity.ub = [0.1,0];     % node 1
+    
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;
     bounds.FrontImpact.states.xn = model_bounds.states.x;
@@ -152,6 +156,10 @@ function bounds = GetBounds2(model, vel, T)
     
     %% Flight1
     bounds.Flight1 = model_bounds;
+    
+    % average velocity
+    bounds.Flight1.constrBounds.averageVelocity.lb = -[0.2,0];     % node 1
+    bounds.Flight1.constrBounds.averageVelocity.ub = [0.0,0];     % node 1
 
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
@@ -167,6 +175,10 @@ function bounds = GetBounds2(model, vel, T)
     
     %% Flight2
     bounds.Flight2 = model_bounds;
+    
+    % average velocity
+    bounds.Flight2.constrBounds.averageVelocity.lb = [0.3,0];     % node 1
+    bounds.Flight2.constrBounds.averageVelocity.ub = [0.5,0];     % node 1
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;
