@@ -9,15 +9,9 @@ function bounds = GetBounds2(model, vel, T)
     model_bounds = model.getLimits(); % x, dx, ddx, Control
     model_bounds.options.enforceVirtualConstraints = true;
     
-    model_bounds.states.x.lb = [-5, 0, 0,   0,  -pi,  0,  -2*pi*ones(1,16)]';
-    model_bounds.states.x.ub = [ 5, 0, 1,   0,   pi,  0,   2*pi*ones(1,16)]';
-
-    model_bounds.states.dx.lb = [-50, 0,-50,   0,  -100*pi,  0,  -200*pi*ones(1,16)]';
-    model_bounds.states.dx.ub = [ 50, 0, 50,   0,   100*pi,  0,   200*pi*ones(1,16)]';
-
+    model_bounds.states.x.lb = [-5, 0, 0,   0,  -pi,  0,  -2*pi*ones(16,1)];
+    model_bounds.states.x.ub = [ 5, 0, 1,   0,  -pi,  0,  -2*pi*ones(16,1)];
     
-    model_bounds.states.dx.lb = [-10000, 0, -10000,   0,  -10000,  0,  -10000*ones(1,16)]';
-    model_bounds.states.dx.ub = [ 10000, 0,  10000,   0,   10000,  0,   10000*ones(1,16)]';
     
     % fixed joint constraint wrench
     model_bounds.inputs.ConstraintWrench.ffourBar.lb = -2000;
@@ -149,7 +143,7 @@ function bounds = GetBounds2(model, vel, T)
     bounds.Flight1 = model_bounds;
     
         %%% Step Duration
-    bounds.Flight1.time.duration.lb = 0.1;
+    bounds.Flight1.time.duration.lb = 0;
     bounds.Flight1.time.duration.ub = T;
     bounds.Flight1.time.duration.x0 = T/2;
     
@@ -157,7 +151,7 @@ function bounds = GetBounds2(model, vel, T)
     bounds.Flight1.time.t0.ub = 0;
     bounds.Flight1.time.t0.x0 = 0;
     
-    bounds.Flight1.time.tf.lb = 0.1;
+    bounds.Flight1.time.tf.lb = 0;
     bounds.Flight1.time.tf.ub = T;
     bounds.Flight1.time.tf.x0 = T/2;
     
@@ -181,7 +175,7 @@ function bounds = GetBounds2(model, vel, T)
     bounds.Flight2 = model_bounds;
     
     %%% Step Duration
-    bounds.Flight2.time.duration.lb = 0.1;
+    bounds.Flight2.time.duration.lb = 0;
     bounds.Flight2.time.duration.ub = T;
     bounds.Flight2.time.duration.x0 = T/2;
     
@@ -189,7 +183,7 @@ function bounds = GetBounds2(model, vel, T)
     bounds.Flight2.time.t0.ub = 0;
     bounds.Flight2.time.t0.x0 = 0;
     
-    bounds.Flight2.time.tf.lb = 0.1;
+    bounds.Flight2.time.tf.lb = 0;
     bounds.Flight2.time.tf.ub = T;
     bounds.Flight2.time.tf.x0 = T/2;
     

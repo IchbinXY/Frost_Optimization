@@ -16,7 +16,7 @@ domain = addHolonomicConstraint(domain,hol_right);
 f_right = domain.Inputs.ConstraintWrench.fRightBack;
 mu = SymVariable('mu');
 constr_right = [...
-    f_right(3)-300;                         %  fz-300 > 0 
+    f_right(3);                         %  fz > 0 
     f_right(1)+(mu/sqrt(2))*f_right(3);     %  fx+mu/sqrt(2)*fz > 0
    -f_right(1)+(mu/sqrt(2))*f_right(3);     % -fx+mu/sqrt(2)*fz > 0
     f_right(2)+(mu/sqrt(2))*f_right(3);     %  fy+mu/sqrt(2)*fz > 0
@@ -35,6 +35,14 @@ fc_constr_right = UnilateralConstraint(domain,fc_right,...
     'AuxData',0.6);
 domain = addUnilateralConstraint(domain,fc_constr_right);
 
+
+% Add right toe contact
+% right_contact = cassie.holonomic.right_toe_contact(domain);
+% domain = addContact(domain, right_contact.frame, right_contact.fric_coef, right_contact.geometry, load_path);
+
+
+
+
 % Left Back Foot
 left_frame = sys.frames.LeftBackFoot(domain);
 p_left = getCartesianPosition(domain,left_frame);
@@ -47,7 +55,7 @@ domain = addHolonomicConstraint(domain,hol_left);
 f_left = domain.Inputs.ConstraintWrench.fLeftBack;
 mu = SymVariable('mu');
 constr_left = [...
-    f_left(3)-300;                       %  fz-300 > 0 
+    f_left(3);                       %  fz > 0 
     f_left(1)+(mu/sqrt(2))*f_left(3);     %  fx+mu/sqrt(2)*fz > 0
    -f_left(1)+(mu/sqrt(2))*f_left(3);     % -fx+mu/sqrt(2)*fz > 0
     f_left(2)+(mu/sqrt(2))*f_left(3);     %  fy+mu/sqrt(2)*fz > 0
@@ -91,5 +99,6 @@ y2_label = {'front_left_angle','front_left_length','back_left_angle','back_left_
 y2 = VirtualConstraint(domain,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
         'RelativeDegree',2,'OutputLabel',{y2_label},'PhaseType','TimeBased',...
         'PhaseVariable',tau,'PhaseParams',p,'Holonomic',true, 'LoadPath', []);
+    
 domain = addVirtualConstraint(domain,y2);
 end
