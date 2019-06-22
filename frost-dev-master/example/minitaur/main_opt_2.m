@@ -67,9 +67,9 @@ if OPT
     solution.states = states;
     solution.inputs = inputs;
     solution.params = params;
-    new_name = fullfile(cur, 'local', 'output_5.mat');
+    SolutionAll = fullfile(cur, 'local', 'output_5.mat');
     SolutionX = fullfile(cur, 'local', 'output_solution.mat');
-    save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
+    save(SolutionAll, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
     save(SolutionX, 'solution');
 end
 %% Animate
