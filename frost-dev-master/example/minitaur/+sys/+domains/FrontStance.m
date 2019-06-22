@@ -16,7 +16,7 @@ domain = addHolonomicConstraint(domain,hol_right);
 f_right = domain.Inputs.ConstraintWrench.fRightFront;
 mu = SymVariable('mu');
 constr_right = [...
-    f_right(3);                             %  fz > 0 
+    f_right(3);                         %  fz > 0 
     f_right(1)+(mu/sqrt(2))*f_right(3);     %  fx+mu/sqrt(2)*fz > 0
    -f_right(1)+(mu/sqrt(2))*f_right(3);     % -fx+mu/sqrt(2)*fz > 0
     f_right(2)+(mu/sqrt(2))*f_right(3);     %  fy+mu/sqrt(2)*fz > 0
@@ -47,7 +47,7 @@ domain = addHolonomicConstraint(domain,hol_left);
 f_left = domain.Inputs.ConstraintWrench.fLeftFront;
 mu = SymVariable('mu');
 constr_left = [...
-    f_left(3);                            %  fz > 0 
+    f_left(3);                       %  fz > 0 
     f_left(1)+(mu/sqrt(2))*f_left(3);     %  fx+mu/sqrt(2)*fz > 0
    -f_left(1)+(mu/sqrt(2))*f_left(3);     % -fx+mu/sqrt(2)*fz > 0
     f_left(2)+(mu/sqrt(2))*f_left(3);     %  fy+mu/sqrt(2)*fz > 0
@@ -79,14 +79,14 @@ p = SymVariable('p',[2,1]);
 tau = (t-p(1))/(p(2)-p(1));
 q = domain.States.x;
 ya_2 = [...
-    (q('motor_front_leftL_joint') - q('motor_front_leftR_joint'))/2;
+    (q('motor_front_leftL_joint') - q('motor_front_leftR_joint'))./2+pi;
      q('motor_front_leftL_joint') + q('motor_front_leftR_joint');
-    (q('motor_back_leftL_joint')  - q('motor_back_leftR_joint'))/2;
+    (q('motor_back_leftL_joint')  - q('motor_back_leftR_joint'))./2+pi;
      q('motor_back_leftL_joint')  + q('motor_back_leftR_joint');
-    (q('motor_front_rightR_joint')- q('motor_front_rightL_joint'))/2;
-     q('motor_front_rightR_joint')+ q('motor_front_rightL_joint');
-    (q('motor_back_rightR_joint') - q('motor_back_rightL_joint'))/2;
-     q('motor_back_rightR_joint') + q('motor_back_rightL_joint')];
+   (-q('motor_front_rightL_joint')+ q('motor_front_rightR_joint'))./2+pi;
+     q('motor_front_rightL_joint')+ q('motor_front_rightR_joint');
+   (-q('motor_back_rightL_joint') + q('motor_back_rightR_joint'))./2+pi;
+     q('motor_back_rightL_joint') + q('motor_back_rightR_joint')];
 y2_label = {'front_left_angle','front_left_length','back_left_angle','back_left_length','front_right_angle','front_right_length','back_right_angle','back_right_length'};
 y2 = VirtualConstraint(domain,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
         'RelativeDegree',2,'OutputLabel',{y2_label},'PhaseType','TimeBased',...

@@ -6,11 +6,11 @@ frost_addpath;
 export_path = 'gen2/opt2';
 load_path   = 'gen2/sym2';
 %% Settings
-LOAD    = false;
-COMPILE = false;
-SAVE    = false;
-OPT     = true;
-ANIMATE = true;
+LOAD    = 0;
+COMPILE = 0;
+SAVE    = 0;
+OPT     = 1;
+ANIMATE = 1;
 %% Model and System
 minitaur = MINITAUR('urdf/minitaur2.urdf');
 if LOAD
@@ -53,9 +53,8 @@ if OPT
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
-    x0 = solution.x;
-    [sol, info] = optimize(solver);
+    load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');    x0 = solution.x;
+    [sol, info] = optimize(solver,x0);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
     gait = struct(...
@@ -68,7 +67,7 @@ if OPT
     solution.states = states;
     solution.inputs = inputs;
     solution.params = params;
-    new_name = fullfile(cur, 'local', 'output_X4.mat');
+    new_name = fullfile(cur, 'local', 'output_5.mat');
     SolutionX = fullfile(cur, 'local', 'output_solution.mat');
     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
     save(SolutionX, 'solution');

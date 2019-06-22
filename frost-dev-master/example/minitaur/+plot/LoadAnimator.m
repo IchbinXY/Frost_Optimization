@@ -8,7 +8,7 @@ function [conGUI] = LoadAnimator(robot, gait, varargin)
     q = []; 
     endtime = 0;
     for j = cont_domain_idx.'
-        t = [t,gait(j).tspan+endtime];        %#ok<*AGROW>
+        t = [t,gait(j).tspan+endtime];
         q = [q,gait(j).states.x]; 
         endtime = t(end);
     end
