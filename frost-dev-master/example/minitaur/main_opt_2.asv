@@ -7,7 +7,7 @@ export_path = 'gen2/opt2';
 load_path   = 'gen2/sym2';
 %% Settings
 LOAD    = false;
-COMPILE = false;
+COMPILE = true;
 SAVE    = false;
 OPT     = true;
 ANIMATE = true;
@@ -46,7 +46,7 @@ if SAVE
 end
 %% Optimize
 if OPT
-    ipopt_options.max_iter              = 5000;
+    ipopt_options.max_iter              = 400;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e-1;
     ipopt_options.dual_inf_tol          = 1e-1;
@@ -55,7 +55,7 @@ if OPT
     tic
     load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat');
     x0 = solution.x;
-    [sol, info] = optimize(solver);
+    [sol, info] = optimize(solver,x0);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
     gait = struct(...

@@ -17,7 +17,7 @@ function front_impact_constraints(nlp, src, tar, bounds, varargin)
     x = plant.States.x;
     xn = plant.States.xn;
     x_diff = R*x-xn;
-    x_map = SymFunction(['xPartialDiscreteMap' plant.Name],x_diff(7:end),{x,xn});
+    x_map = SymFunction(['xPartialDiscreteMap' plant.Name],x_diff,{x,xn});
     
     addNodeConstraint(nlp, x_map, {'x','xn'}, 'first', 0, 0, 'Linear');
 end

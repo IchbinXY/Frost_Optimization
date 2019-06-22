@@ -6,11 +6,11 @@ function [conGUI] = LoadAnimator(robot, gait, varargin)
     
     t = [];
     q = []; 
-    time = 0;
+    endtime = 0;
     for j = cont_domain_idx.'
-        t = [t,gait(j).tspan+time*0.4];        %#ok<*AGROW>
+        t = [t,gait(j).tspan+endtime];        %#ok<*AGROW>
         q = [q,gait(j).states.x]; 
-        time = time+1;
+        endtime = t(end);
     end
    
     exo_disp = plot.LoadRobotDisplay(robot, varargin{:});

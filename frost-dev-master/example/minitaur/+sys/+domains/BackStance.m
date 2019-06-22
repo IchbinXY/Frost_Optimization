@@ -16,7 +16,7 @@ domain = addHolonomicConstraint(domain,hol_right);
 f_right = domain.Inputs.ConstraintWrench.fRightBack;
 mu = SymVariable('mu');
 constr_right = [...
-    f_right(3)-300;                         %  fz-300 > 0 
+    f_right(3);                             %  fz > 0 
     f_right(1)+(mu/sqrt(2))*f_right(3);     %  fx+mu/sqrt(2)*fz > 0
    -f_right(1)+(mu/sqrt(2))*f_right(3);     % -fx+mu/sqrt(2)*fz > 0
     f_right(2)+(mu/sqrt(2))*f_right(3);     %  fy+mu/sqrt(2)*fz > 0
@@ -47,7 +47,7 @@ domain = addHolonomicConstraint(domain,hol_left);
 f_left = domain.Inputs.ConstraintWrench.fLeftBack;
 mu = SymVariable('mu');
 constr_left = [...
-    f_left(3)-300;                       %  fz-300 > 0 
+    f_left(3);                            %  fz > 0 
     f_left(1)+(mu/sqrt(2))*f_left(3);     %  fx+mu/sqrt(2)*fz > 0
    -f_left(1)+(mu/sqrt(2))*f_left(3);     % -fx+mu/sqrt(2)*fz > 0
     f_left(2)+(mu/sqrt(2))*f_left(3);     %  fy+mu/sqrt(2)*fz > 0
