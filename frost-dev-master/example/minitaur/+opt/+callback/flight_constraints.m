@@ -27,6 +27,6 @@ opt.constraint.foot_clearance(nlp, bounds, left_back_foot_frame);
 
 opt.constraint.yaw_start(nlp,bounds);
 opt.constraint.knee_angle(nlp, bounds);
-opt.constraint.average_velocity(nlp, bounds);
+% opt.constraint.average_velocity(nlp, bounds);
 opt.constraint.bezier_symmetry(nlp,bounds);
 end
