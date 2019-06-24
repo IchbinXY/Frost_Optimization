@@ -1,4 +1,4 @@
-function flight1_constraints(nlp, bounds, varargin)
+function flight_constraints(nlp, bounds, varargin)
 ip = inputParser;
 ip.addParameter('LoadPath',[],@ischar);
 ip.parse(varargin{:});

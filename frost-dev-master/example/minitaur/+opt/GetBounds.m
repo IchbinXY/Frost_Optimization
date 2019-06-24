@@ -99,8 +99,8 @@ function bounds = GetBounds2(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
     
     % knee angle
-    bounds.FrontStance.constrBounds.knee.lb = [deg2rad(10),deg2rad(10),deg2rad(10),deg2rad(10)];    % all node 
-    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];    % all node
+    bounds.FrontStance.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
+    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
     
     % average step velocity
     bounds.FrontStance.constrBounds.AvgVelocity.lb = vel;
@@ -130,8 +130,8 @@ function bounds = GetBounds2(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
     % knee angle
-    bounds.BackStance.constrBounds.knee.lb = [deg2rad(10),deg2rad(10),deg2rad(10),deg2rad(10)];   % all node 
-    bounds.BackStance.constrBounds.knee.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];    % all node
+    bounds.BackStance.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
+    bounds.BackStance.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
     
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;
@@ -166,8 +166,8 @@ function bounds = GetBounds2(model, vel, T)
     bounds.Flight1.time.tf.x0 = T/2;
     
     % knee angle
-    bounds.Flight1.constrBounds.knee.lb = [deg2rad(10),deg2rad(10),deg2rad(10),deg2rad(10)];    % all node 
-    bounds.Flight1.constrBounds.knee.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];    % all node
+    bounds.Flight1.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
+    bounds.Flight1.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
 
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
@@ -199,8 +199,8 @@ function bounds = GetBounds2(model, vel, T)
     
     
     % knee angle
-    bounds.Flight2.constrBounds.knee.lb = [deg2rad(10),deg2rad(10),deg2rad(10),deg2rad(10)];    % all node 
-    bounds.Flight2.constrBounds.knee.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];    % all node
+    bounds.Flight2.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
+    bounds.Flight2.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;

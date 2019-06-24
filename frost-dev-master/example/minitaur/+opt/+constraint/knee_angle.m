@@ -6,10 +6,10 @@ function knee_angle(nlp, bounds)
     
     % knee angle
     knee = [...
-        x('motor_front_leftR_joint') + x('motor_front_leftL_joint');
-        x('motor_back_leftR_joint') + x('motor_back_leftL_joint');
-        x('motor_front_rightR_joint') + x('motor_front_rightL_joint');
-        x('motor_back_rightR_joint') + x('motor_back_rightL_joint')];
+        2*pi - x('motor_front_leftR_joint') - x('motor_front_leftL_joint');
+        2*pi - x('motor_back_leftR_joint') - x('motor_back_leftL_joint');
+        2*pi - x('motor_front_rightR_joint') - x('motor_front_rightL_joint');
+        2*pi - x('motor_back_rightR_joint') - x('motor_back_rightL_joint')];
     knee_fun = SymFunction(['kneeAngles_',domain.Name], knee, {x});
     addNodeConstraint(nlp, knee_fun, {'x'}, 'all', ...
         bounds.constrBounds.knee.lb, ...

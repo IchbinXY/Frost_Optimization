@@ -7,12 +7,12 @@ export_path = 'gen/opt';
 load_path   = 'gen/sym';
 %% Settings
 LOAD    = 0;
-COMPILE = 0;
-SAVE    = 0;
+COMPILE = 1;
+SAVE    = 1;
 OPT     = 1;
 ANIMATE = 1;
 %% Model and System
-minitaur = MINITAUR('urdf/minitaur2.urdf');
+minitaur = MINITAUR('urdf/minitaur.urdf');
 if LOAD
     minitaur.loadDynamics(load_path,true,{},'OmitCoriolisSet',true);
     [System,Domains,Guards] = opt.LoadBehavior(minitaur,load_path);
