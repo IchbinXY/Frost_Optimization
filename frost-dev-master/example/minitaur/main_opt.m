@@ -15,13 +15,13 @@ ANIMATE = 1;
 minitaur = MINITAUR('urdf/minitaur2.urdf');
 if LOAD
     minitaur.loadDynamics(load_path,true,{},'OmitCoriolisSet',true);
-    [System,Domains,Guards] = opt.LoadBehavior2(minitaur,load_path);
+    [System,Domains,Guards] = opt.LoadBehavior(minitaur,load_path);
 else
     minitaur.configureDynamics('DelayCoriolisSet',false,'OmitCoriolisSet',true);
-    [System,Domains,Guards] = opt.LoadBehavior2(minitaur);
+    [System,Domains,Guards] = opt.LoadBehavior(minitaur);
 end
 %% Problem
-bounds = opt.GetBounds2(minitaur);
+bounds = opt.GetBounds(minitaur);
 num_grid.FrontStance = 10;
 num_grid.Fight1      = 10;
 num_grid.BackStance  = 10;
