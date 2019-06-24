@@ -102,10 +102,6 @@ function bounds = GetBounds2(model, vel, T)
     bounds.FrontStance.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
     bounds.FrontStance.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
     
-    % average step velocity
-    bounds.FrontStance.constrBounds.AvgVelocity.lb = vel;
-    bounds.FrontStance.constrBounds.AvgVelocity.ub = vel;
-    
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
     bounds.BackImpact.states.xn = model_bounds.states.x;

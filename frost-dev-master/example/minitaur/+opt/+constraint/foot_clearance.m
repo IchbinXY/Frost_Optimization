@@ -29,3 +29,4 @@ function foot_clearance(nlp, bounds, frame)
     {'x'}, ceil(nlp.NumNode/2), bounds.constrBounds.foot_clearance_1.lb, bounds.constrBounds.foot_clearance_1.ub, 'Nonlinear');
     
 end
+

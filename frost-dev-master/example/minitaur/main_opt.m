@@ -7,8 +7,8 @@ export_path = 'gen/opt';
 load_path   = 'gen/sym';
 %% Settings
 LOAD    = 0;
-COMPILE = 1;
-SAVE    = 1;
+COMPILE = 0;
+SAVE    = 0;
 OPT     = 1;
 ANIMATE = 1;
 %% Model and System
@@ -34,7 +34,6 @@ nlp = HybridTrajectoryOptimization('Minitaur_opt',System,num_grid,[],options{:})
 nlp.configure(bounds);
 opt.cost.Power(nlp,System);
 opt.updateVariableBounds(nlp, bounds);
-% opt.multi_domain_constraints(nlp, bounds);
 nlp.update;
 %% Compile
 if COMPILE
@@ -47,14 +46,13 @@ if SAVE
 end
 %% Optimize
 if OPT
-    ipopt_options.max_iter              = 1000;
+    ipopt_options.max_iter              = 5000;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e-1;
     ipopt_options.dual_inf_tol          = 1e-1;
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_5.mat', 'solution');
     x0 = solution.x;
     [sol, info] = optimize(solver,x0);
     toc
@@ -69,8 +67,6 @@ if OPT
     solution.states = states;
     solution.inputs = inputs;
     solution.params = params;
-%     new_name = fullfile(cur, 'local', 'output_wrong_gait.mat');
-%     save(new_name, 'solution', 'nlp', 'minitaur', 'bounds', 'info');
 end
 %% Animate
 if ANIMATE
