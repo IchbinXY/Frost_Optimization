@@ -46,8 +46,6 @@ if SAVE
     System.saveExpression(load_path);
 end
 %% Optimize
-load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_solution.mat')
-x0 = solution.x;
 if OPT
     ipopt_options.max_iter              = 5000;
     ipopt_options.tol                   = 1e-1;
@@ -56,6 +54,7 @@ if OPT
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
+    x0 = solution.x;
     [sol, info] = optimize(solver,x0);
     toc
     [tspan, states, inputs, params] = exportSolution(nlp, sol);
