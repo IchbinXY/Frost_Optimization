@@ -47,13 +47,14 @@ if SAVE
 end
 %% Optimize
 if OPT
-    ipopt_options.max_iter              = 5000;
+    ipopt_options.max_iter              = 1000;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e-1;
     ipopt_options.dual_inf_tol          = 1e-1;
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
+    load('C:\Users\Yizhou Lu\Documents\GitHub\Research-\frost-dev-master\example\minitaur\local\output_5.mat', 'solution');
     x0 = solution.x;
     [sol, info] = optimize(solver,x0);
     toc

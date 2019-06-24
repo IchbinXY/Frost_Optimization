@@ -19,7 +19,7 @@ opt.constraint.yaw_start(nlp,bounds);
 
 opt.constraint.knee_angle(nlp, bounds);
 
-% opt.constraint.average_velocity(nlp, bounds);
+opt.constraint.average_velocity(nlp, bounds);
 
 opt.constraint.bezier_symmetry(nlp,bounds);
 end

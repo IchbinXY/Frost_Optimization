@@ -8,7 +8,7 @@ function impact_velocity(nlp, bounds, frame)
     pos = getCartesianPosition(domain, frame);  
     J_pos = jacobian(pos, x);
     vel = J_pos * dx;
-    constraint_func = SymFunction(['impact_velocity_',frame.Name,'_', domain.Name], vel, {x, dx});
+    constraint_func = SymFunction(['impact_velocity_',frame.Name], vel, {x, dx});
     
     % impact swing foot velocity
     % (Make sure foot goes downward and slightly backward)
