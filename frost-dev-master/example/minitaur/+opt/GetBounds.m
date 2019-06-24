@@ -1,4 +1,4 @@
-function bounds = GetBounds2(model, vel, T)
+function bounds = GetBounds(model, vel, T)
     if nargin < 2
         vel = [0,0];
     end

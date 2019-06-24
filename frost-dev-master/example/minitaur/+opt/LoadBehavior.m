@@ -1,4 +1,4 @@
-function [System,Domains,Guards] = LoadBehavior2(robot, varargin)
+function [System,Domains,Guards] = LoadBehavior(robot, varargin)
 %% Domains
 FrontStance = sys.domains.FrontStance(robot);
 FrontStance.UserNlpConstraint = @opt.callback.front_stance_constraints;
