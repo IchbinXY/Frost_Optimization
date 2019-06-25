@@ -1,6 +1,6 @@
 function bounds = GetBounds(model, vel, T)
     if nargin < 2
-        vel = [0,0];
+        vel = [0.5,0];
     end
     if nargin < 3
         T = 0.4;
@@ -90,7 +90,7 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.BezierSymmetry.ub = 0;
     
     % knee angle
-    model_bounds.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
+    model_bounds.constrBounds.knee.lb = [deg2rad(0),deg2rad(0),deg2rad(0),deg2rad(0)];    % all node 
     model_bounds.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
     
     %% construct the boundary values for each domain 
@@ -102,7 +102,9 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
     
-    
+    % average step velocity
+    bounds.FrontStance.constrBounds.AvgVelocity.lb = vel;
+    bounds.FrontStance.constrBounds.AvgVelocity.ub = vel;
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
