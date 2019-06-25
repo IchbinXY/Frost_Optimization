@@ -89,6 +89,10 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.BezierSymmetry.lb = 0;
     model_bounds.constrBounds.BezierSymmetry.ub = 0;
     
+    % knee angle
+    model_bounds.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
+    model_bounds.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
+    
     %% construct the boundary values for each domain 
     bounds = struct();
     %% Front Stance
@@ -98,9 +102,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
     
-    % knee angle
-    bounds.FrontStance.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
-    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
+    
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
@@ -124,11 +126,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,1000,1000]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.lb = [-1000,-1000,0]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
-    
-    % knee angle
-    bounds.BackStance.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
-    bounds.BackStance.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
-    
+        
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;
     bounds.FrontImpact.states.xn = model_bounds.states.x;
@@ -148,7 +146,7 @@ function bounds = GetBounds(model, vel, T)
     %% Flight1
     bounds.Flight1 = model_bounds;
     
-        %%% Step Duration
+    %%% Step Duration
     bounds.Flight1.time.duration.lb = 0.1;
     bounds.Flight1.time.duration.ub = T;
     bounds.Flight1.time.duration.x0 = T/2;
@@ -161,10 +159,6 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight1.time.tf.ub = T;
     bounds.Flight1.time.tf.x0 = T/2;
     
-    % knee angle
-    bounds.Flight1.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
-    bounds.Flight1.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
-
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
     bounds.FrontLift.states.xn = model_bounds.states.x;
@@ -192,11 +186,6 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight2.time.tf.lb = 0.1;
     bounds.Flight2.time.tf.ub = T;
     bounds.Flight2.time.tf.x0 = T/2;
-    
-    
-    % knee angle
-    bounds.Flight2.constrBounds.knee.lb = -[deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node 
-    bounds.Flight2.constrBounds.knee.ub = [deg2rad(360),deg2rad(360),deg2rad(360),deg2rad(360)];    % all node
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;
