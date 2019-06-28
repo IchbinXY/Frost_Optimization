@@ -54,7 +54,7 @@ if OPT
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    load('output_kneeAngle005.mat', 'solution')
+    load('output_vel_001.mat', 'solution')
     x0 = solution.x;
     [sol, info] = optimize(solver,x0);
     toc
