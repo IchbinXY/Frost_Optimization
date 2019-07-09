@@ -8,19 +8,19 @@ function impact_velocity(nlp, bounds, frame)
     pos = getCartesianPosition(domain, frame);  
     J_pos = jacobian(pos, x);
     vel = J_pos * dx;
-    constraint_func = SymFunction(['impact_velocity_',frame.Name], vel, {x, dx});
+    constraint_func = SymFunction(['impact_velocity_',frame.Name,'_',domain.Name], vel, {x, dx});
     
     % impact swing foot velocity
     % (Make sure foot goes downward and slightly backward)
-    lb = bounds.constrBounds.footVelocityEnd.lb;
-    ub = bounds.constrBounds.footVelocityEnd.ub;
-    addNodeConstraint(nlp, constraint_func, {'x','dx'}, 'last', lb, ub, 'NonLinear');
+    addNodeConstraint(nlp, constraint_func, {'x','dx'}, 'last', ...
+        bounds.constrBounds.footVelocityEnd.lb, ...
+        bounds.constrBounds.footVelocityEnd.ub, 'NonLinear');
     
     % start swing foot velocity
     % (Make sure foot goes upward)
-    lb = bounds.constrBounds.footVelocityBeginning.lb;
-    ub = bounds.constrBounds.footVelocityBeginning.ub;
-    addNodeConstraint(nlp, constraint_func, {'x','dx'}, 'first', lb, ub, 'NonLinear');
-    
+%     lb = bounds.constrBounds.footVelocityBeginning.lb;
+%     ub = bounds.constrBounds.footVelocityBeginning.ub;
+%     addNodeConstraint(nlp, constraint_func, {'x','dx'}, 'first', lb, ub, 'NonLinear');
+%     
 end
 

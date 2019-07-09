@@ -7,10 +7,10 @@ BackStance = sys.domains.BackStance(robot);
 BackStance.UserNlpConstraint = @opt.callback.back_stance_constraints;
 
 Flight1 = sys.domains.Flight(robot,'BackImpact');
-Flight1.UserNlpConstraint = @opt.callback.flight_constraints;
+Flight1.UserNlpConstraint = @opt.callback.flight1_constraints;
 
 Flight2 = sys.domains.Flight(robot,'FrontImpact');
-Flight2.UserNlpConstraint = @opt.callback.flight_constraints;
+Flight2.UserNlpConstraint = @opt.callback.flight2_constraints;
 
 Domains = [FrontStance,Flight1,BackStance,Flight2];
 

@@ -68,10 +68,10 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.foot_clearance_3.ub = 10;    % node 21
     
     % impact velocity
-    model_bounds.constrBounds.footVelocityBeginning.lb  = [-5, -5, -5]';    % node 1
-    model_bounds.constrBounds.footVelocityBeginning.ub  = [ 5,  5,  5]';    % node 1
-    model_bounds.constrBounds.footVelocityEnd.lb        = [-5, -5, -5]';    % node 21
-    model_bounds.constrBounds.footVelocityEnd.ub        = [ 5,  5,  5]';    % node 21
+    % model_bounds.constrBounds.footVelocityBeginning.lb  = [-5, -5, -5]';    % node 1
+    % model_bounds.constrBounds.footVelocityBeginning.ub  = [ 5,  5,  5]';    % node 1
+    model_bounds.constrBounds.footVelocityEnd.lb        = [-10, -10, -10]';    % node 21
+    model_bounds.constrBounds.footVelocityEnd.ub        = [ 10,  10,  10]';    % node 21
     
     % average velocity
     model_bounds.constrBounds.averageVelocity.lb = [-5, 0 ];    % node 1
@@ -149,6 +149,8 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight1.time.tf.ub = T;
     bounds.Flight1.time.tf.x0 = T/2;
     
+    bounds.Flight1.constrBounds.knee.ub = [deg2rad(340),deg2rad(340),deg2rad(340),deg2rad(340)];
+    
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
     bounds.FrontLift.states.xn = model_bounds.states.x;
@@ -177,9 +179,12 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight2.time.tf.ub = T;
     bounds.Flight2.time.tf.x0 = T/2;
     
+    % bounds.Flight2.constrBounds.knee.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
+    
     % average step velocity
     bounds.Flight2.constrBounds.AvgVelocity.lb = vel;
     bounds.Flight2.constrBounds.AvgVelocity.ub = vel;
+    
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;
