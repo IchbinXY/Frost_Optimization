@@ -13,8 +13,8 @@ classdef MINITAUR < RobotLinks
             obj = obj@RobotLinks(urdf,base);
             
             q = obj.States.x;
-            L1 = 0.1;
-            L2 = 0.2;
+            L1 = 0.112;
+            L2 = 0.199;
             
 %             front_leftL_length = sqrt(L1^2+L2^2-2*L1*L2*cos(q(9)));
 %             front_leftR_length = sqrt(L1^2+L2^2-2*L1*L2*cos(q(10)));

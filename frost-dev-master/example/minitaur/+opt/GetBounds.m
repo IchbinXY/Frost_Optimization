@@ -9,8 +9,8 @@ function bounds = GetBounds(model, vel, T)
     model_bounds = model.getLimits(); % x, dx, ddx, Control
     model_bounds.options.enforceVirtualConstraints = true;
     
-    model_bounds.states.x.lb = [-5, 0, 0,   0,  -pi,  0,  -0.5*ones(1,16)]';
-    model_bounds.states.x.ub = [ 5, 0, 1,   0,   pi,  0, 1.5*pi*ones(1,16)]';
+    model_bounds.states.x.lb = [-5, 0, 0, 0,-pi, 0,-deg2rad(30) *ones(1,16)]';
+    model_bounds.states.x.ub = [ 5, 0, 1, 0, pi, 0, deg2rad(270)*ones(1,16)]';
 
     model_bounds.states.dx.lb = [-50, 0,-50,   0,  -100*pi,  0,  -200*pi*ones(1,16)]';
     model_bounds.states.dx.ub = [ 50, 0, 50,   0,   100*pi,  0,   200*pi*ones(1,16)]';
@@ -60,12 +60,12 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.params.pLeftBack.ub = [5, 5, 0];
     
     % foot clearance
-    model_bounds.constrBounds.foot_clearance_1.lb = -1;   % node 5
-    model_bounds.constrBounds.foot_clearance_1.ub = 1;    % node 5 
-    model_bounds.constrBounds.foot_clearance_2.lb = -1;   % node 11
-    model_bounds.constrBounds.foot_clearance_2.ub = 1;    % node 11
-    model_bounds.constrBounds.foot_clearance_3.lb = -1;   % node 15
-    model_bounds.constrBounds.foot_clearance_3.ub = 1;    % node 15
+    model_bounds.constrBounds.foot_clearance_1.lb = -1;    % node 1
+    model_bounds.constrBounds.foot_clearance_1.ub = 1;    % node 1 
+    model_bounds.constrBounds.foot_clearance_2.lb = 0;   % node 11
+    model_bounds.constrBounds.foot_clearance_2.ub = 10;    % node 11
+    model_bounds.constrBounds.foot_clearance_3.lb = 0;   % node 21
+    model_bounds.constrBounds.foot_clearance_3.ub = 10;    % node 21
     
     % impact velocity
     model_bounds.constrBounds.footVelocityBeginning.lb  = [-5, -5, -5]';    % node 1
