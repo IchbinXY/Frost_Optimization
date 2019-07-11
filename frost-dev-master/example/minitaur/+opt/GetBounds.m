@@ -9,8 +9,8 @@ function bounds = GetBounds(model, vel, T)
     model_bounds = model.getLimits(); % x, dx, ddx, Control
     model_bounds.options.enforceVirtualConstraints = true;
     
-    model_bounds.states.x.lb = [-5, 0, 0, 0,-pi, 0,-deg2rad(30) *ones(1,16)]';
-    model_bounds.states.x.ub = [ 5, 0, 1, 0, pi, 0, deg2rad(270)*ones(1,16)]';
+    model_bounds.states.x.lb = [-5, 0, 0, 0,-pi, 0, -deg2rad(30) *ones(1,16)]';
+    model_bounds.states.x.ub = [ 5, 0, 1, 0, pi, 0,  deg2rad(270)*ones(1,16)]';
 
     model_bounds.states.dx.lb = [-50, 0,-50,   0,  -100*pi,  0,  -200*pi*ones(1,16)]';
     model_bounds.states.dx.ub = [ 50, 0, 50,   0,   100*pi,  0,   200*pi*ones(1,16)]';
@@ -27,16 +27,16 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.gains.kd = 20;
     
     %%% Step Duration
-    model_bounds.time.duration.lb = T;
-    model_bounds.time.duration.ub = T;
+    model_bounds.time.duration.lb = 0.2;
+    model_bounds.time.duration.ub = 0.6;
     model_bounds.time.duration.x0 = T;
     
     model_bounds.time.t0.lb = 0;
     model_bounds.time.t0.ub = 0;
     model_bounds.time.t0.x0 = 0;
     
-    model_bounds.time.tf.lb = T;
-    model_bounds.time.tf.ub = T;
+    model_bounds.time.tf.lb = 0.2;
+    model_bounds.time.tf.ub = 0.6;
     model_bounds.time.tf.x0 = T;
     
     % Virtual Constraints
@@ -93,6 +93,8 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fRightFront.ub = [1000,1000,1000]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
+    
+    bounds.FrontStance.constrBounds.knee.ub = [deg2rad(360),deg2rad(340),deg2rad(360),deg2rad(340)];
        
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
@@ -116,6 +118,8 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,1000,1000]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.lb = [-1000,-1000,0]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
+    
+%     bounds.BackStance.constrBounds.knee.ub = [deg2rad(340),deg2rad(360),deg2rad(340),deg2rad(360)];
         
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;
@@ -149,7 +153,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight1.time.tf.ub = T;
     bounds.Flight1.time.tf.x0 = T/2;
     
-    bounds.Flight1.constrBounds.knee.ub = [deg2rad(340),deg2rad(340),deg2rad(340),deg2rad(340)];
+    
     
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
@@ -178,9 +182,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight2.time.tf.lb = 0.1;
     bounds.Flight2.time.tf.ub = T;
     bounds.Flight2.time.tf.x0 = T/2;
-    
-    % bounds.Flight2.constrBounds.knee.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
-    
+        
     % average step velocity
     bounds.Flight2.constrBounds.AvgVelocity.lb = vel;
     bounds.Flight2.constrBounds.AvgVelocity.ub = vel;
