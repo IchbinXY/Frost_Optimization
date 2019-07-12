@@ -47,14 +47,14 @@ if SAVE
 end
 %% Optimize
 if OPT
-    ipopt_options.max_iter              = 5000;
+    ipopt_options.max_iter              = 2500;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e-1;
     ipopt_options.dual_inf_tol          = 1e-1;
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    load('output_knee_angle_330.mat', 'solution')
+    load('output_impact_velocity_16Rfail.mat', 'solution')
     x0 = solution.x;
     [sol, info] = optimize(solver,x0);
     toc

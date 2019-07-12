@@ -1,6 +1,6 @@
 function bounds = GetBounds(model, vel, T)
     if nargin < 2
-        vel = [0.5,0];
+        vel = [0.8,0];
     end
     if nargin < 3
         T = 0.4;
@@ -60,17 +60,17 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.params.pLeftBack.ub = [5, 5, 0];
     
     % foot clearance
-    model_bounds.constrBounds.foot_clearance_1.lb = -1;    % node 1
-    model_bounds.constrBounds.foot_clearance_1.ub = 1;    % node 1 
-    model_bounds.constrBounds.foot_clearance_2.lb = 0;   % node 11
-    model_bounds.constrBounds.foot_clearance_2.ub = 10;    % node 11
-    model_bounds.constrBounds.foot_clearance_3.lb = 0;   % node 21
-    model_bounds.constrBounds.foot_clearance_3.ub = 10;    % node 21
+    model_bounds.constrBounds.foot_clearance.lb = 0;    % node 1
+    model_bounds.constrBounds.foot_clearance.ub = 5;    % node 1 
+%     model_bounds.constrBounds.foot_clearance_2.lb = 0;   % node 11
+%     model_bounds.constrBounds.foot_clearance_2.ub = 10;    % node 11
+%     model_bounds.constrBounds.foot_clearance_3.lb = 0;   % node 21
+%     model_bounds.constrBounds.foot_clearance_3.ub = 10;    % node 21
     
     % impact velocity
     % model_bounds.constrBounds.footVelocityBeginning.lb  = [-5, -5, -5]';    % node 1
     % model_bounds.constrBounds.footVelocityBeginning.ub  = [ 5,  5,  5]';    % node 1
-    model_bounds.constrBounds.footVelocityEnd.lb        = [-10, -10, -10]';    % node 21
+    model_bounds.constrBounds.footVelocityEnd.lb        = [-10, -10, -1.6]';    % node 21
     model_bounds.constrBounds.footVelocityEnd.ub        = [ 10,  10,  10]';    % node 21
     
     % average velocity
@@ -168,7 +168,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight1.constrBounds.knee_mid.lb = [deg2rad(0),  deg2rad(0),  deg2rad(0),  deg2rad(0)];
     bounds.Flight1.constrBounds.knee_mid.ub = [deg2rad(180),deg2rad(320),deg2rad(180),deg2rad(320)];
     bounds.Flight1.constrBounds.knee_end.lb = [deg2rad(0),  deg2rad(0),  deg2rad(0),  deg2rad(0)];
-    bounds.Flight1.constrBounds.knee_end.ub = [deg2rad(180),deg2rad(320),deg2rad(180),deg2rad(320)];
+    bounds.Flight1.constrBounds.knee_end.ub = [deg2rad(180),deg2rad(300),deg2rad(180),deg2rad(300)];
     
     
     %% Front Lift
