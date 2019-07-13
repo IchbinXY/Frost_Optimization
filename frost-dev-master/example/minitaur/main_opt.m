@@ -32,8 +32,8 @@ options = {...
     'DistributeParameters',false};
 nlp = HybridTrajectoryOptimization('Minitaur_opt',System,num_grid,[],options{:});
 nlp.configure(bounds);
-opt.cost.Power(nlp,System);
-opt.updateVariableBounds(nlp, bounds);
+opt.cost.PowerOverTime(nlp,System);
+opt.updateVariableBounds(nlp, bounds); 
 opt.multi_domain_constraints(nlp, bounds);
 nlp.update;
 %% Compile
@@ -47,14 +47,14 @@ if SAVE
 end
 %% Optimize
 if OPT
-    ipopt_options.max_iter              = 2500;
+    ipopt_options.max_iter              = 2000;
     ipopt_options.tol                   = 1e-1;
     ipopt_options.compl_inf_tol         = 1e-1;
     ipopt_options.dual_inf_tol          = 1e-1;
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    load('output_impact_velocity_16Rfail.mat', 'solution')
+    load('output_impact_velocity_15Rfail.mat', 'solution')
     x0 = solution.x;
     [sol, info] = optimize(solver,x0);
     toc
