@@ -68,7 +68,7 @@ function bounds = GetBounds(model, vel, T)
 %     model_bounds.constrBounds.foot_clearance_3.ub = 10;    % node 21
     
     % impact velocity
-    model_bounds.constrBounds.footVelocityEnd.lb = [-10, -10, -0.9]';    % node 21
+    model_bounds.constrBounds.footVelocityEnd.lb = [-10, -10, -0.5]';    % node 21
     model_bounds.constrBounds.footVelocityEnd.ub = [ 10,  10, 10]';    % node 21
     
     % average velocity
@@ -206,6 +206,9 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight2.constrBounds.AvgVelocity.lb = vel;
     bounds.Flight2.constrBounds.AvgVelocity.ub = vel;
     
+    % touch down angle difference
+    bounds.Flight2.constrBounds.TD_Difference.lb = 0;
+    bounds.Flight2.constrBounds.TD_Difference.ub = 0;
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;

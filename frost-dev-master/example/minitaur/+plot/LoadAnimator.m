@@ -13,8 +13,8 @@ function [conGUI] = LoadAnimator(robot, gait, varargin)
         endtime = t(end);
     end
     
-%     t = [t,t+t(end)];
-%     q = [q,[q(1,:)+(q(1,end)-q(1,1));q(2:end,:)]];
+    t = [t,t+t(end)];
+    q = [q,[q(1,:)+(q(1,end)-q(1,1));q(2:end,:)]];
    
     exo_disp = plot.LoadRobotDisplay(robot, varargin{:});
     
