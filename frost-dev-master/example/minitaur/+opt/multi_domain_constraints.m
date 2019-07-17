@@ -25,23 +25,28 @@ AvgVelocity_cstr = NlpFunction('Name',AvgVelocity_fun.Name,...
     'DepVariables',[T1_var,T3_var,T5_var,T7_var,x0_var,xf_var]);
 addConstraint(nlp.Phase(7), 'AvgVelocity', 'first', AvgVelocity_cstr);
 
-% TD leg angle
-xf2 = SymVariable('xf2',[22,1]);% front leg TD
-xf1 = SymVariable('xf1',[22,1]);% back leg TD
-motor_frontL = xf2(7);
-motor_frontR = xf2(8);
-motor_backL = xf1(11);
-motor_backR = xf1(12);
-TD_Difference = (motor_frontL-motor_frontR)-(motor_backL-motor_backR);
-TD_Difference_fun = SymFunction('TouchDownAngleDifference',TD_Difference,{xf2,xf1});
+% Front TD and Back LO
+xf2 = SymVariable('xf2',[22,1]);
+xf1 = SymVariable('xf1',[22,1]);
+x02 = SymVariable('x02',[22,1]);
+x01 = SymVariable('x01',[22,1]);
+front_LO = x01(7)-x01(8);
+front_TD = xf2(7)-xf2(8);
+back_LO  = x02(11)-x02(12);
+back_TD  = xf1(11)-xf1(12);
+AngleDifference = [front_LO+back_TD
+    front_TD+back_LO];
+AngleDifference_fun = SymFunction('AngleDifference',AngleDifference,{xf2,xf1,x02,x01});
 xf_flight2_var = nlp.Phase(7).OptVarTable.x(end);
 xf_flight1_var = nlp.Phase(3).OptVarTable.x(end);
-TD_Difference_cstr = NlpFunction('Name',TD_Difference_fun.Name,...
-    'Dimension',1,...
-    'lb',bounds.Flight2.constrBounds.TD_Difference.lb, ...
-    'ub',bounds.Flight2.constrBounds.TD_Difference.ub,...
+x0_flight2_var = nlp.Phase(7).OptVarTable.x(1);
+x0_flight1_var = nlp.Phase(3).OptVarTable.x(1);
+AngleDifference_cstr = NlpFunction('Name',AngleDifference_fun.Name,...
+    'Dimension',2,...
+    'lb',bounds.Flight2.constrBounds.AngleDifference.lb, ...
+    'ub',bounds.Flight2.constrBounds.AngleDifference.ub,...
     'Type','Linear',...
-    'SymFun',TD_Difference_fun,...
-    'DepVariables',[xf_flight2_var,xf_flight1_var]);
-addConstraint(nlp.Phase(7), 'TouchDownAngleDifference', 'last', TD_Difference_cstr);
+    'SymFun',AngleDifference_fun,...
+    'DepVariables',[xf_flight2_var,xf_flight1_var,x0_flight2_var,x0_flight1_var]);
+addConstraint(nlp.Phase(7), 'AngleDifference', 'last', AngleDifference_cstr);
 end
