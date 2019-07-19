@@ -19,6 +19,11 @@ opt.constraint.foot_clearance(nlp, bounds, right_front_foot_frame);
 opt.constraint.foot_clearance(nlp, bounds, right_back_foot_frame);
 opt.constraint.foot_clearance(nlp, bounds, left_back_foot_frame);
 
+% constraint back lift velocity at the first node  
+opt.constraint.lift_velocity(nlp, bounds, left_back_foot_frame);
+opt.constraint.lift_velocity(nlp, bounds, right_back_foot_frame);
+
+% constraint front impact velocity at the last node 
 opt.constraint.impact_velocity(nlp, bounds, right_front_foot_frame)
 opt.constraint.impact_velocity(nlp, bounds, left_front_foot_frame)
 

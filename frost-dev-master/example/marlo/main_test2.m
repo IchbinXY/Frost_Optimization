@@ -7,8 +7,8 @@ export_path = 'gen_test/opt_test';
 %% Setting
 COMPILE = false;
 SAVE    = false;
-OPT     = false;
-ANIMATE = false;
+OPT     = true;
+ANIMATE = true;
 %% Load robot model
 marlo = MARLO_YL('urdf/atrias.urdf');
 %% Load hybrid system

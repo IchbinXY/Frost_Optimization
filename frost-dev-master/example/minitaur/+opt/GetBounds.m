@@ -1,6 +1,6 @@
 function bounds = GetBounds(model, vel, T)
     if nargin < 2
-        vel = [1.8,0];
+        vel = [0.7,0];
     end
     if nargin < 3
         T = 0.4;
@@ -71,9 +71,15 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.knee_end.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)    ];
     model_bounds.constrBounds.knee_end.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)  ];
     
+    % lift velocity 
+    model_bounds.constrBounds.footVelocityBeginning.lb = [-10, -10, 0.001]';% node 1
+    model_bounds.constrBounds.footVelocityBeginning.ub = [ 10,  10, 5]';   % node 1
+    model_bounds.constrBounds.footVelocity_5.lb = [-10, -10, 0.5]';        % node 5
+    model_bounds.constrBounds.footVelocity_5.ub = [ 10,  10, 5]';          % node 5
+    
     % impact velocity
-    model_bounds.constrBounds.footVelocityEnd.lb = [-10, -10, -0.1]';    % node 21
-    model_bounds.constrBounds.footVelocityEnd.ub = [ 10,  10, 10]';    % node 21
+    model_bounds.constrBounds.footVelocityEnd.lb = [-10, -10, -0.1]';       % node 21
+    model_bounds.constrBounds.footVelocityEnd.ub = [ 10,  10, 10]';          % node 21
     
     % average velocity
     model_bounds.constrBounds.averageVelocity.lb = [-5, 0 ];    % node 1
@@ -87,10 +93,10 @@ function bounds = GetBounds(model, vel, T)
     bounds = struct();
     %% Front Stance
     bounds.FrontStance = model_bounds;
-    bounds.FrontStance.inputs.ConstraintWrench.fRightFront.lb = [-1000,-1000,0]';
-    bounds.FrontStance.inputs.ConstraintWrench.fRightFront.ub = [1000,1000,1000]';
-    bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-1000,0]';
-    bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
+    bounds.FrontStance.inputs.ConstraintWrench.fRightFront.lb = [-1000,-10,0]';
+    bounds.FrontStance.inputs.ConstraintWrench.fRightFront.ub = [1000,10,1000]';
+    bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-10,0]';
+    bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,10,1000]';
     
     % knee angle
     bounds.FrontStance.constrBounds.knee_bgn.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)   ];
@@ -108,19 +114,19 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackImpact.inputs = struct();
     bounds.BackImpact.inputs.ConstraintWrench.ffourBar.lb = -2000;
     bounds.BackImpact.inputs.ConstraintWrench.ffourBar.ub = 2000;
-    bounds.BackImpact.inputs.ConstraintWrench.fLeftBack.lb = [-2000,-2000,-2000]';
-    bounds.BackImpact.inputs.ConstraintWrench.fLeftBack.ub = [2000,2000,2000]';
-    bounds.BackImpact.inputs.ConstraintWrench.fRightBack.lb = [-2000,-2000,-2000]';
-    bounds.BackImpact.inputs.ConstraintWrench.fRightBack.ub = [2000,2000,2000]';
+    bounds.BackImpact.inputs.ConstraintWrench.fLeftBack.lb = [-2000,-20,-2000]';
+    bounds.BackImpact.inputs.ConstraintWrench.fLeftBack.ub = [2000,20,2000]';
+    bounds.BackImpact.inputs.ConstraintWrench.fRightBack.lb = [-2000,-20,-2000]';
+    bounds.BackImpact.inputs.ConstraintWrench.fRightBack.ub = [2000,20,2000]';
     
     bounds.BackImpact.params = struct();
 
     %% Back Stance
     bounds.BackStance = model_bounds;
-    bounds.BackStance.inputs.ConstraintWrench.fLeftBack.lb = [-1000,-1000,0]';
-    bounds.BackStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,1000,1000]';
-    bounds.BackStance.inputs.ConstraintWrench.fRightBack.lb = [-1000,-1000,0]';
-    bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
+    bounds.BackStance.inputs.ConstraintWrench.fLeftBack.lb = [-1000,-10,0]';
+    bounds.BackStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,10,1000]';
+    bounds.BackStance.inputs.ConstraintWrench.fRightBack.lb = [-1000,-10,0]';
+    bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,10,1000]';
     
     % knee angle
     bounds.BackStance.constrBounds.knee_bgn.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)    ];
@@ -138,10 +144,10 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontImpact.inputs = struct();
     bounds.FrontImpact.inputs.ConstraintWrench.ffourBar.lb = -2000;
     bounds.FrontImpact.inputs.ConstraintWrench.ffourBar.ub = 2000;
-    bounds.FrontImpact.inputs.ConstraintWrench.fLeftFront.lb = [-2000,-2000,-2000]'';
-    bounds.FrontImpact.inputs.ConstraintWrench.fLeftFront.ub = [2000,2000,2000]';
-    bounds.FrontImpact.inputs.ConstraintWrench.fRightFront.lb = [-2000,-2000,-2000]'';
-    bounds.FrontImpact.inputs.ConstraintWrench.fRightFront.ub = [2000,2000,2000]'; 
+    bounds.FrontImpact.inputs.ConstraintWrench.fLeftFront.lb = [-2000,-20,-2000]'';
+    bounds.FrontImpact.inputs.ConstraintWrench.fLeftFront.ub = [2000,20,2000]';
+    bounds.FrontImpact.inputs.ConstraintWrench.fRightFront.lb = [-2000,-20,-2000]'';
+    bounds.FrontImpact.inputs.ConstraintWrench.fRightFront.ub = [2000,20,2000]'; 
     
     bounds.FrontImpact.params = struct();
     
@@ -193,9 +199,11 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight2.constrBounds.AvgVelocity.lb = vel;
     bounds.Flight2.constrBounds.AvgVelocity.ub = vel;
     
-    % touch down angle difference
-    bounds.Flight2.constrBounds.AngleDifference.lb = 0;
-    bounds.Flight2.constrBounds.AngleDifference.ub = 0;
+    % TD and LO symmetry 
+    bounds.Flight2.constrBounds.SwDifference.lb = 0;
+    bounds.Flight2.constrBounds.SwDifference.ub = 0;
+    bounds.Flight2.constrBounds.ExtDifference.lb = 0;
+    bounds.Flight2.constrBounds.ExtDifference.ub = 0;
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;
