@@ -25,7 +25,8 @@ AvgVelocity_cstr = NlpFunction('Name',AvgVelocity_fun.Name,...
     'DepVariables',[T1_var,T3_var,T5_var,T7_var,x0_var,xf_var]);
 addConstraint(nlp.Phase(7), 'AvgVelocity', 'first', AvgVelocity_cstr);
 
-% Front TD and Back LO
+% Front Impact and Back Lift
+% Back Impact and Front Lift
 xf2 = SymVariable('xf2',[22,1]);
 xf1 = SymVariable('xf1',[22,1]);
 x02 = SymVariable('x02',[22,1]);

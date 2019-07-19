@@ -126,7 +126,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
     % knee angle
-    bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad(180), deg2rad(10),deg2rad(180), deg2rad(10)];
+    bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad(10),  deg2rad(10), deg2rad(10), deg2rad(10)];
     bounds.BackStance.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(180),deg2rad(350),deg2rad(180)];
 
     %% Front Impact
