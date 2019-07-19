@@ -27,7 +27,7 @@ opt.constraint.lift_velocity(nlp, bounds, right_back_foot_frame);
 opt.constraint.impact_velocity(nlp, bounds, right_front_foot_frame)
 opt.constraint.impact_velocity(nlp, bounds, left_front_foot_frame)
 
-opt.constraint.knee_angle(nlp, bounds);
+opt.constraint.leg_ext(nlp, bounds);
 
 opt.constraint.average_velocity(nlp, bounds);
 

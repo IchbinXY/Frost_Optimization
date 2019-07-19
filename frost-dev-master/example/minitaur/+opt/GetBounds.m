@@ -64,12 +64,12 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.foot_clearance.ub = 5;    % node all
     
     % knee angle
-    model_bounds.constrBounds.knee_bgn.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)    ];
-    model_bounds.constrBounds.knee_bgn.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)  ];
-    model_bounds.constrBounds.knee_mid.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)    ];
-    model_bounds.constrBounds.knee_mid.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)  ];
-    model_bounds.constrBounds.knee_end.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)    ];
-    model_bounds.constrBounds.knee_end.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)  ];
+    model_bounds.constrBounds.leg_ext_bgn.lb = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)];
+    model_bounds.constrBounds.leg_ext_bgn.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
+    model_bounds.constrBounds.leg_ext_mid.lb = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)];
+    model_bounds.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
+    model_bounds.constrBounds.leg_ext_end.lb = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)];
+    model_bounds.constrBounds.leg_ext_end.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
     
     % lift velocity 
     model_bounds.constrBounds.footVelocityBeginning.lb = [-10, -10, 0.001]';% node 1
@@ -99,12 +99,9 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
     
     % knee angle
-    bounds.FrontStance.constrBounds.knee_bgn.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)   ];
-    bounds.FrontStance.constrBounds.knee_bgn.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)  ];
-    bounds.FrontStance.constrBounds.knee_mid.lb = [deg2rad(180),deg2rad(10), deg2rad(180),deg2rad(10)   ];
-    bounds.FrontStance.constrBounds.knee_mid.ub = [deg2rad(350),deg2rad(180),deg2rad(350),deg2rad(180)  ];
-    bounds.FrontStance.constrBounds.knee_end.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)   ];
-    bounds.FrontStance.constrBounds.knee_end.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)  ];       
+    bounds.FrontStance.constrBounds.leg_ext_mid.lb = [deg2rad(10), deg2rad(180), deg2rad(10),deg2rad(180)];
+    bounds.FrontStance.constrBounds.leg_ext_mid.ub = [deg2rad(180),deg2rad(350),deg2rad(180),deg2rad(350)];
+    
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
     bounds.BackImpact.states.xn = model_bounds.states.x;
@@ -129,12 +126,9 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
     % knee angle
-    bounds.BackStance.constrBounds.knee_bgn.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)    ];
-    bounds.BackStance.constrBounds.knee_bgn.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)   ];
-    bounds.BackStance.constrBounds.knee_mid.lb = [deg2rad(10), deg2rad(180),deg2rad(10), deg2rad(180)   ];
-    bounds.BackStance.constrBounds.knee_mid.ub = [deg2rad(180),deg2rad(350),deg2rad(180),deg2rad(350)   ];
-    bounds.BackStance.constrBounds.knee_end.lb = [deg2rad(10), deg2rad(10), deg2rad(10), deg2rad(10)    ];
-    bounds.BackStance.constrBounds.knee_end.ub = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)   ];
+    bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad(180), deg2rad(10),deg2rad(180), deg2rad(10)];
+    bounds.BackStance.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(180),deg2rad(350),deg2rad(180)];
+
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;
     bounds.FrontImpact.states.xn = model_bounds.states.x;

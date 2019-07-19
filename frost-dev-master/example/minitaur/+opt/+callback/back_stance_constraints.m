@@ -12,7 +12,7 @@ opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
 opt.constraint.foot_clearance(nlp, bounds, left_foot_frame);
 opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
 
-opt.constraint.knee_angle(nlp, bounds);
+opt.constraint.leg_ext(nlp, bounds);
 
 opt.constraint.average_velocity(nlp, bounds);
 
