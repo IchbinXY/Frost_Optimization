@@ -30,25 +30,28 @@ xf2 = SymVariable('xf2',[22,1]);
 xf1 = SymVariable('xf1',[22,1]);
 x02 = SymVariable('x02',[22,1]);
 x01 = SymVariable('x01',[22,1]);
-front_LO_sw = x01(7)-x01(8);
-front_LO_ext = x01(7)+x01(8);
-front_TD_sw = xf2(7)-xf2(8);
-front_TD_ext = xf2(7)+xf2(8); 
-back_LO_sw  = x02(11)-x02(12);
-back_LO_ext = x02(11)+x02(12);
-back_TD_sw  = xf1(11)-xf1(12);
-back_TD_ext = xf1(11)+xf1(12);
 
-SwDifference = [front_LO_sw+back_TD_sw
-    front_TD_sw+back_LO_sw];
-ExtDifference = [front_LO_ext-back_TD_ext
-    front_TD_ext-back_LO_ext];
+front_lift_sw = x01(8)-x01(7)+x01(5);
+back_impact_sw = xf1(12)-xf1(11)+xf1(5);
+back_lift_sw = x02(12)-x02(11)+x02(5);
+front_impact_sw = xf2(8)-xf2(7)+xf2(5);
+SwDifference = [front_lift_sw+back_impact_sw
+    back_lift_sw+front_impact_sw];
 SwDifference_fun = SymFunction('SwDifference',SwDifference,{xf2,xf1,x02,x01});
+
+front_lift_ext = x01(7)+x01(8);
+back_impact_ext = xf1(11)+xf1(12);
+back_lift_ext = x02(11)+x02(12);
+front_impact_ext = xf2(7)+xf2(8); 
+ExtDifference = [front_lift_ext-back_impact_ext
+    back_lift_ext-front_impact_ext];
 ExtDifference_fun = SymFunction('ExtDifference',ExtDifference,{xf2,xf1,x02,x01});
+
 xf_flight2_var = nlp.Phase(7).OptVarTable.x(end);
 xf_flight1_var = nlp.Phase(3).OptVarTable.x(end);
 x0_flight2_var = nlp.Phase(7).OptVarTable.x(1);
 x0_flight1_var = nlp.Phase(3).OptVarTable.x(1);
+
 SwDifference_cstr = NlpFunction('Name',SwDifference_fun.Name,...
     'Dimension',2,...
     'lb',bounds.Flight2.constrBounds.SwDifference.lb, ...
@@ -57,6 +60,7 @@ SwDifference_cstr = NlpFunction('Name',SwDifference_fun.Name,...
     'SymFun',SwDifference_fun,...
     'DepVariables',[xf_flight2_var,xf_flight1_var,x0_flight2_var,x0_flight1_var]);
 addConstraint(nlp.Phase(7), 'SwDifference', 'last', SwDifference_cstr);
+
 ExtDifference_cstr = NlpFunction('Name',ExtDifference_fun.Name,...
     'Dimension',2,...
     'lb',bounds.Flight2.constrBounds.ExtDifference.lb, ...
