@@ -1,5 +1,5 @@
 function leg_ext(nlp, bounds)
-    % constraints for step length and step width
+    % constraints for leg extension
     
     domain = nlp.Plant;
     x = domain.States.x;

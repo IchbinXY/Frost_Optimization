@@ -1,6 +1,6 @@
 function bounds = GetBounds(model, vel, T)
     if nargin < 2
-        vel = [0.7,0];
+        vel = [1.1,0];
     end
     if nargin < 3
         T = 0.4;
@@ -98,9 +98,15 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
     
-    % knee angle
+    % leg extension
     bounds.FrontStance.constrBounds.leg_ext_mid.lb = [deg2rad(10), deg2rad(180), deg2rad(10),deg2rad(180)];
     bounds.FrontStance.constrBounds.leg_ext_mid.ub = [deg2rad(180),deg2rad(350),deg2rad(180),deg2rad(350)];
+    
+    % leg swing
+    bounds.FrontStance.constrBounds.leg_sw_bgn.lb = [deg2rad(-45),  deg2rad(0),deg2rad(-45),  deg2rad(0)];
+    bounds.FrontStance.constrBounds.leg_sw_bgn.ub = [  deg2rad(0), deg2rad(90),  deg2rad(0), deg2rad(90)];
+    bounds.FrontStance.constrBounds.leg_sw_end.lb = [ deg2rad(30),deg2rad(-90), deg2rad(30),deg2rad(-90)];
+    bounds.FrontStance.constrBounds.leg_sw_end.ub = [ deg2rad(45),  deg2rad(0), deg2rad(45),  deg2rad(0)];
     
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
@@ -125,7 +131,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.lb = [-1000,-1000,0]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
-    % knee angle
+    % leg extension
     bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad(10),  deg2rad(10), deg2rad(10), deg2rad(10)];
     bounds.BackStance.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(180),deg2rad(350),deg2rad(180)];
 

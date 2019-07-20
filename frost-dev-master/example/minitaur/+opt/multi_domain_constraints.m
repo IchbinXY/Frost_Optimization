@@ -32,10 +32,10 @@ xf1 = SymVariable('xf1',[22,1]);
 x02 = SymVariable('x02',[22,1]);
 x01 = SymVariable('x01',[22,1]);
 
-front_lift_sw = x01(8)-x01(7)+x01(5);
-back_impact_sw = xf1(12)-xf1(11)+xf1(5);
-back_lift_sw = x02(12)-x02(11)+x02(5);
-front_impact_sw = xf2(8)-xf2(7)+xf2(5);
+front_lift_sw   = (x01(8) - x01(7)) /2 + x01(5);
+back_impact_sw  = (xf1(12)- xf1(11))/2 + xf1(5);
+back_lift_sw    = (x02(12)- x02(11))/2 + x02(5);
+front_impact_sw = (xf2(8) - xf2(7)) /2 + xf2(5);
 SwDifference = [front_lift_sw+back_impact_sw
     back_lift_sw+front_impact_sw];
 SwDifference_fun = SymFunction('SwDifference',SwDifference,{xf2,xf1,x02,x01});

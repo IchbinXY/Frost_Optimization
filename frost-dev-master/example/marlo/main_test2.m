@@ -48,22 +48,9 @@ p_left = getCartesianPosition(RightStance,left_frame);
 h_left = UnilateralConstraint(RightStance,p_left(3),'LeftHeight','x');
 RightStance = addEvent(RightStance,h_left);
 
-t = SymVariable('t');
-p = SymVariable('p',[2,1]);
-tau = (t-p(1))/(p(2)-p(1));
-q = RightStance.States.x;
-ya_2 = [q('qHRight');
-    (q('qARight')+q('qBRight'))./2;
-   -q('qARight')+q('qBRight');
-    q('qHLeft');
-    (q('qALeft')+q('qBLeft'))./2;
-   -q('qALeft')+q('qBLeft');];
-y2 = VirtualConstraint(RightStance,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
-    'RelativeDegree',2,'PhaseType','TimeBased',...
-    'PhaseVariable',tau,'PhaseParams',p,'Holonomic',true, 'LoadPath', []);
-RightStance = addVirtualConstraint(RightStance,y2);
+RightStance = sys.AddVirtualConstraint(RightStance);
 
-RightStance.UserNlpConstraint = str2func('RightStanceConstr');
+RightStance.UserNlpConstraint = @opt.callback.RightStanceConstraints;
 
 % LeftStance
 LeftStance = copy(marlo);
@@ -99,34 +86,19 @@ p_right = getCartesianPosition(LeftStance,right_frame);
 h_right = UnilateralConstraint(LeftStance,p_right(3),'RightHeight','x');
 LeftStance = addEvent(LeftStance,h_right);
 
-t = SymVariable('t');
-p = SymVariable('p',[2,1]);
-tau = (t-p(1))/(p(2)-p(1));
-q = LeftStance.States.x;
-ya_2 = [q('qHRight');
-    (q('qARight')+q('qBRight'))./2;
-   -q('qARight')+q('qBRight');
-    q('qHLeft');
-    (q('qALeft')+q('qBLeft'))./2;
-   -q('qALeft')+q('qBLeft');];
-y2 = VirtualConstraint(LeftStance,ya_2,'output','DesiredType','Bezier','PolyDegree',5,...
-    'RelativeDegree',2,'PhaseType','TimeBased',...
-    'PhaseVariable',tau,'PhaseParams',p,'Holonomic',true, 'LoadPath', []);
-LeftStance = addVirtualConstraint(LeftStance,y2);
+LeftStance = sys.AddVirtualConstraint(LeftStance);
 
-LeftStance.UserNlpConstraint = str2func('LeftStanceConstr');
+LeftStance.UserNlpConstraint = @opt.callback.LeftStanceConstraints;
 
 % LeftImpact
 LeftImpact = RigidImpact('LeftImpact',LeftStance,'LeftHeight');
 LeftImpact.addImpactConstraint(struct2array(LeftStance.HolonomicConstraints),[]);
-
-LeftImpact.UserNlpConstraint = str2func('LeftImpactConstr');
+LeftImpact.UserNlpConstraint = @opt.callback.LeftImpactConstraints;
 
 % RightImpact
 RightImpact = RigidImpact('RightImpact',RightStance,'RightHeight');
 RightImpact.addImpactConstraint(struct2array(RightStance.HolonomicConstraints),[]);
-
-RightImpact.UserNlpConstraint = str2func('RightImpactConstr');
+RightImpact.UserNlpConstraint = @opt.callback.RightImpactConstraints;
 
 System = HybridSystem('Marlo_test');
 System = addVertex(System,'RightStance','Domain',RightStance);
@@ -137,9 +109,8 @@ tars = {'LeftStance'
     'RightStance'};
 System = addEdge(System, srcs, tars);
 System = setEdgeProperties(System, srcs, tars, 'Guard',{LeftImpact,RightImpact});
-
-bounds = opt.GetBounds_test(marlo);
 %% Load nlp 
+bounds = opt.GetBounds_test(marlo);
 num_grid.RightStance = 10;
 num_grid.LeftStance = 10;
 options = {'EqualityConstraintBoundary', 1e-4,...
@@ -186,72 +157,3 @@ end
 if ANIMATE
     anim = plot.LoadAnimator(marlo, gait,'SkipExporting',true);
 end
-%%
-function RightStanceConstr(nlp, bounds, varargin)
-ip = inputParser;
-ip.addParameter('LoadPath',[],@ischar);
-ip.parse(varargin{:});
-domain = nlp.Plant;
-%% virtual constraints
-opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
-disp('virtual constraints');
-%% foot clearance
-[left_foot_frame] = sys.frames.LeftFoot(domain);
-opt.constraint.foot_clearance(nlp, bounds, left_foot_frame);
-disp('foot clearance');
-%% swing foot velocity
-opt.constraint.impact_velocity(nlp, bounds, left_foot_frame);
-disp('swing foot velocity')
-%% swing toe position
-opt.constraint.step_distance(nlp, bounds);
-disp('swing toe position');
-%% the rest
-opt.constraint.yaw_start(nlp, bounds);
-opt.constraint.knee_angle(nlp, bounds);
-opt.constraint.average_velocity(nlp, bounds);
-end
-
-function LeftImpactConstr(nlp, src, tar, bounds, varargin)
-plant = nlp.Plant;
-removeConstraint(nlp,'tContDomain');
-plant.rigidImpactConstraint(nlp, src, tar, bounds, varargin{:});
-end
-
-function LeftStanceConstr(nlp, bounds, varargin)
-domain = nlp.Plant;
-ip = inputParser;
-ip.addParameter('LoadPath',[],@ischar);
-ip.parse(varargin{:});
-%% virtual constraints
-opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
-disp('virtual constraints');
-%% foot clearance
-[right_foot_frame] = sys.frames.RightFoot(domain);
-opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
-disp('foot clearance');
-%% swing foot velocity
-opt.constraint.impact_velocity(nlp, bounds, right_foot_frame);
-disp('swing foot velocity')
-%% swing toe position
-opt.constraint.step_distance(nlp, bounds);
-disp('swing toe position');
-%% the rest
-opt.constraint.yaw_start(nlp, bounds);
-opt.constraint.knee_angle(nlp, bounds);
-opt.constraint.average_velocity(nlp, bounds);
-end
-
-function RightImpactConstr(nlp, src, tar, bounds, varargin)
-plant = nlp.Plant;
-removeConstraint(nlp,'tContDomain');
-plant.rigidImpactConstraint(nlp, src, tar, bounds, varargin{:});
-
-removeConstraint(nlp,'xDiscreteMapRightImpact');
-R = plant.R;
-x = plant.States.x;
-xn = plant.States.xn;
-x_diff = R*x-xn;
-x_map = SymFunction(['xPartialDiscreteMap' plant.Name],x_diff(7:end),{x,xn});
-addNodeConstraint(nlp, x_map, {'x','xn'}, 'first', 0, 0, 'Linear');
-end
-
