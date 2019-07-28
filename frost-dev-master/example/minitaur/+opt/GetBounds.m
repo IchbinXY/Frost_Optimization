@@ -72,14 +72,14 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.leg_ext_end.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
     
     % lift velocity 
-    model_bounds.constrBounds.footVelocityBeginning.lb = [-10, -10, 0.001]';% node 1
-    model_bounds.constrBounds.footVelocityBeginning.ub = [ 10,  10, 5]';   % node 1
-    model_bounds.constrBounds.footVelocity_5.lb = [-10, -10, 0.5]';        % node 5
-    model_bounds.constrBounds.footVelocity_5.ub = [ 10,  10, 5]';          % node 5
+    model_bounds.constrBounds.footVelocityBeginning.lb = [-0.5, -10, 0]';% node 1
+    model_bounds.constrBounds.footVelocityBeginning.ub = [ 0.5,  10, 5]';   % node 1
+    %model_bounds.constrBounds.footVelocity_5.lb = [-10, -10, 0.5]';        % node 5
+    %model_bounds.constrBounds.footVelocity_5.ub = [ 10,  10, 5]';          % node 5
     
     % impact velocity
-    model_bounds.constrBounds.footVelocityEnd.lb = [-10, -10, -0.1]';       % node 21
-    model_bounds.constrBounds.footVelocityEnd.ub = [ 10,  10, 10]';          % node 21
+    model_bounds.constrBounds.footVelocityEnd.lb = [-0.5, -10, -0.25]';       % node 21
+    model_bounds.constrBounds.footVelocityEnd.ub = [ 0.5,  10, -0.05]';          % node 21
     
     % average velocity
     model_bounds.constrBounds.averageVelocity.lb = [-5, 0 ];    % node 1

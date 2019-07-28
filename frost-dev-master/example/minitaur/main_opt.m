@@ -23,7 +23,7 @@ end
 vel = 0.7;
 for i = 1:length(vel)
     %% Problem
-    bounds = opt.GetBounds(minitaur,[round(vel(i),1),0]);
+    bounds = opt.GetBounds(minitaur,[vel(i),0]);
     num_grid.FrontStance = 10;
     num_grid.Fight1      = 10;
     num_grid.BackStance  = 10;
