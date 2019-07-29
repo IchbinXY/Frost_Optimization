@@ -14,7 +14,9 @@ opt.constraint.foot_clearance(nlp, bounds, right_foot_frame);
 
 opt.constraint.leg_ext(nlp, bounds);
 
-opt.constraint.leg_sw(nlp,bounds);
+opt.constraint.leg_sw(nlp, bounds);
+
+opt.constraint.ground_reaction_force(nlp, bounds);
 
 opt.constraint.average_velocity(nlp, bounds);
 

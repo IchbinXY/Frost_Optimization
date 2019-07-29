@@ -72,14 +72,12 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.leg_ext_end.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
     
     % lift velocity 
-    model_bounds.constrBounds.footVelocityBeginning.lb = [-0.5, -10, 0]';% node 1
-    model_bounds.constrBounds.footVelocityBeginning.ub = [ 0.5,  10, 5]';   % node 1
-    %model_bounds.constrBounds.footVelocity_5.lb = [-10, -10, 0.5]';        % node 5
-    %model_bounds.constrBounds.footVelocity_5.ub = [ 10,  10, 5]';          % node 5
+    model_bounds.constrBounds.footVelocityBeginning.lb = [-0.25, -0.001,    0]';  % node 1
+    model_bounds.constrBounds.footVelocityBeginning.ub = [ 0.25,  0.001, 0.25]';  % node 1
     
     % impact velocity
-    model_bounds.constrBounds.footVelocityEnd.lb = [-0.5, -10, -0.25]';       % node 21
-    model_bounds.constrBounds.footVelocityEnd.ub = [ 0.5,  10, -0.05]';          % node 21
+    model_bounds.constrBounds.footVelocityEnd.lb = [-0.25, -0.001, -0.25]';    % node 21
+    model_bounds.constrBounds.footVelocityEnd.ub = [ 0.25,  0.001, -0.05]';    % node 21
     
     % average velocity
     model_bounds.constrBounds.averageVelocity.lb = [-5, 0 ];    % node 1
@@ -108,6 +106,9 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.constrBounds.leg_sw_end.lb = [ deg2rad(30),deg2rad(-90), deg2rad(30),deg2rad(-90)];
     bounds.FrontStance.constrBounds.leg_sw_end.ub = [ deg2rad(45),  deg2rad(0), deg2rad(45),  deg2rad(0)];
     
+    % ground reaction force
+    bounds.FrontStance.constrBounds.GRF.lb = 0;
+    bounds.FrontStance.constrBounds.GRF.ub = 0;
     %% Back Impact
     bounds.BackImpact.states.x = model_bounds.states.x;
     bounds.BackImpact.states.xn = model_bounds.states.x;
@@ -134,7 +135,10 @@ function bounds = GetBounds(model, vel, T)
     % leg extension
     bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad(10),  deg2rad(10), deg2rad(10), deg2rad(10)];
     bounds.BackStance.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(180),deg2rad(350),deg2rad(180)];
-
+    
+    % ground reaction force
+    bounds.BackStance.constrBounds.GRF.lb = 0;
+    bounds.BackStance.constrBounds.GRF.ub = 0;
     %% Front Impact
     bounds.FrontImpact.states.x = model_bounds.states.x;
     bounds.FrontImpact.states.xn = model_bounds.states.x;
