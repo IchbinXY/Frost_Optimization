@@ -9,8 +9,8 @@ function bounds = GetBounds(model, vel, T)
     model_bounds = model.getLimits(); % x, dx, ddx, Control
     model_bounds.options.enforceVirtualConstraints = true;
     
-    model_bounds.states.x.lb = [-5, 0, 0, 0,-pi, 0, repmat([  deg2rad(0),  deg2rad(0),  deg2rad(0),  deg2rad(0)],1,4)]';
-    model_bounds.states.x.ub = [ 5, 0, 1, 0, pi, 0, repmat([deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)],1,4)]';
+    model_bounds.states.x.lb = [-5, 0, 0, 0,-0.25, 0, repmat([  deg2rad(0),  deg2rad(0),  deg2rad(0),  deg2rad(0)],1,4)]';
+    model_bounds.states.x.ub = [ 5, 0, 1, 0, 0.25, 0, repmat([deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)],1,4)]';
 
     model_bounds.states.dx.lb = [-50, 0,-50,   0,  -100*pi,  0,  -200*pi*ones(1,16)]';
     model_bounds.states.dx.ub = [ 50, 0, 50,   0,   100*pi,  0,   200*pi*ones(1,16)]';
@@ -60,7 +60,7 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.params.pLeftBack.ub = [5, 5, 0];
     
     % foot clearance
-    model_bounds.constrBounds.foot_clearance.lb = 0.1;    % node all
+    model_bounds.constrBounds.foot_clearance.lb = 0.05;    % node all
     model_bounds.constrBounds.foot_clearance.ub = 5;    % node all
     
     % knee angle
@@ -70,6 +70,10 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
     model_bounds.constrBounds.leg_ext_end.lb = [deg2rad(180),deg2rad(180),deg2rad(180),deg2rad(180)];
     model_bounds.constrBounds.leg_ext_end.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
+    
+    % leg swing relative to the body
+    model_bounds.constrBounds.leg_sw_rel.lb = [deg2rad(-50),deg2rad(-50),deg2rad(-50),deg2rad(-50)];
+    model_bounds.constrBounds.leg_sw_rel.ub = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
     
     % lift velocity 
     model_bounds.constrBounds.footVelocityBeginning.lb = [-0.25, -0.001,    0]';  % node 1
