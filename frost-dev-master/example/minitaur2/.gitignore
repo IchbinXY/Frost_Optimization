@@ -1,0 +1,11 @@
+
+*.mx
+*.cc
+*.hh
+*.mexw64
+*.mat
+
+/gen/
+/local/
+/check/
+/inputs/
