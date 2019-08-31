@@ -16,6 +16,8 @@ opt.constraint.leg_ext(nlp, bounds);
 
 opt.constraint.leg_sw(nlp, bounds);
 
+%opt.constraint.leg_sw_rel(nlp, bounds)
+
 opt.constraint.ground_reaction_force(nlp, bounds);
 
 opt.constraint.average_velocity(nlp, bounds);

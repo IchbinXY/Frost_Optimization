@@ -18,7 +18,7 @@ opt.constraint.virtual_constraints(nlp, bounds, ip.Results.LoadPath);
 % 
 % opt.constraint.ground_reaction_force(nlp, bounds);
 % 
-% opt.constraint.average_velocity(nlp, bounds);
-% 
-% opt.constraint.bezier_symmetry(nlp,bounds);
+opt.constraint.average_velocity(nlp, bounds);
+ 
+opt.constraint.bezier_symmetry(nlp,bounds);
 end

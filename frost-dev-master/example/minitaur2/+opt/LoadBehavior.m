@@ -15,10 +15,6 @@ Flight.UserNlpConstraint = @opt.callback.flight_constraints;
 Domains = [FrontStance,Stance,BackStance,Flight];
 
 %% Guards
-FrontImpact = RigidImpact('FrontImpact',FrontStance,'FrontHeight');
-FrontImpact.addImpactConstraint(struct2array(FrontStance.HolonomicConstraints),[]);
-FrontImpact.UserNlpConstraint = @opt.callback.front_impact_constraints;
-
 BackImpact = RigidImpact('BackImpact',Stance,'BackHeight');
 BackImpact.addImpactConstraint(struct2array(Stance.HolonomicConstraints),[]);
 BackImpact.UserNlpConstraint = @opt.callback.back_impact_constraints;
@@ -30,6 +26,10 @@ FrontLift.UserNlpConstraint = @opt.callback.front_lift_constraints;
 BackLift = RigidImpact('BackLift',Flight,'BackGRF');
 BackLift.addImpactConstraint(struct2array(Flight.HolonomicConstraints),[]);
 BackLift.UserNlpConstraint = @opt.callback.back_lift_constraints;
+
+FrontImpact = RigidImpact('FrontImpact',FrontStance,'FrontHeight');
+FrontImpact.addImpactConstraint(struct2array(FrontStance.HolonomicConstraints),[]);
+FrontImpact.UserNlpConstraint = @opt.callback.front_impact_constraints;
 
 Guards = [BackImpact,FrontLift,BackLift,FrontImpact];
 

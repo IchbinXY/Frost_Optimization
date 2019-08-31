@@ -5,6 +5,7 @@ function bounds = GetBounds(model, vel, T)
     if nargin < 3
         T = 0.4;
     end
+    disp(vel)
     %% first get the model specific boundary values
     model_bounds = model.getLimits(); % x, dx, ddx, Control
     model_bounds.options.enforceVirtualConstraints = true;

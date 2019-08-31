@@ -36,7 +36,7 @@ for i = 1:length(vel)
     nlp.configure(bounds);
     opt.cost.Power(nlp,System);
     opt.updateVariableBounds(nlp, bounds);
-    % opt.multi_domain_constraints(nlp, bounds);
+    opt.multi_domain_constraints(nlp, bounds);
     nlp.update;
     %% Compile
     if COMPILE
@@ -71,7 +71,6 @@ for i = 1:length(vel)
         solution.states = states;
         solution.inputs = inputs;
         solution.params = params;
-%         save(['output_velocity_',num2str(round(vel(i),1)*10)],'solution','gait','nlp','bounds','info')
     end
 end
 %% Animate

@@ -209,10 +209,10 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight.constrBounds.AvgVelocity.ub = vel;
     
     % TD and LO symmetry 
-    bounds.Flight2.constrBounds.SwDifference.lb = 0;
-    bounds.Flight2.constrBounds.SwDifference.ub = 0;
-    bounds.Flight2.constrBounds.ExtDifference.lb = 0;
-    bounds.Flight2.constrBounds.ExtDifference.ub = 0;
+    bounds.Flight.constrBounds.SwDifference.lb = 0;
+    bounds.Flight.constrBounds.SwDifference.ub = 0;
+    bounds.Flight.constrBounds.ExtDifference.lb = 0;
+    bounds.Flight.constrBounds.ExtDifference.ub = 0;
     
     %% Back Lift
     bounds.BackLift.states.x = model_bounds.states.x;
