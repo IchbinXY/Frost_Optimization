@@ -1,4 +1,4 @@
-function leg_sw(nlp, bounds)
+function leg_sw_abs(nlp, bounds)
     % constraints for leg swing
     
     domain = nlp.Plant;

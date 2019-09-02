@@ -20,7 +20,7 @@ else
     minitaur.configureDynamics('DelayCoriolisSet',false,'OmitCoriolisSet',true);
     [System,Domains,Guards] = opt.LoadBehavior(minitaur);
 end
-vel = 0.4;
+vel = 0.6;
 for i = 1:length(vel)
     %% Problem
     bounds = opt.GetBounds(minitaur,[vel(i),0]);
@@ -49,16 +49,15 @@ for i = 1:length(vel)
     end
     %% Optimize
     if OPT
-        ipopt_options.max_iter              = 1000;
+        ipopt_options.max_iter              = 500;
         ipopt_options.tol                   = 1e-1;
         ipopt_options.compl_inf_tol         = 1e-1;
         ipopt_options.dual_inf_tol          = 1e-1;
         ipopt_options.constr_viol_tol       = 1e-3;
         solver = IpoptApplication(nlp,ipopt_options);
         tic
-        %load('output_velocity_05.mat', 'solution')
-        %x0 = solution.x;
-        [sol, info] = optimize(solver);
+        load('output_velocity_06.mat', 'solution')
+        [sol, info] = optimize(solver, solution.x);
         toc
         [tspan, states, inputs, params] = exportSolution(nlp, sol);
         gait = struct(...
