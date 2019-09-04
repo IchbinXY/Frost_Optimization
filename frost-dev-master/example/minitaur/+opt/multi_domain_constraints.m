@@ -40,9 +40,9 @@ SwDifference = [front_lift_sw+back_impact_sw
     back_lift_sw+front_impact_sw];
 SwDifference_fun = SymFunction('SwDifference',SwDifference,{xf2,xf1,x02,x01});
 
-front_lift_ext = x01(7)+x01(8);
-back_impact_ext = xf1(11)+xf1(12);
-back_lift_ext = x02(11)+x02(12);
+front_lift_ext   = x01(7)+x01(8);
+back_impact_ext  = xf1(11)+xf1(12);
+back_lift_ext    = x02(11)+x02(12);
 front_impact_ext = xf2(7)+xf2(8); 
 ExtDifference = [front_lift_ext-back_impact_ext
     back_lift_ext-front_impact_ext];
