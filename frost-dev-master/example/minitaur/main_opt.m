@@ -9,8 +9,8 @@ load_path   = 'gen/sym';
 LOAD    = 0;
 COMPILE = 0;
 SAVE    = 0;
-OPT     = 0;
-ANIMATE = 0;
+OPT     = 1;
+ANIMATE = 1;
 %% Model and System
 minitaur = MINITAUR('urdf/minitaur.urdf');
 if LOAD
