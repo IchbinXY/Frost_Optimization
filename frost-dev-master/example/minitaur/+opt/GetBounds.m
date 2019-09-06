@@ -60,7 +60,7 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.params.pLeftBack.ub = [5, 5, 0];
     
     % foot clearance
-    model_bounds.constrBounds.foot_clearance.lb = 0.05;    % node all
+    model_bounds.constrBounds.foot_clearance.lb = 0.01;    % node all
     model_bounds.constrBounds.foot_clearance.ub = 5;    % node all
     
     % knee angle
@@ -104,11 +104,11 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.constrBounds.leg_ext_mid.lb = [deg2rad(10), deg2rad(180), deg2rad(10),deg2rad(180)];
     bounds.FrontStance.constrBounds.leg_ext_mid.ub = [deg2rad(180),deg2rad(350),deg2rad(180),deg2rad(350)];
     
-    % leg swing
-    bounds.FrontStance.constrBounds.leg_sw_bgn.lb = [deg2rad(-45),  deg2rad(0),deg2rad(-45),  deg2rad(0)];
-    bounds.FrontStance.constrBounds.leg_sw_bgn.ub = [  deg2rad(0), deg2rad(90),  deg2rad(0), deg2rad(90)];
-    bounds.FrontStance.constrBounds.leg_sw_end.lb = [ deg2rad(30),deg2rad(-90), deg2rad(30),deg2rad(-90)];
-    bounds.FrontStance.constrBounds.leg_sw_end.ub = [ deg2rad(45),  deg2rad(0), deg2rad(45),  deg2rad(0)];
+    % leg swing absolute
+    bounds.FrontStance.constrBounds.leg_sw_abs_bgn.lb = [deg2rad(-45), deg2rad(  0), deg2rad(-45), deg2rad(  0)];
+    bounds.FrontStance.constrBounds.leg_sw_abs_bgn.ub = [deg2rad(  0), deg2rad( 90), deg2rad(  0), deg2rad( 90)];
+    bounds.FrontStance.constrBounds.leg_sw_abs_end.lb = [deg2rad( 30), deg2rad(-90), deg2rad( 30), deg2rad(-90)];
+    bounds.FrontStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 45), deg2rad(  0), deg2rad( 45), deg2rad(  0)];
     
     % ground reaction force
     bounds.FrontStance.constrBounds.GRF.lb = 0;
@@ -137,8 +137,14 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
     % leg extension
-    bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad(10),  deg2rad(10), deg2rad(10), deg2rad(10)];
+    bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad( 10),deg2rad( 10),deg2rad( 10),deg2rad( 10)];
     bounds.BackStance.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(180),deg2rad(350),deg2rad(180)];
+    
+    % leg swing absolute 
+    bounds.BackStance.constrBounds.leg_sw_abs_bgn.lb = [deg2rad(-60), deg2rad(-40), deg2rad(-30), deg2rad(-40)];
+    bounds.BackStance.constrBounds.leg_sw_abs_bgn.ub = [deg2rad( 60), deg2rad(  0), deg2rad( 60), deg2rad(  0)];
+    bounds.BackStance.constrBounds.leg_sw_abs_end.lb = [deg2rad(-60), deg2rad(-60), deg2rad(-60), deg2rad(-60)];
+    bounds.BackStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 60), deg2rad( 60), deg2rad( 60), deg2rad( 60)];
     
     % ground reaction force
     bounds.BackStance.constrBounds.GRF.lb = 0;
