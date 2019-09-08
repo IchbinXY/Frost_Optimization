@@ -1,9 +1,14 @@
-current_velocity = 0.57;
-current_phase = 1; 
-current_phasing = 0.32; 
-
+function gaitparams = BezierExport (current_velocity, current_phase, phasing)
+if nargin < 1
+    % just for example purpose
+    current_velocity = 0.57;
+    current_phase = 1;
+    phasing = 0.32;
+end
+load('GaitLibrary.mat','GaitLibrary')
 gaitparams = ControlPolicy(current_phase, GaitLibrary, current_velocity);
-BezierCurve(gaitparams.HAlpha(1,:), true, current_phasing);
+BezierCurve(gaitparams.HAlpha(1,:), true, phasing);
+end
 
 function gaitparams = ControlPolicy(current_phase, GaitLibrary, phi)
 % Saturate interpolation value

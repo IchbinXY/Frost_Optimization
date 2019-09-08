@@ -12,22 +12,27 @@ for j = 1:length(velocity)
     for i = phase
         a = solution.params{i}.aoutput;
         a_matrix = reshape(a,8,6);
-        a_front_left_angle = a_matrix(1,:);
-        [~, swing] = BezierCurve(a_front_left_angle, false);
+        [~, front_left_swing]  = BezierCurve(a_matrix(1,:), false);  [phase_node, front_left_exten] = BezierCurve(a_matrix(2,:)/2, false);
+        [~, back_left_swing]   = BezierCurve(a_matrix(3,:), false); [~, back_left_exten]   = BezierCurve(a_matrix(4,:)/2, false);
+        [~, front_right_swing] = BezierCurve(a_matrix(5,:), false); [~, front_right_exten] = BezierCurve(a_matrix(6,:)/2, false);
+        [~, back_right_swing]  = BezierCurve(a_matrix(7,:), false); [~, back_right_exten]  = BezierCurve(a_matrix(8,:)/2, false);
         
-        a_front_left_length = a_matrix(2,:)/2;
-        [phase_node, exten] = BezierCurve(a_front_left_length, false);
-        
-        motor7 = exten-swing;
-        motor8 = exten+swing;
+        motor07 = front_left_exten - front_left_swing;
+        motor08 = front_left_exten + front_left_swing;
+        motor11 = back_left_exten  - back_left_swing;
+        motor12 = back_left_exten  + back_left_swing;
+        motor15 = front_left_exten + front_left_swing;
+        motor16 = front_left_exten - front_left_swing;
+        motor19 = back_left_exten  + back_left_swing;
+        motor20 = back_left_exten  - back_left_swing;
 
         AveVelocity = 0.1*velocity(j)*ones(1,21);
         
-        figure(1); hold on; grid on
-        plot3(AveVelocity, solution.states{i}.dx(1,:), swing, 'linewidth',2,'color',color(i,:))
-        
-        figure(2); hold on; grid on
-        plot3(AveVelocity, solution.states{i}.dx(1,:), exten, 'linewidth',2,'color',color(i,:))
+%         figure(1); hold on; grid on
+%         plot3(AveVelocity, solution.states{i}.dx(1,:), swing, 'linewidth',2,'color',color(i,:))
+%         
+%         figure(2); hold on; grid on
+%         plot3(AveVelocity, solution.states{i}.dx(1,:), exten, 'linewidth',2,'color',color(i,:))
         
 %         figure(3); hold on; grid on
 %         plot(phase_node+endnode, swing, 'linewidth', 2)
@@ -42,17 +47,17 @@ for j = 1:length(velocity)
 %         end
         
         figure(5); hold on; grid on
-        plot3(AveVelocity, solution.states{i}.dx(1,:), motor7, 'linewidth',2,'color',color(i,:))
+        plot3(AveVelocity, solution.states{i}.dx(1,:), motor07, 'linewidth',2,'color',color(i,:))
         
         figure(6); hold on; grid on
-        plot3(AveVelocity, solution.states{i}.dx(1,:), motor8, 'linewidth',2,'color',color(i,:))
+        plot3(AveVelocity, solution.states{i}.dx(1,:), motor08, 'linewidth',2,'color',color(i,:))
         
-        endnode = endnode+1;
+%         endnode = endnode+1;
     end
 end
 
-figure(1); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Swing Angle (rad)')
-figure(2); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Extension Angle (rad)')
+% figure(1); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Swing Angle (rad)')
+% figure(2); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Extension Angle (rad)')
 % figure(3); xlabel('Node'); ylabel('Swing Angle (rad)')
 % figure(4); xlabel('Node'); ylabel('Extension Angle (rad)')
 figure(5); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Motor 7 Angle (rad)')

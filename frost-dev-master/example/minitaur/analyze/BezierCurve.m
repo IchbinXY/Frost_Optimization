@@ -2,6 +2,7 @@ function [node, B, b] = BezierCurve(points, toPlot, phasing)
 if nargin < 3
     phasing = -1;
 end
+
 n = length(points)-1;
 node = linspace(0,1,21);
 B = zeros(1,length(node));
