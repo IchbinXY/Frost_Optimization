@@ -7,7 +7,7 @@ export_path = 'gen/opt';
 load_path   = 'gen/sym';
 %% Settings
 LOAD    = 0;
-COMPILE = 1;
+COMPILE = 0;
 SAVE    = 0;
 OPT     = 1;
 ANIMATE = 1;
