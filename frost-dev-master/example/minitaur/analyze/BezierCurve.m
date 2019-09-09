@@ -24,6 +24,6 @@ if toPlot
     if phasing ~= -1
         scatter(phasing, b, 'g', 'linewidth', 2);
     end
-    legend('Trajectory', 'Points', 'Current Point')
+%     legend('Trajectory', 'Points', 'Current Point')
 end
 end

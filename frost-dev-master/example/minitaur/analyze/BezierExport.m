@@ -1,13 +1,13 @@
-function gaitparams = BezierExport (current_velocity, current_phase, phasing)
+function [gaitparams, node, B, b] = BezierExport (current_velocity, current_phase, phasing)
 if nargin < 1
     % just for example purpose
     current_velocity = 0.57;
     current_phase = 1;
     phasing = 0.32;
 end
-load('GaitLibrary.mat','GaitLibrary')
+load('GaitLibrary_output.mat','GaitLibrary')
 gaitparams = ControlPolicy(current_phase, GaitLibrary, current_velocity);
-BezierCurve(gaitparams.HAlpha(1,:), true, phasing);
+[node, B, b] = BezierCurve(gaitparams.HAlpha(1,:), false, phasing);
 end
 
 function gaitparams = ControlPolicy(current_phase, GaitLibrary, phi)

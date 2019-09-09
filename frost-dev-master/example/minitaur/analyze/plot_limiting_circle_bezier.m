@@ -12,7 +12,7 @@ for j = 1:length(velocity)
     for i = phase
         a = solution.params{i}.aoutput;
         a_matrix = reshape(a,8,6);
-        [~, front_left_swing]  = BezierCurve(a_matrix(1,:), false);  [phase_node, front_left_exten] = BezierCurve(a_matrix(2,:)/2, false);
+        [~, front_left_swing]  = BezierCurve(a_matrix(1,:), false); [phase_node, front_left_exten] = BezierCurve(a_matrix(2,:)/2, false);
         [~, back_left_swing]   = BezierCurve(a_matrix(3,:), false); [~, back_left_exten]   = BezierCurve(a_matrix(4,:)/2, false);
         [~, front_right_swing] = BezierCurve(a_matrix(5,:), false); [~, front_right_exten] = BezierCurve(a_matrix(6,:)/2, false);
         [~, back_right_swing]  = BezierCurve(a_matrix(7,:), false); [~, back_right_exten]  = BezierCurve(a_matrix(8,:)/2, false);
@@ -28,11 +28,11 @@ for j = 1:length(velocity)
 
         AveVelocity = 0.1*velocity(j)*ones(1,21);
         
-%         figure(1); hold on; grid on
-%         plot3(AveVelocity, solution.states{i}.dx(1,:), swing, 'linewidth',2,'color',color(i,:))
-%         
+        figure(1); hold on; grid on
+        plot3(AveVelocity, solution.states{i}.dx(1,:), front_left_swing, 'linewidth',2,'color',color(i,:))
+        
 %         figure(2); hold on; grid on
-%         plot3(AveVelocity, solution.states{i}.dx(1,:), exten, 'linewidth',2,'color',color(i,:))
+%         plot3(AveVelocity, solution.states{i}.dx(1,:), front_left_exten, 'linewidth',2,'color',color(i,:))
         
 %         figure(3); hold on; grid on
 %         plot(phase_node+endnode, swing, 'linewidth', 2)
@@ -56,7 +56,12 @@ for j = 1:length(velocity)
     end
 end
 
-% figure(1); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Swing Angle (rad)')
+[gaitparams, ~, B, b] = BezierExport (0.57, 1, 0.32);
+figure(1)
+plot3(0.57*ones(1,21), solution.states{1}.dx(1,:), B, 'linewidth',2,'color',color(1,:))
+
+
+figure(1); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Swing Angle (rad)')
 % figure(2); xlabel('Average Base Velocity (m/s)'); ylabel('Node Base Velocity (m/s)'); zlabel('Extension Angle (rad)')
 % figure(3); xlabel('Node'); ylabel('Swing Angle (rad)')
 % figure(4); xlabel('Node'); ylabel('Extension Angle (rad)')
