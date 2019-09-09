@@ -1,4 +1,4 @@
-function [node, B, b] = BezierCurve(points, toPlot, phasing)
+function [B, b] = BezierCurve(points, toPlot, phasing)
 if nargin < 3
     phasing = -1;
 end
