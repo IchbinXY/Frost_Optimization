@@ -31,4 +31,4 @@ for i = 1:length(velocity)
     GaitLibrary.BackStance.ct(i)  = 1/solution.params{5}.poutput(2);
     GaitLibrary.Flight2.ct(i)     = 1/solution.params{7}.poutput(2);
 end
-save(fullfile(pwd, 'analyze', 'GaitLibrary_output'), 'GaitLibrary')
+save(fullfile(pwd, 'analyze', 'GaitLibrary_Output'), 'GaitLibrary')

@@ -1,4 +1,4 @@
-function plot_trajectory_bezier
+function PlotTrajectory_Bezier_Output
 velocity = 4:1:9;
 phase = [1,3,5,7];
 color = [0, 0.4470, 0.7410; 0,0,0;
@@ -6,7 +6,7 @@ color = [0, 0.4470, 0.7410; 0,0,0;
     0.9290, 0.6940, 0.1250; 0,0,0;
     0.4940, 0.1840, 0.5560; 0,0,0];
 
-load('analyze\GaitLibrary_output.mat','GaitLibrary');
+load('GaitLibrary_Output.mat','GaitLibrary');
 
 for i = 1:length(velocity)
     stride_time = GaitLibrary.Time(i);
