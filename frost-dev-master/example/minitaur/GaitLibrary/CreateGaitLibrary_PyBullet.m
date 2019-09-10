@@ -66,4 +66,4 @@ for i = 1:length(velocity)
         motor19; motor20    ];
 
 end
-save(fullfile(pwd, 'analyze', 'GaitLibrary_PyBullet'), 'GaitLibrary')
+save(fullfile(pwd, 'GaitLibrary', 'GaitLibrary_PyBullet'), 'GaitLibrary')

@@ -1,4 +1,4 @@
-function NodeVelocity = plot_circle_node_velocity(current_velocity, current_phase, phasing, toPlot)
+function NodeVelocity = PlotTrajectory_NodeVelocity(current_velocity, current_phase, phasing, toPlot)
 if nargin < 4
     toPlot = true;
 end

@@ -1,14 +1,14 @@
-function [gaitparams, node, B, b] = Bezier_DesiredOutput (current_velocity, current_phase, phasing)
+function [gaitparams, B, b] = FindSolution_Bezier_Output(current_velocity, current_phase, phasing)
 if nargin < 1
     % just for example purpose
     current_velocity = 0.57;
     current_phase = 1;
     phasing = 0.32;
 end
-load('GaitLibrary_output.mat','GaitLibrary')
+load('GaitLibrary_Output.mat','GaitLibrary')
 gaitparams = ControlPolicy(current_phase, GaitLibrary, current_velocity);
 % gaitparams.HAlpha(1,:) contain front left swing points for bezier curve 
-[node, B, b] = BezierCurve(gaitparams.HAlpha(1,:), false, phasing);
+[B, b] = BezierCurve(gaitparams.HAlpha(1,:), false, phasing);
 end
 
 function gaitparams = ControlPolicy(current_phase, GaitLibrary, phi)
