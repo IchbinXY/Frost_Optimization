@@ -7,7 +7,7 @@ if nargin < 1
 end
 load('GaitLibrary_Output.mat','GaitLibrary')
 gaitparams = ControlPolicy(current_phase, GaitLibrary, current_velocity);
-% gaitparams.HAlpha(1,:) contain front left swing points for bezier curve 
+% gaitparams.HAlpha(1,:) contain front left swing data for bezier curve 
 [B, b] = BezierCurve(gaitparams.HAlpha(1,:), false, phasing);
 end
 

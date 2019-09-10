@@ -12,17 +12,21 @@ for i = 1:length(velocity)
     
     %% Front Stance         
     figure(1); hold on; grid on
-    plot3(AveVelocity, linspace(0, 1, 21), GaitLibrary.FrontStance.MotorAngle(1,:,i), 'linewidth', 2, 'color', color(1,:))
+    motor07 = reshape(GaitLibrary.FrontStance.MotorAngle(i,1,:), 1, 21);
+    plot3(AveVelocity, linspace(0, 1, 21), motor07, 'linewidth', 2, 'color', color(1,:))
     
     figure(2); hold on; grid on
-    plot3(AveVelocity, linspace(0, 1, 21), GaitLibrary.FrontStance.MotorAngle(2,:,i), 'linewidth', 2, 'color', color(1,:))
+    motor08 = reshape(GaitLibrary.FrontStance.MotorAngle(i,2,:), 1, 21);
+    plot3(AveVelocity, linspace(0, 1, 21), motor08, 'linewidth', 2, 'color', color(1,:))
     
     %% Back Stance         
     figure(3); hold on; grid on
-    plot3(AveVelocity, linspace(2, 3, 21), GaitLibrary.BackStance.MotorAngle(3,:,i), 'linewidth', 2, 'color', color(5,:))
+    motor11 = reshape(GaitLibrary.BackStance.MotorAngle(i,3,:), 1, 21);
+    plot3(AveVelocity, linspace(2, 3, 21), motor11, 'linewidth', 2, 'color', color(5,:))
     
     figure(4); hold on; grid on
-    plot3(AveVelocity, linspace(2, 3, 21), GaitLibrary.BackStance.MotorAngle(4,:,i), 'linewidth', 2, 'color', color(5,:))
+    motor12 = reshape(GaitLibrary.BackStance.MotorAngle(i,4,:), 1, 21);
+    plot3(AveVelocity, linspace(2, 3, 21), motor12, 'linewidth', 2, 'color', color(5,:))
     
 end
 figure(1); xlabel('Average Base Velocity (m/s)'); ylabel('Normalized Time'); zlabel('Motor 07 (rad)')
