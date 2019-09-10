@@ -1,7 +1,7 @@
 clc;clear;close all
 velocity = 4:1:9;
-GaitLibrary = struct;
 
+GaitLibrary = struct;
 GaitLibrary.Velocity = zeros(1, length(velocity));
 GaitLibrary.Time = zeros(1, length(velocity));
 GaitLibrary.FrontStance.HAlpha = zeros(length(velocity), 8, 6);

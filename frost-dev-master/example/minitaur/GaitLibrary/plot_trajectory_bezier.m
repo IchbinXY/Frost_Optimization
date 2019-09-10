@@ -1,4 +1,4 @@
-function Copy_of_plot_trajectory_bezier
+function plot_trajectory_bezier
 velocity = 4:1:9;
 phase = [1,3,5,7];
 color = [0, 0.4470, 0.7410; 0,0,0;
@@ -40,10 +40,10 @@ for i = 1:length(velocity)
         
         AveVelocity = 0.1*velocity(i)*ones(1,21);
         
-        figure(3); hold on; grid on
+        figure(5); hold on; grid on
         plot3(AveVelocity, linspace(0, norm_phase_time, 21)+current_end_time, motor07, 'linewidth', 2, 'color', color(j,:))
         
-        figure(4); hold on; grid on
+        figure(6); hold on; grid on
         plot3(AveVelocity, linspace(0, norm_phase_time, 21)+current_end_time, motor08, 'linewidth', 2, 'color', color(j,:))
         
         current_end_time = current_end_time+norm_phase_time;
