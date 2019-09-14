@@ -23,7 +23,10 @@ function gaitparams = ControlPolicy(phi, GaitLibrary, current_phase)
 phi = clamp(phi, GaitLibrary.Velocity(1,1), GaitLibrary.Velocity(1,end));
 
 if current_phase == 1
-    MotorAngle_FrontStance = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.FrontStance.MotorAngle, phi);
+    size(GaitLibrary.Velocity(1,:))
+    size(GaitLibrary.FrontStance.MotorAngle(:,1:3,:))
+    MotorAngle_FrontStance = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.FrontStance.MotorAngle(:,1:3,:), phi);
+    size(MotorAngle_FrontStance)
     gaitparams.MotorAngle = MotorAngle_FrontStance;
 elseif current_phase == 5
     MotorAngle_BackStance = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.BackStance.MotorAngle, phi);
