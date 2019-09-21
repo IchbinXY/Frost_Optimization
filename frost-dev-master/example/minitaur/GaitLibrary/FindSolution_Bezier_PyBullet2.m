@@ -1,27 +1,35 @@
-function [gaitparams, DesiredLegSwing_Relative] = FindSolution_Bezier_PyBullet2(current_velocity, current_phase, phasing)
+function [gaitparams_opt, gaitparams_sim] = FindSolution_Bezier_PyBullet2(current_velocity, current_phase)
 if nargin < 1
     % just for example purpose
-    current_velocity = 0.49;
+    current_velocity = 0.5;
     current_phase = 1;
-    phasing = 0.2;
 end
 load('GaitLibrary_PyBullet2.mat','GaitLibrary')
 % Control Policy locates the correct phase the robot is in the GaitLibrary
-gaitparams = ControlPolicy(current_velocity, GaitLibrary, current_phase);
+gaitparams_opt = ControlPolicy(current_velocity, GaitLibrary, current_phase);
 % current_velocity
-LegPose = reshape(gaitparams.LegPose(1,:,:), 3, 21);
-Time = reshape(gaitparams.Time, 1, 21);
-DesiredLegSwing_Relative = interp1(Time, LegPose(1,:), 0.24);
-DesiredLegSwing_Absolute = interp1(Time, LegPose(2,:), 0.24);
-DesiredLegExtension = interp1(Time, LegPose(3,:), 0.24);
+LegPose = reshape(gaitparams_opt.LegPose(1,:,:), 3, 21);
+MotorVelocity = reshape(gaitparams_opt.MotorVelocity(1,:,:), 2, 21);
+Time_opt = reshape(gaitparams_opt.Time, 1, 21);
+Time_sim = 0:0.006:Time_opt(end);
+DesiredLegSwing = interp1(Time_opt, LegPose(1,:), Time_sim);
+DesiredLegExtension = interp1(Time_opt, LegPose(3,:), Time_sim);
+DesiredMotorV1 = interp1(Time_opt, MotorVelocity(1,:), Time_sim);
+DesiredMotorV2 = interp1(Time_opt, MotorVelocity(2,:), Time_sim);
+
+gaitparams_sim = [DesiredLegSwing; DesiredLegExtension; DesiredMotorV1; DesiredMotorV2]';
 
 figure(1); hold on; grid on; 
-plot(Time, LegPose(1,:), 'b', 'linewidth', 2)
-plot(Time, LegPose(2,:), 'r', 'linewidth', 2)
-plot(Time, LegPose(3,:), 'y', 'linewidth', 2)
-scatter(0.24, DesiredLegSwing_Relative, 'g', 'linewidth', 2);
-scatter(0.24, DesiredLegSwing_Absolute, 'g', 'linewidth', 2);
-scatter(0.24, DesiredLegExtension, 'g', 'linewidth', 2);
+plot(Time_opt, LegPose(1,:), 'linewidth', 2);
+plot(Time_opt, LegPose(3,:), 'linewidth', 2);
+scatter(Time_sim, DesiredLegSwing, 'g', 'linewidth', 2);
+scatter(Time_sim, DesiredLegExtension, 'g', 'linewidth', 2);
+
+figure(2); hold on; grid on; 
+plot(Time_opt, MotorVelocity(1,:), 'linewidth', 2);
+plot(Time_opt, MotorVelocity(2,:), 'linewidth', 2);
+scatter(Time_sim, DesiredMotorV1, 'g', 'linewidth', 2);
+scatter(Time_sim, DesiredMotorV2, 'g', 'linewidth', 2);
 end
 
 function gaitparams = ControlPolicy(phi, GaitLibrary, current_phase)
@@ -29,9 +37,11 @@ phi = clamp(phi, GaitLibrary.Velocity(1,1), GaitLibrary.Velocity(1,end));
 
 if current_phase == 1
     gaitparams.LegPose = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.FrontStance.LegPose, phi);
+    gaitparams.MotorVelocity = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.FrontStance.MotorVelocity, phi);
     gaitparams.Time = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.FrontStance.Time, phi);
 elseif current_phase == 5
     gaitparams.LegPose = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.BackStance.LegPose, phi);
+    gaitparams.MotorVelocity = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.BackStance.MotorVelocity, phi);
     gaitparams.Time = interp1(GaitLibrary.Velocity(1,:), GaitLibrary.FrontStance.Time, phi);
 else
     disp('Unrecognized Phase')

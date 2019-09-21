@@ -1,0 +1,7 @@
+clc;clear;close all
+vel = 4:1:9;
+figure(1); hold on; grid on
+for i = 1:length(vel)
+    load(['vel_0', num2str(vel(i)), '_Inputs_to_VS_0006_FrontStance.mat'])
+    plot()
+end

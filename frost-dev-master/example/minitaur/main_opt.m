@@ -56,7 +56,7 @@ for i = 1:length(vel)
         ipopt_options.constr_viol_tol       = 1e-3;
         solver = IpoptApplication(nlp,ipopt_options);
         tic
-        load('output_velocity_07.mat', 'solution')
+        load('output_velocity_07_restore2.mat', 'solution')
         x0 = solution.x;
         [sol, info] = optimize(solver,x0);
         toc
@@ -70,6 +70,7 @@ for i = 1:length(vel)
         solution.tspan = tspan;
         solution.states = states;
         solution.inputs = inputs;
+        
         solution.params = params;
 %         save(['output_velocity_',num2str(round(vel(i),1)*10)],'solution','gait','nlp','bounds','info')
     end
