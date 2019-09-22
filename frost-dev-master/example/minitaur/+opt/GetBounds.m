@@ -72,8 +72,8 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.constrBounds.leg_ext_end.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
     
     % leg swing relative to the body
-    model_bounds.constrBounds.leg_sw_rel.lb = [deg2rad(-50),deg2rad(-50),deg2rad(-50),deg2rad(-50)];
-    model_bounds.constrBounds.leg_sw_rel.ub = [deg2rad(50),deg2rad(50),deg2rad(50),deg2rad(50)];
+    model_bounds.constrBounds.leg_sw_rel.lb = [deg2rad(-90),deg2rad(-90),deg2rad(-90),deg2rad(-90)];
+    model_bounds.constrBounds.leg_sw_rel.ub = [deg2rad( 90),deg2rad( 90),deg2rad( 90),deg2rad( 90)];
     
     % lift velocity 
     model_bounds.constrBounds.footVelocityBeginning.lb = [-0.25, -0.001,    0]';  % node 1
@@ -95,16 +95,30 @@ function bounds = GetBounds(model, vel, T)
     bounds = struct();
     %% Front Stance
     bounds.FrontStance = model_bounds;
+    
+    %%% Step Duration
+    bounds.FrontStance.time.duration.lb = 0.2;
+    bounds.FrontStance.time.duration.ub = 0.2;
+    bounds.FrontStance.time.duration.x0 = 0.2;
+    
+    bounds.FrontStance.time.t0.lb = 0;
+    bounds.FrontStance.time.t0.ub = 0;
+    bounds.FrontStance.time.t0.x0 = 0;
+    
+    bounds.FrontStance.time.tf.lb = 0.2;
+    bounds.FrontStance.time.tf.ub = 0.2;
+    bounds.FrontStance.time.tf.x0 = 0.2;
+    
     bounds.FrontStance.inputs.ConstraintWrench.fRightFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fRightFront.ub = [1000,1000,1000]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fLeftFront.ub = [1000,1000,1000]';
     
     % leg swing absolute
-    bounds.FrontStance.constrBounds.leg_sw_abs_bgn.lb = [deg2rad( -5), deg2rad(-60), deg2rad( -5), deg2rad(-60)];
-    bounds.FrontStance.constrBounds.leg_sw_abs_bgn.ub = [deg2rad(  0), deg2rad( 60), deg2rad(  0), deg2rad( 60)];
-    bounds.FrontStance.constrBounds.leg_sw_abs_end.lb = [deg2rad( 30), deg2rad(-60), deg2rad( 30), deg2rad(-60)];
-    bounds.FrontStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 35), deg2rad( 60), deg2rad( 35), deg2rad( 60)];
+    bounds.FrontStance.constrBounds.leg_sw_abs_bgn.lb = [deg2rad(-15), deg2rad(-60), deg2rad(-15), deg2rad(-60)];
+    bounds.FrontStance.constrBounds.leg_sw_abs_bgn.ub = [deg2rad( 15), deg2rad( 60), deg2rad( 15), deg2rad( 60)];
+    bounds.FrontStance.constrBounds.leg_sw_abs_end.lb = [deg2rad( 20), deg2rad(-60), deg2rad( 20), deg2rad(-60)];
+    bounds.FrontStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 40), deg2rad( 60), deg2rad( 40), deg2rad( 60)];
     
     % leg extension
     bounds.FrontStance.constrBounds.leg_ext_bgn.lb = [deg2rad(240),deg2rad(180),deg2rad(240),deg2rad(180)];
@@ -135,16 +149,30 @@ function bounds = GetBounds(model, vel, T)
 
     %% Back Stance
     bounds.BackStance = model_bounds;
+    
+    %%% Step Duration
+    bounds.BackStance.time.duration.lb = 0.2;
+    bounds.BackStance.time.duration.ub = 0.3;
+    bounds.BackStance.time.duration.x0 = 0.2;
+    
+    bounds.BackStance.time.t0.lb = 0;
+    bounds.BackStance.time.t0.ub = 0;
+    bounds.BackStance.time.t0.x0 = 0;
+    
+    bounds.BackStance.time.tf.lb = 0.2;
+    bounds.BackStance.time.tf.ub = 0.3;
+    bounds.BackStance.time.tf.x0 = 0.2;
+    
     bounds.BackStance.inputs.ConstraintWrench.fLeftBack.lb = [-1000,-1000,0]';
     bounds.BackStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,1000,1000]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.lb = [-1000,-1000,0]';
     bounds.BackStance.inputs.ConstraintWrench.fRightBack.ub = [1000,1000,1000]';
     
     % leg swing absolute 
-    bounds.BackStance.constrBounds.leg_sw_abs_bgn.lb = [deg2rad(-60), deg2rad(-35), deg2rad(-60), deg2rad(-35)];    % back TD == - Front LO
-    bounds.BackStance.constrBounds.leg_sw_abs_bgn.ub = [deg2rad( 60), deg2rad(-30), deg2rad( 60), deg2rad(-30)];    % back TD == - Front LO
-    bounds.BackStance.constrBounds.leg_sw_abs_end.lb = [deg2rad(-60), deg2rad(  0), deg2rad(-60), deg2rad(  0)];    % back LO == - Front TD
-    bounds.BackStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 60), deg2rad(  5), deg2rad( 60), deg2rad(  5)];    % back LO == - Front TD
+    bounds.BackStance.constrBounds.leg_sw_abs_bgn.lb = [deg2rad(-60), deg2rad(-40), deg2rad(-60), deg2rad(-40)];    % back TD == - Front LO
+    bounds.BackStance.constrBounds.leg_sw_abs_bgn.ub = [deg2rad( 60), deg2rad(-20), deg2rad( 60), deg2rad(-20)];    % back TD == - Front LO
+    bounds.BackStance.constrBounds.leg_sw_abs_end.lb = [deg2rad(-60), deg2rad(-15), deg2rad(-60), deg2rad(-15)];    % back LO == - Front TD
+    bounds.BackStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 60), deg2rad( 15), deg2rad( 60), deg2rad( 15)];    % back LO == - Front TD
     
     % leg extension
     bounds.BackStance.constrBounds.leg_ext_bgn.lb = [deg2rad(180),deg2rad(240),deg2rad(180),deg2rad(240)];
