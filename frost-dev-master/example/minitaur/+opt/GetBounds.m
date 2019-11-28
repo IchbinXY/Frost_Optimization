@@ -1,9 +1,6 @@
-function bounds = GetBounds(model, vel, T)
+function bounds = GetBounds(model, vel)
     if nargin < 2
         vel = [1.1,0];
-    end
-    if nargin < 3
-        T = 0.4;
     end
     %% first get the model specific boundary values
     model_bounds = model.getLimits(); % x, dx, ddx, Control
@@ -26,26 +23,13 @@ function bounds = GetBounds(model, vel, T)
     model_bounds.gains.kp = 100;
     model_bounds.gains.kd = 20;
     
-    %%% Step Duration
-    model_bounds.time.duration.lb = 0.2;
-    model_bounds.time.duration.ub = 0.6;
-    model_bounds.time.duration.x0 = T;
-    
-    model_bounds.time.t0.lb = 0;
-    model_bounds.time.t0.ub = 0;
-    model_bounds.time.t0.x0 = 0;
-    
-    model_bounds.time.tf.lb = 0.2;
-    model_bounds.time.tf.ub = 0.6;
-    model_bounds.time.tf.x0 = T;
-    
     % Virtual Constraints
     model_bounds.params.aoutput.lb = -20;
     model_bounds.params.aoutput.ub = 20;
     
     model_bounds.params.poutput.lb = [0, 0];
-    model_bounds.params.poutput.ub = [0, T];
-    model_bounds.params.poutput.x0 = [0, T];
+    model_bounds.params.poutput.ub = [0, 0.4];
+    model_bounds.params.poutput.x0 = [0, 0.4];
     
     model_bounds.params.pRightFront.lb = [-5, -5, 0];
     model_bounds.params.pRightFront.ub = [5, 5, 0];
@@ -97,7 +81,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance = model_bounds;
     
     %%% Step Duration
-    bounds.FrontStance.time.duration.lb = 0.2;
+    bounds.FrontStance.time.duration.lb = 0.15;
     bounds.FrontStance.time.duration.ub = 0.2;
     bounds.FrontStance.time.duration.x0 = 0.2;
     
@@ -105,7 +89,7 @@ function bounds = GetBounds(model, vel, T)
     bounds.FrontStance.time.t0.ub = 0;
     bounds.FrontStance.time.t0.x0 = 0;
     
-    bounds.FrontStance.time.tf.lb = 0.2;
+    bounds.FrontStance.time.tf.lb = 0.15;
     bounds.FrontStance.time.tf.ub = 0.2;
     bounds.FrontStance.time.tf.x0 = 0.2;
     
@@ -151,16 +135,16 @@ function bounds = GetBounds(model, vel, T)
     bounds.BackStance = model_bounds;
     
     %%% Step Duration
-    bounds.BackStance.time.duration.lb = 0.2;
-    bounds.BackStance.time.duration.ub = 0.3;
+    bounds.BackStance.time.duration.lb = 0.15;
+    bounds.BackStance.time.duration.ub = 0.2;
     bounds.BackStance.time.duration.x0 = 0.2;
     
     bounds.BackStance.time.t0.lb = 0;
     bounds.BackStance.time.t0.ub = 0;
     bounds.BackStance.time.t0.x0 = 0;
     
-    bounds.BackStance.time.tf.lb = 0.2;
-    bounds.BackStance.time.tf.ub = 0.3;
+    bounds.BackStance.time.tf.lb = 0.15;
+    bounds.BackStance.time.tf.ub = 0.2;
     bounds.BackStance.time.tf.x0 = 0.2;
     
     bounds.BackStance.inputs.ConstraintWrench.fLeftBack.lb = [-1000,-1000,0]';
@@ -205,17 +189,17 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight1 = model_bounds;
     
     %%% Step Duration
-    bounds.Flight1.time.duration.lb = 0.1;
-    bounds.Flight1.time.duration.ub = T;
-    bounds.Flight1.time.duration.x0 = T/2;
+    bounds.Flight1.time.duration.lb = 0.05;
+    bounds.Flight1.time.duration.ub = 0.1;
+    bounds.Flight1.time.duration.x0 = 0.1;
     
     bounds.Flight1.time.t0.lb = 0;
     bounds.Flight1.time.t0.ub = 0;
     bounds.Flight1.time.t0.x0 = 0;
     
-    bounds.Flight1.time.tf.lb = 0.1;
-    bounds.Flight1.time.tf.ub = T;
-    bounds.Flight1.time.tf.x0 = T/2;
+    bounds.Flight1.time.tf.lb = 0.05;
+    bounds.Flight1.time.tf.ub = 0.1;
+    bounds.Flight1.time.tf.x0 = 0.1;
     
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
@@ -233,17 +217,17 @@ function bounds = GetBounds(model, vel, T)
     bounds.Flight2 = model_bounds;
     
     %%% Step Duration
-    bounds.Flight2.time.duration.lb = 0.1;
-    bounds.Flight2.time.duration.ub = T;
-    bounds.Flight2.time.duration.x0 = T/2;
+    bounds.Flight2.time.duration.lb = 0.05;
+    bounds.Flight2.time.duration.ub = 0.1;
+    bounds.Flight2.time.duration.x0 = 0.1;
     
     bounds.Flight2.time.t0.lb = 0;
     bounds.Flight2.time.t0.ub = 0;
     bounds.Flight2.time.t0.x0 = 0;
     
-    bounds.Flight2.time.tf.lb = 0.1;
-    bounds.Flight2.time.tf.ub = T;
-    bounds.Flight2.time.tf.x0 = T/2;
+    bounds.Flight2.time.tf.lb = 0.05;
+    bounds.Flight2.time.tf.ub = 0.1;
+    bounds.Flight2.time.tf.x0 = 0.1;
         
     % average step velocity
     bounds.Flight2.constrBounds.AvgVelocity.lb = vel;
