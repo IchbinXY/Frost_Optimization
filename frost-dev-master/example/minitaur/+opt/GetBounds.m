@@ -83,7 +83,7 @@ function bounds = GetBounds(model, vel)
     %%% Step Duration
     bounds.FrontStance.time.duration.lb = 0.15;
     bounds.FrontStance.time.duration.ub = 0.2;
-    bounds.FrontStance.time.duration.x0 = 0.2;
+    bounds.FrontStance.time.duration.x0 = 0.1662;
     
     bounds.FrontStance.time.t0.lb = 0;
     bounds.FrontStance.time.t0.ub = 0;
@@ -91,7 +91,7 @@ function bounds = GetBounds(model, vel)
     
     bounds.FrontStance.time.tf.lb = 0.15;
     bounds.FrontStance.time.tf.ub = 0.2;
-    bounds.FrontStance.time.tf.x0 = 0.2;
+    bounds.FrontStance.time.tf.x0 = 0.1662;
     
     bounds.FrontStance.inputs.ConstraintWrench.fRightFront.lb = [-1000,-1000,0]';
     bounds.FrontStance.inputs.ConstraintWrench.fRightFront.ub = [1000,1000,1000]';
@@ -137,7 +137,7 @@ function bounds = GetBounds(model, vel)
     %%% Step Duration
     bounds.BackStance.time.duration.lb = 0.15;
     bounds.BackStance.time.duration.ub = 0.2;
-    bounds.BackStance.time.duration.x0 = 0.2;
+    bounds.BackStance.time.duration.x0 = 0.1662;
     
     bounds.BackStance.time.t0.lb = 0;
     bounds.BackStance.time.t0.ub = 0;
@@ -145,7 +145,7 @@ function bounds = GetBounds(model, vel)
     
     bounds.BackStance.time.tf.lb = 0.15;
     bounds.BackStance.time.tf.ub = 0.2;
-    bounds.BackStance.time.tf.x0 = 0.2;
+    bounds.BackStance.time.tf.x0 = 0.1662;
     
     bounds.BackStance.inputs.ConstraintWrench.fLeftBack.lb = [-1000,-1000,0]';
     bounds.BackStance.inputs.ConstraintWrench.fLeftBack.ub = [1000,1000,1000]';
@@ -191,7 +191,7 @@ function bounds = GetBounds(model, vel)
     %%% Step Duration
     bounds.Flight1.time.duration.lb = 0.05;
     bounds.Flight1.time.duration.ub = 0.1;
-    bounds.Flight1.time.duration.x0 = 0.1;
+    bounds.Flight1.time.duration.x0 = 0.0992;
     
     bounds.Flight1.time.t0.lb = 0;
     bounds.Flight1.time.t0.ub = 0;
@@ -199,7 +199,7 @@ function bounds = GetBounds(model, vel)
     
     bounds.Flight1.time.tf.lb = 0.05;
     bounds.Flight1.time.tf.ub = 0.1;
-    bounds.Flight1.time.tf.x0 = 0.1;
+    bounds.Flight1.time.tf.x0 = 0.0992;
     
     %% Front Lift
     bounds.FrontLift.states.x = model_bounds.states.x;
@@ -217,17 +217,17 @@ function bounds = GetBounds(model, vel)
     bounds.Flight2 = model_bounds;
     
     %%% Step Duration
-    bounds.Flight2.time.duration.lb = 0.05;
+    bounds.Flight2.time.duration.lb = 0.04;
     bounds.Flight2.time.duration.ub = 0.1;
-    bounds.Flight2.time.duration.x0 = 0.1;
+    bounds.Flight2.time.duration.x0 = 0.0416;
     
     bounds.Flight2.time.t0.lb = 0;
     bounds.Flight2.time.t0.ub = 0;
     bounds.Flight2.time.t0.x0 = 0;
     
-    bounds.Flight2.time.tf.lb = 0.05;
+    bounds.Flight2.time.tf.lb = 0.04;
     bounds.Flight2.time.tf.ub = 0.1;
-    bounds.Flight2.time.tf.x0 = 0.1;
+    bounds.Flight2.time.tf.x0 = 0.0416;
         
     % average step velocity
     bounds.Flight2.constrBounds.AvgVelocity.lb = vel;

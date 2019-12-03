@@ -7,7 +7,7 @@ export_path = 'gen/opt';
 load_path   = 'gen/sym';
 %% Settings
 LOAD    = 0;
-COMPILE = 1;
+COMPILE = 0;
 SAVE    = 0;
 OPT     = 0;
 ANIMATE = 0;
@@ -20,7 +20,7 @@ else
     minitaur.configureDynamics('DelayCoriolisSet',false,'OmitCoriolisSet',true);
     [System,Domains,Guards] = opt.LoadBehavior(minitaur);
 end
-vel = 0.6;
+vel = 0.71;
 for i = 1:length(vel)
     %% Problem
     bounds = opt.GetBounds(minitaur,[vel(i),0]);
@@ -56,7 +56,7 @@ for i = 1:length(vel)
         ipopt_options.constr_viol_tol       = 1e-3;
         solver = IpoptApplication(nlp,ipopt_options);
         tic
-        load('output_velocity_06_015.mat', 'solution')
+        load('output_velocity_07_newT.mat', 'solution')
         x0 = solution.x;
         [sol, info] = optimize(solver,x0);
         toc
