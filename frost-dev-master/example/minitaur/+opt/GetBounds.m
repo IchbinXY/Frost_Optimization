@@ -1,6 +1,6 @@
-function bounds = GetBounds(model, vel)
+function bounds = GetBounds(model, vel, FrontSwing, BackSwing)
     if nargin < 2
-        vel = [1.1,0];
+        vel = [0.75,0];
     end
     %% first get the model specific boundary values
     model_bounds = model.getLimits(); % x, dx, ddx, Control
@@ -104,13 +104,26 @@ function bounds = GetBounds(model, vel)
     bounds.FrontStance.constrBounds.leg_sw_abs_end.lb = [deg2rad( 20), deg2rad(-60), deg2rad( 20), deg2rad(-60)];
     bounds.FrontStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 40), deg2rad( 60), deg2rad( 40), deg2rad( 60)];
     
+    % leg swing relative
+    eps = 0.2;
+    bounds.FrontStance.constrBounds.leg_sw_rel_1.lb = repmat([FrontSwing(1) - eps, -pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_1.ub = repmat([FrontSwing(1) + eps,  pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_6.lb = repmat([FrontSwing(6) - eps, -pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_6.ub = repmat([FrontSwing(6) + eps,  pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_11.lb = repmat([FrontSwing(11) - eps, -pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_11.ub = repmat([FrontSwing(11) + eps,  pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_16.lb = repmat([FrontSwing(16) - eps, -pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_16.ub = repmat([FrontSwing(16) + eps,  pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_21.lb = repmat([FrontSwing(21) - eps, -pi], 1, 2);
+    bounds.FrontStance.constrBounds.leg_sw_rel_21.ub = repmat([FrontSwing(21) + eps,  pi], 1, 2);
+    
     % leg extension
-    bounds.FrontStance.constrBounds.leg_ext_bgn.lb = [deg2rad(240),deg2rad(180),deg2rad(240),deg2rad(180)];
-    bounds.FrontStance.constrBounds.leg_ext_bgn.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
-    bounds.FrontStance.constrBounds.leg_ext_mid.lb = [deg2rad( 10),deg2rad(180),deg2rad( 10),deg2rad(180)];
-    bounds.FrontStance.constrBounds.leg_ext_mid.ub = [deg2rad(180),deg2rad(350),deg2rad(180),deg2rad(350)];
-    bounds.FrontStance.constrBounds.leg_ext_end.lb = [deg2rad(240),deg2rad(180),deg2rad(240),deg2rad(180)];
-    bounds.FrontStance.constrBounds.leg_ext_end.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
+    bounds.FrontStance.constrBounds.leg_ext_bgn.lb = [2 * (pi-2.1),   deg2rad( 10),   2*(pi-2.1),     deg2rad( 10)];
+    bounds.FrontStance.constrBounds.leg_ext_bgn.ub = [2 * (pi-2.1),   deg2rad(350),   2*(pi-2.1),     deg2rad(350)];
+    bounds.FrontStance.constrBounds.leg_ext_mid.lb = [deg2rad( 10), deg2rad( 10),   deg2rad( 10),   deg2rad( 10)];
+    bounds.FrontStance.constrBounds.leg_ext_mid.ub = [deg2rad(350), deg2rad(350),   deg2rad(350),   deg2rad(350)];
+    bounds.FrontStance.constrBounds.leg_ext_end.lb = [2 * (pi-2.1),   deg2rad( 10),   2*(pi-2.1),     deg2rad( 10)];
+    bounds.FrontStance.constrBounds.leg_ext_end.ub = [2 * (pi-2.1),   deg2rad(350),   2*(pi-2.1),     deg2rad(350)];
     
     % ground reaction force
     bounds.FrontStance.constrBounds.GRF.lb = 0;
@@ -158,13 +171,26 @@ function bounds = GetBounds(model, vel)
     bounds.BackStance.constrBounds.leg_sw_abs_end.lb = [deg2rad(-60), deg2rad(-15), deg2rad(-60), deg2rad(-15)];    % back LO == - Front TD
     bounds.BackStance.constrBounds.leg_sw_abs_end.ub = [deg2rad( 60), deg2rad( 15), deg2rad( 60), deg2rad( 15)];    % back LO == - Front TD
     
+    % leg swing relative
+    eps = 0.23;
+    bounds.BackStance.constrBounds.leg_sw_rel_1.lb = repmat([-pi, BackSwing(1) - eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_1.ub = repmat([ pi, BackSwing(1) + eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_6.lb = repmat([-pi, BackSwing(6) - eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_6.ub = repmat([ pi, BackSwing(6) + eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_11.lb = repmat([-pi, BackSwing(11) - eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_11.ub = repmat([ pi, BackSwing(11) + eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_16.lb = repmat([-pi, BackSwing(16) - eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_16.ub = repmat([ pi, BackSwing(16) + eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_21.lb = repmat([-pi, BackSwing(21) - eps], 1, 2);
+    bounds.BackStance.constrBounds.leg_sw_rel_21.ub = repmat([ pi, BackSwing(21) + eps], 1, 2);
+    
     % leg extension
-    bounds.BackStance.constrBounds.leg_ext_bgn.lb = [deg2rad(180),deg2rad(240),deg2rad(180),deg2rad(240)];
-    bounds.BackStance.constrBounds.leg_ext_bgn.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
-    bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad( 10),deg2rad( 10),deg2rad( 10),deg2rad( 10)];
-    bounds.BackStance.constrBounds.leg_ext_mid.ub = [deg2rad(350),deg2rad(180),deg2rad(350),deg2rad(180)];
-    bounds.BackStance.constrBounds.leg_ext_end.lb = [deg2rad(180),deg2rad(240),deg2rad(180),deg2rad(240)];
-    bounds.BackStance.constrBounds.leg_ext_end.ub = [deg2rad(350),deg2rad(350),deg2rad(350),deg2rad(350)];
+    bounds.BackStance.constrBounds.leg_ext_bgn.lb = [deg2rad( 10),  2 * (pi-2.1),deg2rad( 10),2 * (pi-2.1)];
+    bounds.BackStance.constrBounds.leg_ext_bgn.ub = [deg2rad(350),  2 * (pi-2.1),deg2rad(350),2 * (pi-2.1)];
+    bounds.BackStance.constrBounds.leg_ext_mid.lb = [deg2rad( 10),  deg2rad( 10),deg2rad( 10),deg2rad( 10)];
+    bounds.BackStance.constrBounds.leg_ext_mid.ub = [deg2rad(350),  deg2rad(350),deg2rad(350),deg2rad(350)];
+    bounds.BackStance.constrBounds.leg_ext_end.lb = [deg2rad( 10),  2 * (pi-2.1),deg2rad( 10),2 * (pi-2.1)];
+    bounds.BackStance.constrBounds.leg_ext_end.ub = [deg2rad(350),  2 * (pi-2.1),deg2rad(350),2 * (pi-2.1)];
     
     % ground reaction force
     bounds.BackStance.constrBounds.GRF.lb = 0;

@@ -25,7 +25,7 @@ opt.constraint.leg_ext(nlp, bounds);
 
 %opt.constraint.leg_sw_rel(nlp, bounds)
 
-opt.constraint.average_velocity(nlp, bounds);
+% opt.constraint.average_velocity(nlp, bounds);
 
 opt.constraint.bezier_symmetry(nlp,bounds);
 end
