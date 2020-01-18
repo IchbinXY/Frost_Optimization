@@ -1,5 +1,5 @@
-clc;clear;close all
-load('output_velocity_075_updated.mat')
+% clc;clear;close all
+load('output_velocity_075_eps0D25.mat')
 load('Solution_DF_La0D987_J2D3_Ks5.mat')
 
 %% TEMPLATE
@@ -28,7 +28,7 @@ plotTraj(T_new/T_new(end),  Y_new(:,3)*length_n,    'Template', 'Both', I_EVENT_
 xlabel('normalized time'); ylabel('z position, m');
 subplot(1,2,2); grid on; hold on
 plotTraj(T_new/T_new(end),  Y_new(:,4)*velocity_n,  'Template', 'Both', I_EVENT_new);
-xlabel('normalized time'); ylabel('z velocity, m');
+xlabel('normalized time'); ylabel('z velocity, m/s');
 
 figure(3);
 subplot(1,2,1); grid on; hold on

@@ -15,7 +15,7 @@ ANIMATE = 1;
 load('Solution_DF_La0D987_J2D3_Ks5.mat');
 k = 86;
 [T_new, Y_new, I_EVENT_new, EXT_rad, avgvel] = output_template(config, Param, k);
-[FrontSwing, BackSwing] = reference_template(T_new, Y_new, I_EVENT_new);
+reference = reference_generator(Y_new, EXT_rad, I_EVENT_new);
 
 %% Model and System
 minitaur = MINITAUR('urdf/minitaur.urdf');
@@ -26,9 +26,9 @@ else
     minitaur.configureDynamics('DelayCoriolisSet',false,'OmitCoriolisSet',true);
     [System,Domains,Guards] = opt.LoadBehavior(minitaur);
 end
-vel = 0.75;
+vel = avgvel;
 %% Problem
-bounds = opt.GetBounds(minitaur,[vel,0], FrontSwing, BackSwing);
+bounds = opt.GetBounds(minitaur,[vel,0], reference);
 num_grid.FrontStance = 10;
 num_grid.Fight1      = 10;
 num_grid.BackStance  = 10;
@@ -61,7 +61,7 @@ if OPT
     ipopt_options.constr_viol_tol       = 1e-3;
     solver = IpoptApplication(nlp,ipopt_options);
     tic
-    load('output_velocity_075_eps0D23.mat','solution')
+    load('output_velocity_075_eps0D25.mat','solution')
     x0 = solution.x;
     [sol, info] = optimize(solver,x0);
     toc
